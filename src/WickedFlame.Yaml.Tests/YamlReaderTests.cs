@@ -18,5 +18,18 @@ namespace WickedFlame.Yaml.Tests
 
             Assert.AreEqual("id", data.Id);
         }
+
+        [Test]
+        public void WickedFlame_Yaml_YamlReader_NoProperty()
+        {
+            var lines = new[]
+            {
+                "Id: InvalidProperty",
+                "InexistentProperty: fail"
+            };
+            var reader = new YamlReader();
+
+            Assert.Throws<InvalidConfigurationException>(() => reader.Read<YamlRoot>(lines));
+        }
     }
 }

@@ -76,6 +76,11 @@ namespace WickedFlame.Yaml
             if (!string.IsNullOrEmpty(line.Property))
             {
                 var property = _mapper.GetProperty(line);
+                if (property == null)
+                {
+                    throw new InvalidConfigurationException($"The configured Property {line.Property} does not exist in the Type {Node.GetType().FullName}");
+                }
+
                 _child = new YamlNodeReader(property.PropertyType);
                 property.SetValue(Node, _child.Node, null);
             }
