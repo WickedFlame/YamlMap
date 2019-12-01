@@ -1,0 +1,8 @@
+﻿Id: id
+
+NestedObjectList:
+  - Nested:
+      Name: second
+      Nested:
+        Name: third
+    Name: first

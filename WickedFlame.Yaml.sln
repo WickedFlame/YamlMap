@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WickedFlame.Yaml", "src\WickedFlame.Yaml\WickedFlame.Yaml.csproj", "{693F1FA5-7111-4B4E-BA96-8C2305A0B1AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WickedFlame.Yaml.Tests", "src\WickedFlame.Yaml.Tests\WickedFlame.Yaml.Tests.csproj", "{4FF32EEA-66F0-4A99-8D95-7D1E5A6E0CF4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{693F1FA5-7111-4B4E-BA96-8C2305A0B1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{693F1FA5-7111-4B4E-BA96-8C2305A0B1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{693F1FA5-7111-4B4E-BA96-8C2305A0B1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{693F1FA5-7111-4B4E-BA96-8C2305A0B1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF32EEA-66F0-4A99-8D95-7D1E5A6E0CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF32EEA-66F0-4A99-8D95-7D1E5A6E0CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF32EEA-66F0-4A99-8D95-7D1E5A6E0CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF32EEA-66F0-4A99-8D95-7D1E5A6E0CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAEBE709-29D8-48BA-91F8-ABF8E2471FAD}
+	EndGlobalSection
+EndGlobal

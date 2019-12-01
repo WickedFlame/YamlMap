@@ -1,0 +1,8 @@
+﻿Id: id
+
+ObjectList:
+  - Name: one
+    Id: 1
+  - Name: two
+    Id: 2
+
