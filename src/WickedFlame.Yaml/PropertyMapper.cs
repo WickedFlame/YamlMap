@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -42,91 +43,32 @@ namespace WickedFlame.Yaml
 
         public static bool ParsePrimitive(PropertyInfo prop, object entity, object value)
         {
-            if (prop.PropertyType == typeof(string))
+            var types = new List<Type>
             {
-                prop.SetValue(entity, value.ToString().Trim(), null);
-            }
-            else if (prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(bool?))
+                typeof(string),
+                typeof(bool),
+                typeof(bool?),
+                typeof(long),
+                typeof(long?),
+                typeof(int),
+                typeof(int?),
+                typeof(decimal),
+                typeof(double),
+                typeof(double?),
+                typeof(DateTime),
+                typeof(Nullable<DateTime>),
+                typeof(Type),
+                typeof(Guid)
+            };
+
+            if (types.Contains(prop.PropertyType))
             {
-                if (value == null)
-                {
-                    prop.SetValue(entity, null, null);
-                }
-                else
-                {
-                    prop.SetValue(entity, ParseBoolean(value.ToString()), null);
-                }
-            }
-            else if (prop.PropertyType == typeof(long))
-            {
-                prop.SetValue(entity, long.Parse(value.ToString()), null);
-            }
-            else if (prop.PropertyType == typeof(int) || prop.PropertyType == typeof(int?))
-            {
-                if (value == null)
-                {
-                    prop.SetValue(entity, null, null);
-                }
-                else
-                {
-                    prop.SetValue(entity, int.Parse(value.ToString()), null);
-                }
-            }
-            else if (prop.PropertyType == typeof(decimal))
-            {
-                prop.SetValue(entity, decimal.Parse(value.ToString()), null);
-            }
-            else if (prop.PropertyType == typeof(double) || prop.PropertyType == typeof(double?))
-            {
-                var isValid = double.TryParse(value.ToString(), out _);
-                if (isValid)
-                {
-                    prop.SetValue(entity, double.Parse(value.ToString()), null);
-                }
-            }
-            else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(Nullable<DateTime>))
-            {
-                var isValid = DateTime.TryParse(value.ToString(), out var date);
-                if (isValid)
-                {
-                    prop.SetValue(entity, date, null);
-                }
-                else
-                {
-                    isValid = DateTime.TryParseExact(value.ToString(), "yyyyMMdd", new CultureInfo("de-CH"), DateTimeStyles.AssumeLocal, out date);
-                    if (isValid)
-                    {
-                        prop.SetValue(entity, date, null);
-                    }
-                }
-            }
-            else if (prop.PropertyType == typeof(Guid))
-            {
-                var isValid = Guid.TryParse(value.ToString(), out var guid);
-                if (isValid)
-                {
-                    prop.SetValue(entity, guid, null);
-                }
-                else
-                {
-                    isValid = Guid.TryParseExact(value.ToString(), "B", out guid);
-                    if (isValid)
-                    {
-                        prop.SetValue(entity, guid, null);
-                    }
-                }
-            }
-            else if (prop.PropertyType == typeof(Type))
-            {
-                var type = Type.GetType(value.ToString());
-                prop.SetValue(entity, type, null);
-            }
-            else
-            {
-                return false;
+                var converted = TypeConverter.Convert(prop.PropertyType, value?.ToString());
+                prop.SetValue(entity, converted, null);
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         public static bool ParseBoolean(object value)

@@ -20,7 +20,7 @@ namespace WickedFlame.Yaml
             if (index > 0)
             {
                 Property = line.Substring(0, index).TrimStart();
-                Value = line.Substring(index + 1);
+                Value = line.Substring(index + 1).Trim();
             }
         }
 

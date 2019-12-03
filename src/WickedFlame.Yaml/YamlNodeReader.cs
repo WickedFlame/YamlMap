@@ -62,7 +62,15 @@ namespace WickedFlame.Yaml
                 else
                 {
                     // string value
-                    Node.GetType().GetMethod("Add").Invoke(Node, new[] { line.Value });
+
+                    //Node.GetType().GetMethod("Add").Invoke(Node, new[] { line.Value });
+                    var nodeType = Node.GetType();
+                    if (nodeType.IsGenericType)
+                    {
+                        nodeType = nodeType.GetGenericArguments()[0];
+                    }
+
+                    Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(nodeType, line.Value) });
                 }
 
                 return;
