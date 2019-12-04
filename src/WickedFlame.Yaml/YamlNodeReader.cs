@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WickedFlame.Yaml
 {
@@ -67,10 +68,24 @@ namespace WickedFlame.Yaml
                     var nodeType = Node.GetType();
                     if (nodeType.IsGenericType)
                     {
-                        nodeType = nodeType.GetGenericArguments()[0];
+                        if (nodeType.GetGenericTypeDefinition() == typeof(List<>))
+                        {
+                            var childNodeType = nodeType.GetGenericArguments()[0];
+                            Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(childNodeType, line.Value) });
+                        }
+                        else if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+                        {
+                            var keytype = nodeType.GetGenericArguments()[0];
+                            var valuetype = nodeType.GetGenericArguments()[1];
+                            Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, line.Property), TypeConverter.Convert(valuetype, line.Value) });
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidConfigurationException($"The configured Property {line.Property} does not implement a list type");
                     }
 
-                    Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(nodeType, line.Value) });
+                    
                 }
 
                 return;
