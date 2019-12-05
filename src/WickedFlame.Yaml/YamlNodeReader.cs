@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace WickedFlame.Yaml
@@ -78,6 +79,21 @@ namespace WickedFlame.Yaml
                             var keytype = nodeType.GetGenericArguments()[0];
                             var valuetype = nodeType.GetGenericArguments()[1];
                             Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, line.Property), TypeConverter.Convert(valuetype, line.Value) });
+                        }
+                    }
+                    else if (nodeType.IsArray)
+                    {
+                        if (Node.GetType().GetInterface("IList") != null)
+                        {
+
+
+                            var a = (IList) Node;
+                            //for (int i = 0; i < a.Length; i++)
+                            //{
+                            //    object o = a.GetValue(i);
+                            //}
+                            //Array.Resize(ref a, a.Length + 1);
+                            a.Add(line.Value);
                         }
                     }
                     else

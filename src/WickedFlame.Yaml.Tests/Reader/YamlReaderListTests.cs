@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace WickedFlame.Yaml.Tests
+namespace WickedFlame.Yaml.Tests.Reader
 {
     [TestFixture]
     public class YamlReaderListTests
