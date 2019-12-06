@@ -224,13 +224,11 @@ namespace WickedFlame.Yaml
 
     public class ValueToken : IToken
     {
-        private readonly object _value;
-
-        public ValueToken(string key, object value, int indentation)
+        public ValueToken(string key, string value, int indentation)
         {
             TokenType = TokenType.Value;
             Key = key;
-            _value = value;
+            Value = value;
             Indentation = indentation;
         }
 
@@ -246,7 +244,7 @@ namespace WickedFlame.Yaml
 
         public IToken Parent { get; set; }
 
-        public object Value => _value;
+        public string Value { get; }
 
         public void Set(string key, IToken value)
         {
@@ -254,7 +252,7 @@ namespace WickedFlame.Yaml
 
         public override string ToString()
         {
-            return $"[{TokenType}] {Key} : {_value}";
+            return $"[{TokenType}] {Key} : {Value}";
         }
     }
 
