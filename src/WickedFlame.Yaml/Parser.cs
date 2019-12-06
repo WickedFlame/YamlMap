@@ -38,11 +38,11 @@ namespace WickedFlame.Yaml
                     var list = new Token(null, line.Indentation, TokenType.ListItem);
 
                     // list item
-                    token.Set(null, list);
+                    token.Set(list);
                     token = list;
 
                     var value = new ValueToken(line.Property, line.Value, line.Indentation + 2);
-                    token.Set(line.Property, value);
+                    token.Set(value);
 
                     line = _scanner.ScanNext();
                     continue;
@@ -52,13 +52,13 @@ namespace WickedFlame.Yaml
                 {
                     // add new list to the tree
                     var list = new Token(null, line.Indentation, TokenType.ListItem);
-                    token.Set(null, list);
+                    token.Set(list);
                     token = list;
 
 
                     // object node to list
                     var child = new Token(line.Property, line.Indentation + 2);
-                    token.Set(line.Property, child);
+                    token.Set(child);
                     token = child;
 
                     line = _scanner.ScanNext();
@@ -70,7 +70,7 @@ namespace WickedFlame.Yaml
                 if (line.IsListItem)
                 {
                     var child = new ValueToken(line.Property, line.Value, line.Indentation + 2);
-                    token.Set(line.Property, child);
+                    token.Set(child);
 
                     line = _scanner.ScanNext();
                     continue;
@@ -81,7 +81,7 @@ namespace WickedFlame.Yaml
                 if (!string.IsNullOrEmpty(line.Property) && !string.IsNullOrEmpty(line.Value))
                 {
                     var child = new ValueToken(line.Property, line.Value, line.Indentation);
-                    token.Set(line.Property, child);
+                    token.Set(child);
 
                     line = _scanner.ScanNext();
                     continue;
@@ -92,7 +92,7 @@ namespace WickedFlame.Yaml
                     // add new object to the tree
                     var child = new Token(line.Property, line.Indentation);
 
-                    token.Set(line.Property, child);
+                    token.Set(child);
                     token = child;
 
                     line = _scanner.ScanNext();
@@ -149,7 +149,7 @@ namespace WickedFlame.Yaml
 
         IToken Parent { get; set; }
 
-        void Set(string key, IToken value);
+        void Set(IToken value);
     }
 
     public class Token : IToken
@@ -195,11 +195,11 @@ namespace WickedFlame.Yaml
 
         public IToken Parent { get; set; }
 
-        public void Set(string key, IToken token)
+        public void Set(IToken token)
         {
-            if(!string.IsNullOrEmpty(key))
+            if(!string.IsNullOrEmpty(token.Key))
             {
-                var item = _children.FirstOrDefault(v => v.Key == key);
+                var item = _children.FirstOrDefault(v => v.Key == token.Key);
                 if (item != null)
                 {
                     _children.Remove(item);
@@ -246,7 +246,7 @@ namespace WickedFlame.Yaml
 
         public string Value { get; }
 
-        public void Set(string key, IToken value)
+        public void Set(IToken value)
         {
         }
 
