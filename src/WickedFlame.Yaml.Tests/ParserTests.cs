@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace WickedFlame.Yaml.Tests
 {
@@ -15,35 +10,41 @@ namespace WickedFlame.Yaml.Tests
         {
             var lines = new[]
             {
-                "Child:",
-                "  Id: 1"
+                "Root:",
+                "  - L1:",
+                "      Name: second",
+                "      L2:",
+                "        Name: third",
+                "    Name: first",
+                "  - L1-2:",
+                "      Name: 1.2",
+                "",
+                "Alternating: one",
+                "",
+                "Test:",
+                "  Outcome: Succeeded",
+                "  Message: Succeeded message",
+                "List:",
+                "  - one",
+                "  - two",
+                "  - three",
+                "  - three"
             };
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);
 
             var result = parser.Parse();
-            
-            Assert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
 
-
-
-
-
-
-            //var json = "";
-
-            //JObject rss = JObject.Parse(json);
-
-            //string rssTitle = (string)rss["channel"]["title"];
-            //// James Newton-King
-
-            //int itemTitle = (int)rss["channel"]["item"][0]["title"];
-            //// Json.NET 1.3 + New license + Now on CodePlex
-
-            //JArray categories = (JArray)rss["channel"]["item"][0]["categories"];
-            //// ["Json.NET", "CodePlex"]
-
-            //IList<string> categoriesText = categories.Select(c => (string)c).ToList();
+            Assert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
+            Assert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
+            Assert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
+            Assert.AreEqual("one", ((ValueToken)result["Alternating"]).Value);
+            Assert.AreEqual("Succeeded", ((ValueToken)result["Test"]["Outcome"]).Value);
+            Assert.AreEqual("Succeeded message", ((ValueToken)result["Test"]["Message"]).Value);
+            Assert.AreEqual("one", ((ValueToken)result["List"][0]).Value);
+            Assert.AreEqual("two", ((ValueToken)result["List"][1]).Value);
+            Assert.AreEqual("three", ((ValueToken)result["List"][2]).Value);
+            Assert.AreEqual("three", ((ValueToken)result["List"][3]).Value);
         }
 
         [Test]

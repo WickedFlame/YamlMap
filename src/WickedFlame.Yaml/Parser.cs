@@ -213,12 +213,12 @@ namespace WickedFlame.Yaml
 
         public override string ToString()
         {
-            if (TokenType == TokenType.ListItem)
+            if (TokenType == TokenType.ListItem || string.IsNullOrEmpty(Key))
             {
-                return $"TokenType: {TokenType}";
+                return $"[{TokenType}]";
             }
 
-            return $"TokenType: {TokenType} Key:{Key}";
+            return $"[{TokenType}] Key: {Key}";
         }
     }
 
@@ -254,7 +254,7 @@ namespace WickedFlame.Yaml
 
         public override string ToString()
         {
-            return $"ValueToken: {_value}";
+            return $"[{TokenType}] {Key} : {_value}";
         }
     }
 
