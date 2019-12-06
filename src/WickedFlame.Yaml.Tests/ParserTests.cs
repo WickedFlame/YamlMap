@@ -238,5 +238,41 @@ namespace WickedFlame.Yaml.Tests
             Assert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
             Assert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
         }
+
+        [Test]
+        public void WickeFlame_Yaml_Parser_CommentLine()
+        {
+            var lines = new[]
+            {
+                "First: one",
+                "# comment: fail",
+                "#comment 2",
+                "Second: two"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.AreEqual("one", ((ValueToken)result[0]).Value);
+            Assert.AreEqual("two", ((ValueToken)result[1]).Value);
+        }
+
+        [Test]
+        public void WickeFlame_Yaml_Parser_CommentInLineLine()
+        {
+            var lines = new[]
+            {
+                "First: one",
+                "Comment: true#fail"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.AreEqual("one", ((ValueToken)result[0]).Value);
+            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+        }
     }
 }

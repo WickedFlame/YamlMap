@@ -130,7 +130,14 @@ namespace WickedFlame.Yaml
                 return null;
             }
 
-            var line = new YamlLine(_input[_index]);
+            var input = _input[_index];
+
+            if (input.Contains('#'))
+            {
+                input = input.Substring(0, input.IndexOf('#'));
+            }
+
+            var line = new YamlLine(input);
             return line;
         }
     }
