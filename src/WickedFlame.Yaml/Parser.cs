@@ -17,12 +17,12 @@ namespace WickedFlame.Yaml
         public IToken Parse()
         {
             var line = _scanner.ScanNext();
-            var root = new Token(0);
+            var root = new Token(null, 0);
             IToken token = root;
 
             while (line != null)
             {
-                while (line.Indentation <= token.Indentation)
+                while (token.Parent != null && line.Indentation <= token.Indentation)
                 {
                     if (token.Parent == null)
                     {
@@ -35,35 +35,31 @@ namespace WickedFlame.Yaml
                 if (line.IsListItem && !string.IsNullOrEmpty(line.Property) && !string.IsNullOrEmpty(line.Value))
                 {
                     // add new object to the tree
-                    var child = new Token(line.Indentation, TokenType.List);
+                    var list = new Token(null, line.Indentation, TokenType.ListItem);
 
                     // list item
-                    token.Set(null, child);
-                    token = child;
+                    token.Set(null, list);
+                    token = list;
 
-                    var value = new ValueToken(line.Value, line.Indentation);
+                    var value = new ValueToken(line.Property, line.Value, line.Indentation + 2);
                     token.Set(line.Property, value);
 
                     line = _scanner.ScanNext();
                     continue;
                 }
 
-
-
                 if (line.IsListItem && !string.IsNullOrEmpty(line.Property))
                 {
                     // add new list to the tree
-                    var child = new Token(line.Indentation, TokenType.List);
-                    token.Set(null, child);
-                    token = child;
+                    var list = new Token(null, line.Indentation, TokenType.ListItem);
+                    token.Set(null, list);
+                    token = list;
 
 
                     // object node to list
-                    child = new Token(line.Indentation);
+                    var child = new Token(line.Property, line.Indentation + 2);
                     token.Set(line.Property, child);
                     token = child;
-
-
 
                     line = _scanner.ScanNext();
                     continue;
@@ -73,7 +69,7 @@ namespace WickedFlame.Yaml
                 // simple list item eg: List<string>
                 if (line.IsListItem)
                 {
-                    var child = new ValueToken(line.Value, line.Indentation);
+                    var child = new ValueToken(line.Property, line.Value, line.Indentation + 2);
                     token.Set(line.Property, child);
 
                     line = _scanner.ScanNext();
@@ -84,7 +80,7 @@ namespace WickedFlame.Yaml
                 // simple property with value
                 if (!string.IsNullOrEmpty(line.Property) && !string.IsNullOrEmpty(line.Value))
                 {
-                    var child = new ValueToken(line.Value, line.Indentation);
+                    var child = new ValueToken(line.Property, line.Value, line.Indentation);
                     token.Set(line.Property, child);
 
                     line = _scanner.ScanNext();
@@ -94,7 +90,7 @@ namespace WickedFlame.Yaml
                 if (!string.IsNullOrEmpty(line.Property))
                 {
                     // add new object to the tree
-                    var child = new Token(line.Indentation);
+                    var child = new Token(line.Property, line.Indentation);
 
                     token.Set(line.Property, child);
                     token = child;
@@ -139,27 +135,11 @@ namespace WickedFlame.Yaml
         }
     }
 
-    public class TokenValue
-    {
-        public TokenValue(string key, IToken value)
-        {
-            Key = key;
-            Token = value;
-        }
-
-        public string Key { get; }
-
-        public IToken Token { get; }
-
-        public override string ToString()
-        {
-            return $"TokenValue - Key:{Key} Token:{Token}";
-        }
-    }
-
     public interface IToken
     {
         TokenType TokenType { get; }
+
+        string Key { get; }
 
         IToken this[string key] { get; }
 
@@ -174,28 +154,31 @@ namespace WickedFlame.Yaml
 
     public class Token : IToken
     {
-        //private readonly Dictionary<string, IToken> _children = new Dictionary<string, IToken>();
-        private readonly List<TokenValue> _children = new List<TokenValue>();
+        private readonly List<IToken> _children = new List<IToken>();
 
-        public Token(int indentaiton, TokenType tokenType)
+        public Token(string key, int indentaiton, TokenType tokenType)
         {
+            Key = key;
             TokenType = tokenType;
             Indentation = indentaiton;
         }
 
-        public Token(int indentaiton)
+        public Token(string key, int indentaiton)
         {
             TokenType = TokenType.Object;
+            Key = key;
             Indentation = indentaiton;
         }
 
         public TokenType TokenType { get; }
 
+        public string Key { get; }
+
         public IToken this[string key]
         {
             get
             {
-                return _children.FirstOrDefault(t => t.Key == key)?.Token;
+                return _children.FirstOrDefault(t => t.Key == key);
             }
         }
 
@@ -204,7 +187,7 @@ namespace WickedFlame.Yaml
             get
             {
                 var value = _children.ElementAt(index);
-                return value?.Token;
+                return value;
             }
         }
 
@@ -225,43 +208,39 @@ namespace WickedFlame.Yaml
 
             token.Parent = this;
 
-            _children.Add(new TokenValue(key, token));
+            _children.Add(token);
         }
 
         public override string ToString()
         {
-            return $"TokenType: {TokenType}";
+            if (TokenType == TokenType.ListItem)
+            {
+                return $"TokenType: {TokenType}";
+            }
+
+            return $"TokenType: {TokenType} Key:{Key}";
         }
     }
 
     public class ValueToken : IToken
     {
-        private object _value;
+        private readonly object _value;
 
-        public ValueToken(object value, int indentation)
+        public ValueToken(string key, object value, int indentation)
         {
             TokenType = TokenType.Value;
+            Key = key;
             _value = value;
             Indentation = indentation;
         }
 
         public TokenType TokenType { get; }
 
-        public IToken this[string key]
-        {
-            get
-            {
-                throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
-            }
-        }
+        public string Key { get; }
 
-        public IToken this[int index]
-        {
-            get
-            {
-                throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
-            }
-        }
+        public IToken this[string key] => throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
+
+        public IToken this[int index] => throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
 
         public int Indentation { get; set; }
 
@@ -283,6 +262,6 @@ namespace WickedFlame.Yaml
     {
         Value,
         Object,
-        List
+        ListItem
     }
 }
