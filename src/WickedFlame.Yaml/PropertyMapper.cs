@@ -20,27 +20,6 @@ namespace WickedFlame.Yaml
             _properties = type.GetProperties();
         }
 
-        public bool TryAppendProperty(YamlLine line, object item)
-        {
-            if (string.IsNullOrEmpty(line.Property))
-            {
-                return false;
-            }
-
-            var propertyInfo = _properties.FirstOrDefault(p => p.Name == line.Property);
-            if (propertyInfo == null)
-            {
-                return false;
-            }
-
-            return PropertyMapper.ParsePrimitive(propertyInfo, item, line.Value);
-        }
-
-        public PropertyInfo GetProperty(YamlLine line)
-        {
-            return _properties.FirstOrDefault(p => p.Name == line.Property);
-        }
-
         public PropertyInfo GetProperty(IToken token)
         {
             return _properties.FirstOrDefault(p => p.Name == token.Key);
