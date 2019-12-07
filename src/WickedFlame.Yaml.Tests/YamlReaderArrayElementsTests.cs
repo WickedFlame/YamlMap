@@ -15,13 +15,13 @@ namespace WickedFlame.Yaml.Tests
         {
             var lines = new[]
             {
-                "Id: id"
+                "Id: 1"
             };
 
             var reader = new YamlReader();
             var data = reader.Read<YamlRoot>(lines);
 
-            Assert.AreEqual("id", data.Id);
+            Assert.AreEqual("1", data.Id);
         }
 
         [Test]

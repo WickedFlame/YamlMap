@@ -41,6 +41,27 @@ namespace WickedFlame.Yaml
             return _properties.FirstOrDefault(p => p.Name == line.Property);
         }
 
+        public PropertyInfo GetProperty(IToken token)
+        {
+            return _properties.FirstOrDefault(p => p.Name == token.Key);
+        }
+
+        public bool TryAppendProperty(IToken token, object item)
+        {
+            if (string.IsNullOrEmpty(token.Key))
+            {
+                return false;
+            }
+
+            var propertyInfo = _properties.FirstOrDefault(p => p.Name == token.Key);
+            if (propertyInfo == null)
+            {
+                return false;
+            }
+
+            return PropertyMapper.ParsePrimitive(propertyInfo, item, ((ValueToken)token).Value);
+        }
+
         public static bool ParsePrimitive(PropertyInfo prop, object entity, object value)
         {
             var types = new List<Type>
@@ -71,28 +92,5 @@ namespace WickedFlame.Yaml
             return false;
         }
 
-        public static bool ParseBoolean(object value)
-        {
-            if (value == null || value == DBNull.Value)
-            {
-                return false;
-            }
-
-            switch (value.ToString().ToLowerInvariant())
-            {
-                case "1":
-                case "y":
-                case "yes":
-                case "true":
-                    return true;
-
-                case "0":
-                case "n":
-                case "no":
-                case "false":
-                default:
-                    return false;
-            }
-        }
     }
 }

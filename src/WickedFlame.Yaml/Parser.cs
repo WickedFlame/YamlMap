@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -142,7 +143,7 @@ namespace WickedFlame.Yaml
         }
     }
 
-    public interface IToken
+    public interface IToken : IEnumerable<IToken>
     {
         TokenType TokenType { get; }
 
@@ -227,6 +228,16 @@ namespace WickedFlame.Yaml
 
             return $"[{TokenType}] Key: {Key}";
         }
+
+        public IEnumerator<IToken> GetEnumerator()
+        {
+            return _children.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
     public class ValueToken : IToken
@@ -260,6 +271,16 @@ namespace WickedFlame.Yaml
         public override string ToString()
         {
             return $"[{TokenType}] {Key} : {Value}";
+        }
+
+        public IEnumerator<IToken> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 

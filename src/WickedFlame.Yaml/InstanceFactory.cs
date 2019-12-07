@@ -32,7 +32,14 @@ namespace WickedFlame.Yaml
                 return null;
             }
 
-            return GetConstructorMethod(type).Invoke();
+            try
+            {
+                return GetConstructorMethod(type).Invoke();
+            }
+            catch (Exception e)
+            {
+                throw new InvalidConfigurationException($"Could not create an instance of Type {type.FullName}", e);
+            }
         }
 
         private static EmptyConstructor GetConstructorMethodToCache(Type type)

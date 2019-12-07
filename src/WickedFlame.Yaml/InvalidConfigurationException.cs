@@ -8,5 +8,10 @@ namespace WickedFlame.Yaml
             : base(message)
         {
         }
+
+        public InvalidConfigurationException(string message, Exception exception)
+            : base(message, exception)
+        {
+        }
     }
 }

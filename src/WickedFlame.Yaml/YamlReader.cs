@@ -8,47 +8,20 @@ namespace WickedFlame.Yaml
     {
         public T Read<T>(string file) where T : class, new()
         {
-            var reader = new YamlNodeReader(typeof(T));
-
-            foreach (var line in ReadAllLines(file))
-            {
-                if (string.IsNullOrEmpty(line))
-                {
-                    continue;
-                }
-
-                if (line.StartsWith("#"))
-                {
-                    continue;
-                }
-
-                var meta = new YamlLine(line);
-
-                reader.ReadLine(meta);
-            }
-
-            return (T)reader.Node;
+            return Read<T>(ReadAllLines(file));
         }
 
         public T Read<T>(string[] lines) where T : class, new()
         {
-            var reader = new YamlNodeReader(typeof(T));
+            var reader = new YamlNodeMapper(typeof(T));
 
-            foreach (var line in lines)
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+            var tokens = parser.Parse();
+
+            foreach (var token in tokens)
             {
-                if (string.IsNullOrEmpty(line))
-                {
-                    continue;
-                }
-
-                if (line.StartsWith("#"))
-                {
-                    continue;
-                }
-
-                var meta = new YamlLine(line);
-
-                reader.ReadLine(meta);
+                reader.MapToken(token);
             }
 
             return (T)reader.Node;
