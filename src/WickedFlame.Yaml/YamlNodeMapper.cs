@@ -79,7 +79,7 @@ namespace WickedFlame.Yaml
                         var tmp = token[0];
                         var c = new YamlNodeMapper(valuetype);
 
-                        Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), /*TypeConverter.Convert(valuetype, c.Node) */c.Node});
+                        Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), c.Node});
 
                         // refactor the line to be parsed as property
                         for (int i = 0; i < tmp.Count; i++)
@@ -87,6 +87,11 @@ namespace WickedFlame.Yaml
                             c.MapToken(tmp[i]);
                         }
                     }
+
+                    //if (nodeType.IsArray)
+                    //{
+                    //    Array.Resize(ref Node, 10);
+                    //}
                 }
 
                 return;
