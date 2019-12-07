@@ -19,9 +19,9 @@ namespace WickedFlame.Yaml
             var parser = new Parser(scanner);
             var tokens = parser.Parse();
 
-            foreach (var token in tokens)
+            for (int i = 0; i < tokens.Count; i++)
             {
-                reader.MapToken(token);
+                reader.MapToken(tokens[i]);
             }
 
             return (T)reader.Node;

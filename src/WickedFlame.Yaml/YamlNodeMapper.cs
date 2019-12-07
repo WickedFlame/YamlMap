@@ -60,9 +60,9 @@ namespace WickedFlame.Yaml
                         Node.GetType().GetMethod("Add").Invoke(Node, new[] {c.Node});
 
                         // refactor the line to be parsed as property
-                        foreach (var t in token)
+                        for (int i = 0; i < token.Count; i++)
                         {
-                            c.MapToken(t);
+                            c.MapToken(token[i]);
                         }
                     }
                     else if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
@@ -82,9 +82,9 @@ namespace WickedFlame.Yaml
                         Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), /*TypeConverter.Convert(valuetype, c.Node) */c.Node});
 
                         // refactor the line to be parsed as property
-                        foreach (var t in tmp)
+                        for (int i = 0; i < tmp.Count; i++)
                         {
-                            c.MapToken(t);
+                            c.MapToken(tmp[i]);
                         }
                     }
                 }
@@ -105,9 +105,9 @@ namespace WickedFlame.Yaml
             //var child = InstanceFactory.CreateInstance(property.PropertyType);
             var child = new YamlNodeMapper(property.PropertyType);
             property.SetValue(Node, child.Node, null);
-            foreach (var t in token)
+            for (int i = 0; i < token.Count; i++)
             {
-                child.MapToken(t);
+                child.MapToken(token[i]);
             }
 
         }
