@@ -64,13 +64,20 @@ namespace WickedFlame.Yaml
                     return date;
                 }
 
-                if (DateTime.TryParseExact(value, "yyyyMMdd", new CultureInfo("de-CH"), DateTimeStyles.AssumeLocal, out date))
+                var formats = new string[]
+                {
+                    "yyyy.MM.ddTHH:mm:ss",
+                    "yyyy-MM-ddTHH:mm:ss",
+                    "yyyy/MM/ddTHH:mm:ss",
+                    "yyyyMMdd"
+                };
+
+                if (DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out date))
                 {
                     return date;
                 }
 
-                //return null;
-                throw new FormatException($"Value {value} could not be parsed to {type.FullName}");
+                throw new FormatException($"Value {value} could not be parsed to {type.FullName}. DateTimes have to be in the ISO-8601 format eg. yyyy-MM-dd");
             }
             
             if (type == typeof(Guid))
