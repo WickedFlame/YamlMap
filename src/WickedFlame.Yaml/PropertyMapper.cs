@@ -56,7 +56,7 @@ namespace WickedFlame.Yaml
                 typeof(double),
                 typeof(double?),
                 typeof(DateTime),
-                typeof(Nullable<DateTime>),
+                typeof(DateTime?),
                 typeof(Type),
                 typeof(Guid)
             };

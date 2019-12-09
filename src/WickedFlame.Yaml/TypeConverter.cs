@@ -57,7 +57,7 @@ namespace WickedFlame.Yaml
                 return null;
             }
             
-            if (type == typeof(DateTime) || type == typeof(Nullable<DateTime>))
+            if (type == typeof(DateTime) || type == typeof(DateTime?))
             {
                 if (DateTime.TryParse(value, out var date))
                 {
@@ -69,7 +69,8 @@ namespace WickedFlame.Yaml
                     return date;
                 }
 
-                return null;
+                //return null;
+                throw new FormatException($"Value {value} could not be parsed to {type.FullName}");
             }
             
             if (type == typeof(Guid))
