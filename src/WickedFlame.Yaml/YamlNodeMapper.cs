@@ -31,7 +31,16 @@ namespace WickedFlame.Yaml
                     if (nodeType.GetGenericTypeDefinition() == typeof(List<>))
                     {
                         var childNodeType = nodeType.GetGenericArguments()[0];
-                        Node.GetType().GetMethod("Add").Invoke(Node, new[] {TypeConverter.Convert(childNodeType, ((ValueToken) token).Value)});
+                        try
+                        {
+                            Node.GetType().GetMethod("Add").Invoke(Node,
+                                new[] {TypeConverter.Convert(childNodeType, ((ValueToken) token).Value)});
+                        }
+                        catch (Exception e)
+                        {
+                            System.Diagnostics.Trace.WriteLine(e);
+                        }
+
                         return;
                     }
                 }

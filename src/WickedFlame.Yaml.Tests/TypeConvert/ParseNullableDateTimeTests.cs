@@ -13,7 +13,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
         {
             var lines = new[]
             {
-                "Value: 31.12.1919"
+                "Value: 1919.12.31"
             };
             
             var reader = new YamlReader();
@@ -27,7 +27,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
         {
             var lines = new[]
             {
-                "Value: 31/12/1919"
+                "Value: 1919/12/31"
             };
 
             var reader = new YamlReader();
@@ -55,7 +55,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
         {
             var lines = new[]
             {
-                "Value: 31.12.1919"
+                "Value: 1919.12.31"
             };
 
             var reader = new YamlReader();
@@ -71,17 +71,17 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             {
                 "ValueList:",
                 "  - ",
-                "  - 1.12.1919",
-                "  - 31.12.1919"
+                "  - 1919.12.01",
+                "  - 1919.12.31"
             };
 
             var reader = new YamlReader();
-            Assert.Throws<FormatException>(() => reader.Read<PrimitiveValues>(lines));
-            //var parsed = reader.Read<PrimitiveValues>(lines);
+            //Assert.Throws<FormatException>(() => reader.Read<PrimitiveValues>(lines));
+            var parsed = reader.Read<PrimitiveValues>(lines);
 
-            //Assert.AreEqual(null, parsed.ValueList[0]);
-            //Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[1]);
-            //Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[2]);
+            Assert.That(parsed.ValueList.Count == 2);
+            Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
+            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
         }
 
         public class PrimitiveValues

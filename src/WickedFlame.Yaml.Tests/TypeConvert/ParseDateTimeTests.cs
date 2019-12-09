@@ -13,7 +13,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
         {
             var lines = new[]
             {
-                "Value: 31.12.1919"
+                "Value: 1919.12.31"
             };
             
             var reader = new YamlReader();
@@ -27,7 +27,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
         {
             var lines = new[]
             {
-                "Value: 31/12/1919"
+                "Value: 1919/12/31"
             };
 
             var reader = new YamlReader();
@@ -56,8 +56,8 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             var lines = new[]
             {
                 "ValueList:",
-                "  - 1.12.1919",
-                "  - 31.12.1919"
+                "  - 1919.12.1",
+                "  - 1919.12.31"
             };
 
             var reader = new YamlReader();
