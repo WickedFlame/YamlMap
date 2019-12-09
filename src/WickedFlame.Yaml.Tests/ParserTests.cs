@@ -274,5 +274,22 @@ namespace WickedFlame.Yaml.Tests
             Assert.AreEqual("one", ((ValueToken)result[0]).Value);
             Assert.AreEqual("true", ((ValueToken)result[1]).Value);
         }
+
+        [Test]
+        public void WickeFlame_Yaml_Parser_InvalidProperty()
+        {
+            var lines = new[]
+            {
+                "First:one",
+                "Comment: true"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.That(result.Count == 1);
+            Assert.AreEqual("true", ((ValueToken)result[0]).Value);
+        }
     }
 }

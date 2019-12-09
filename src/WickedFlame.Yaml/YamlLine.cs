@@ -16,7 +16,16 @@ namespace WickedFlame.Yaml
                 Value = line;
             }
 
-            var index = line.IndexOf(':');
+            var index = line.IndexOf(": ", System.StringComparison.InvariantCultureIgnoreCase);
+            if (index < 0)
+            {
+                var objIndex = line.IndexOf(':');
+                if (objIndex > 0 && objIndex == line.Length - 1)
+                {
+                    index = objIndex;
+                }
+            }
+
             if (index > 0)
             {
                 Property = line.Substring(0, index).TrimStart();
