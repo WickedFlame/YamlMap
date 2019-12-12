@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace WickedFlame.Yaml
+namespace WickedFlame.Yaml.Serialization
 {
     public class PropertyMapper
     {

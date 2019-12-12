@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace WickedFlame.Yaml
+namespace WickedFlame.Yaml.Serialization
 {
     public class TypeConverter
     {

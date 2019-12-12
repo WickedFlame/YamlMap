@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WickedFlame.Yaml
+namespace WickedFlame.Yaml.Serialization
 {
     internal static class TypeExtensions
     {

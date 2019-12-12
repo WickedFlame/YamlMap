@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using WickedFlame.Yaml.Serialization;
 
 namespace WickedFlame.Yaml
 {
