@@ -96,6 +96,7 @@ namespace WickedFlame.Yaml.Serialization
 
                         if (token[0] is ValueToken subtoken)
                         {
+                            // simple key/value dictionary
                             Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, subtoken.Key), TypeConverter.Convert(valuetype, subtoken.Value) });
                             return;
                         }
@@ -103,10 +104,11 @@ namespace WickedFlame.Yaml.Serialization
                         var tmp = token[0];
                         var c = new YamlNodeMapper(valuetype, token);
 
+                        // dictionary with objects
                         Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), c.Node});
 
                         // refactor the line to be parsed as property
-                        for (int i = 0; i < tmp.Count; i++)
+                        for (var i = 0; i < tmp.Count; i++)
                         {
                             c.MapToken(tmp[i]);
                         }
