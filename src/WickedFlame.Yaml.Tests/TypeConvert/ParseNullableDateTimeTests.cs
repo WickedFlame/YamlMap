@@ -76,12 +76,12 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             };
 
             var reader = new YamlReader();
-            //Assert.Throws<FormatException>(() => reader.Read<PrimitiveValues>(lines));
-            var parsed = reader.Read<PrimitiveValues>(lines);
+            Assert.Throws<FormatException>(() => reader.Read<PrimitiveValues>(lines));
+            //var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.That(parsed.ValueList.Count == 2);
-            Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
+            //Assert.That(parsed.ValueList.Count == 2);
+            //Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
+            //Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
         }
 
         public class PrimitiveValues
