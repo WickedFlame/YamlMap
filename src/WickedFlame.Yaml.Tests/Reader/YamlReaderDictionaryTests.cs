@@ -15,8 +15,8 @@ namespace WickedFlame.Yaml.Tests.Reader
             var lines = new[]
             {
                 "Dictionary:",
-                "  - Name: one",
-                "  - Id: 1"
+                "  Name: one",
+                "  Id: 1"
             };
 
             var reader = new YamlReader();
@@ -33,8 +33,8 @@ namespace WickedFlame.Yaml.Tests.Reader
             var lines = new[]
             {
                 "IDictionary:",
-                "  - Name: one",
-                "  - Id: 1"
+                "  Name: one",
+                "  Id: 1"
             };
 
             var reader = new YamlReader();
@@ -46,17 +46,33 @@ namespace WickedFlame.Yaml.Tests.Reader
         }
 
         [Test]
+        public void WickedFlame_Yaml_YamlReader_Dictionary_List()
+        {
+            var lines = new[]
+            {
+                "Dictionary:",
+                "  - Name: one",
+                "  - Id: 1"
+            };
+
+            var reader = new YamlReader();
+            Assert.Throws<InvalidConfigurationException>(() => reader.Read<StringNode>(lines));
+
+            //Assert.That(data.Dictionary.Count() == 0);
+        }
+
+        [Test]
         public void WickedFlame_Yaml_YamlReader_Dictionary_Objects()
         {
             var lines = new[]
             {
                 "ObjectDictionary:",
-                "  - one:",
-                "      Id: 1",
-                "      Name: test one",
-                "  - two:",
-                "      Id: 2",
-                "      Name: test two",
+                "  one:",
+                "    Id: 1",
+                "    Name: test one",
+                "  two:",
+                "    Id: 2",
+                "    Name: test two"
             };
 
             var reader = new YamlReader();

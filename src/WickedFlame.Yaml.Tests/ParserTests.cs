@@ -180,6 +180,24 @@ namespace WickedFlame.Yaml.Tests
         }
 
         [Test]
+        public void WickeFlame_Yaml_Parser_PropertyList()
+        {
+            var lines = new[]
+            {
+                "Children:",
+                "  - one: 1",
+                "  - two: 2"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.AreEqual("1", ((ValueToken)result["Children"][0]["one"]).Value);
+            Assert.AreEqual("2", ((ValueToken)result["Children"][1]["two"]).Value);
+        }
+
+        [Test]
         public void WickeFlame_Yaml_Parser_SubObjectList()
         {
             var lines = new[]

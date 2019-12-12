@@ -17,7 +17,9 @@ namespace WickedFlame.Yaml.Serialization
 
         public void MapToken(IToken token)
         {
-            if(token is ValueToken valueToken)
+            var nodeType = Node.GetType();
+
+            if (token is ValueToken valueToken)
             {
                 if(_mapper.TryAppendProperty(valueToken, _item))
                 {
@@ -25,7 +27,7 @@ namespace WickedFlame.Yaml.Serialization
                 }
 
                 //try add simple value to list
-                var nodeType = Node.GetType();
+                
                 if (nodeType.IsGenericType)
                 {
                     if (nodeType.GetGenericTypeDefinition() == typeof(List<>))
@@ -40,6 +42,16 @@ namespace WickedFlame.Yaml.Serialization
                             System.Diagnostics.Trace.WriteLine(e);
                         }
 
+                        return;
+                    }
+
+                    if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+                    {
+                        var keytype = nodeType.GetGenericArguments()[0];
+                        var valuetype = nodeType.GetGenericArguments()[1];
+
+                        // simple key/value dictionary
+                        Node.GetType().GetMethod("Add").Invoke(Node, new[] {TypeConverter.Convert(keytype, valueToken.Key), TypeConverter.Convert(valuetype, valueToken.Value)});
                         return;
                     }
                 }
@@ -67,7 +79,6 @@ namespace WickedFlame.Yaml.Serialization
             if (token.TokenType == TokenType.ListItem)
             {
                 // get the inner type of the generic list
-                var nodeType = Node.GetType();
                 if (nodeType.IsGenericType)
                 {
                     if (nodeType.GetGenericTypeDefinition() == typeof(List<>))
@@ -84,33 +95,6 @@ namespace WickedFlame.Yaml.Serialization
                         for (int i = 0; i < token.Count; i++)
                         {
                             c.MapToken(token[i]);
-                        }
-
-                        return;
-                    }
-                    
-                    if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
-                    {
-                        var keytype = nodeType.GetGenericArguments()[0];
-                        var valuetype = nodeType.GetGenericArguments()[1];
-
-                        if (token[0] is ValueToken subtoken)
-                        {
-                            // simple key/value dictionary
-                            Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, subtoken.Key), TypeConverter.Convert(valuetype, subtoken.Value) });
-                            return;
-                        }
-
-                        var tmp = token[0];
-                        var c = new YamlNodeMapper(valuetype, token);
-
-                        // dictionary with objects
-                        Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), c.Node});
-
-                        // refactor the line to be parsed as property
-                        for (var i = 0; i < tmp.Count; i++)
-                        {
-                            c.MapToken(tmp[i]);
                         }
 
                         return;
@@ -144,7 +128,29 @@ namespace WickedFlame.Yaml.Serialization
                     }
                 }
 
-                throw new InvalidConfigurationException($"The configured Property {token.Key} could not be converted to type {Node.GetType().FullName}");
+                throw new InvalidConfigurationException($"The configured listitem could not be converted to type {Node.GetType().FullName}. Make sure that the declaring type is a list.");
+            }
+
+            if (nodeType.IsGenericType)
+            {
+                if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+                {
+                    var keytype = nodeType.GetGenericArguments()[0];
+                    var valuetype = nodeType.GetGenericArguments()[1];
+
+                    var c = new YamlNodeMapper(valuetype, token);
+
+                    // dictionary with objects
+                    Node.GetType().GetMethod("Add").Invoke(Node, new[] {TypeConverter.Convert(keytype, token.Key), c.Node});
+
+                    // refactor the line to be parsed as property
+                    for (var i = 0; i < token.Count; i++)
+                    {
+                        c.MapToken(token[i]);
+                    }
+
+                    return;
+                }
             }
 
             var property = _mapper.GetProperty(token);
