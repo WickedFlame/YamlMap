@@ -13,7 +13,7 @@ namespace WickedFlame.Yaml
 
         public T Read<T>(string[] lines) where T : class, new()
         {
-            var reader = new YamlNodeMapper(typeof(T));
+            var reader = new YamlNodeMapper(typeof(T), null);
 
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);

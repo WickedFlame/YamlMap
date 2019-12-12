@@ -13,8 +13,6 @@ namespace WickedFlame.Yaml
     /// </summary>
     internal static class InstanceFactory
     {
-        static Dictionary<Type, EmptyConstructor> _constructorMethods = new Dictionary<Type, EmptyConstructor>();
-
         /// <summary>
         /// Factory Method that creates an instance of type T
         /// </summary>
@@ -25,7 +23,7 @@ namespace WickedFlame.Yaml
             return (T)GetConstructorMethod(typeof(T)).Invoke();
         }
 
-        public static object CreateInstance(this Type type)
+        public static object CreateInstance(this Type type, IToken token)
         {
             if (type == null)
             {
@@ -34,7 +32,7 @@ namespace WickedFlame.Yaml
 
             try
             {
-                return GetConstructorMethod(type).Invoke();
+                return GetConstructorMethod(type, token).Invoke();
             }
             catch (Exception e)
             {
@@ -42,7 +40,7 @@ namespace WickedFlame.Yaml
             }
         }
 
-        private static EmptyConstructor GetConstructorMethodToCache(Type type)
+        private static EmptyConstructor GetConstructorMethod(Type type, IToken token = null)
         {
             if (type.IsInterface)
             {
@@ -54,7 +52,7 @@ namespace WickedFlame.Yaml
                     {
                         var keyType = genericType.GetGenericArguments()[0];
                         var valueType = genericType.GetGenericArguments()[1];
-                        return GetConstructorMethodToCache(typeof(Dictionary<,>).MakeGenericType(keyType, valueType));
+                        return GetConstructorMethod(typeof(Dictionary<,>).MakeGenericType(keyType, valueType));
                     }
 
                     genericType = type.GetTypeWithGenericTypeDefinitionOfAny(typeof(IEnumerable<>), typeof(ICollection<>), typeof(IList<>));
@@ -62,13 +60,13 @@ namespace WickedFlame.Yaml
                     if (genericType != null)
                     {
                         var elementType = genericType.GetGenericArguments()[0];
-                        return GetConstructorMethodToCache(typeof(List<>).MakeGenericType(elementType));
+                        return GetConstructorMethod(typeof(List<>).MakeGenericType(elementType));
                     }
                 }
             }
             else if (type.IsArray)
             {
-                return () => Array.CreateInstance(type.GetElementType(), 0);
+                return () => Array.CreateInstance(type.GetElementType(), token.Count);
             }
             else if (type.IsGenericTypeDefinition)
             {
@@ -80,7 +78,8 @@ namespace WickedFlame.Yaml
                 }
 
                 var realizedType = type.MakeGenericType(typeArgs);
-                return realizedType.CreateInstance;
+                //return type1 => realizedType.CreateInstance(type1);
+                return () => realizedType.CreateInstance(token);
             }
 
             //var emptyCtor = type.GetEmptyConstructor();
@@ -104,29 +103,6 @@ namespace WickedFlame.Yaml
             // Anonymous types don't have empty constructors
             //return () => FormatterServices.GetUninitializedObject(type);
             return () => Activator.CreateInstance(type);
-        }
-
-        private static EmptyConstructor GetConstructorMethod(Type type)
-        {
-            if (_constructorMethods.TryGetValue(type, out var emptyConstructorFunction))
-            {
-                return emptyConstructorFunction;
-            }
-
-            emptyConstructorFunction = GetConstructorMethodToCache(type);
-
-            Dictionary<Type, EmptyConstructor> snapshot;
-            Dictionary<Type, EmptyConstructor> newCache;
-
-            do
-            {
-                snapshot = _constructorMethods;
-                newCache = new Dictionary<Type, EmptyConstructor>(_constructorMethods);
-                newCache[type] = emptyConstructorFunction;
-            }
-            while (!ReferenceEquals(Interlocked.CompareExchange(ref _constructorMethods, newCache, snapshot), snapshot));
-
-            return emptyConstructorFunction;
         }
     }
 }

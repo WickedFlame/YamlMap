@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace WickedFlame.Yaml
@@ -9,17 +11,17 @@ namespace WickedFlame.Yaml
         private readonly PropertyMapper _mapper;
         private readonly object _item;
 
-        public YamlNodeMapper(Type type)
+        public YamlNodeMapper(Type type, IToken token)
         {
             _mapper = new PropertyMapper(type);
-            _item = type.CreateInstance();
+            _item = type.CreateInstance(token);
         }
 
         public void MapToken(IToken token)
         {
-            if(token is ValueToken)
+            if(token is ValueToken valueToken)
             {
-                if(_mapper.TryAppendProperty(token, _item))
+                if(_mapper.TryAppendProperty(valueToken, _item))
                 {
                     return;
                 }
@@ -33,8 +35,7 @@ namespace WickedFlame.Yaml
                         var childNodeType = nodeType.GetGenericArguments()[0];
                         try
                         {
-                            Node.GetType().GetMethod("Add").Invoke(Node,
-                                new[] {TypeConverter.Convert(childNodeType, ((ValueToken) token).Value)});
+                            Node.GetType().GetMethod("Add").Invoke(Node, new[] {TypeConverter.Convert(childNodeType, valueToken.Value)});
                         }
                         catch (Exception e)
                         {
@@ -44,6 +45,24 @@ namespace WickedFlame.Yaml
                         return;
                     }
                 }
+                else if (nodeType.IsArray)
+                {
+                    if(Node is IList arr)
+                    {
+                        for (int i = 0; i < arr.Count; i++)
+                        {
+                            // try find the next slot that is empty
+                            if (arr[i] != null)
+                            {
+                                continue;
+                            }
+
+                            arr[i] = valueToken.Value;
+                            return;
+                        }
+                    }
+                }
+
             }
 
 
@@ -63,7 +82,7 @@ namespace WickedFlame.Yaml
                         nodeType = nodeType.GetGenericArguments()[0];
 
                         // create a new reader for the list type
-                        var c = new YamlNodeMapper(nodeType);
+                        var c = new YamlNodeMapper(nodeType, token);
 
                         // add the element to the list
                         Node.GetType().GetMethod("Add").Invoke(Node, new[] {c.Node});
@@ -86,7 +105,7 @@ namespace WickedFlame.Yaml
                         }
 
                         var tmp = token[0];
-                        var c = new YamlNodeMapper(valuetype);
+                        var c = new YamlNodeMapper(valuetype, token);
 
                         Node.GetType().GetMethod("Add").Invoke(Node, new[] { TypeConverter.Convert(keytype, tmp.Key), c.Node});
 
@@ -97,18 +116,34 @@ namespace WickedFlame.Yaml
                         }
                     }
 
-                    //if (nodeType.IsArray)
-                    //{
-                    //    Array.Resize(ref Node, 10);
-                    //}
+                    if (nodeType.IsArray)
+                    {
+                        if (Node is IList arr)
+                        {
+                            for (var i = 0; i < arr.Count; i++)
+                            {
+                                // try find the next slot that is empty
+                                if (arr[i] != null)
+                                {
+                                    continue;
+                                }
+
+                                var c = new YamlNodeMapper(property.PropertyType, token);
+                                arr[i] = c.Node;
+                                
+                                for (var i2 = 0; i2 < token.Count; i2++)
+                                {
+                                    c.MapToken(token[i]);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 return;
             }
-
-
-
-
 
 
             if (property == null)
@@ -116,8 +151,7 @@ namespace WickedFlame.Yaml
                 throw new InvalidConfigurationException($"The configured Property {token.Key} does not exist in the Type {Node.GetType().FullName}");
             }
 
-            //var child = InstanceFactory.CreateInstance(property.PropertyType);
-            var child = new YamlNodeMapper(property.PropertyType);
+            var child = new YamlNodeMapper(property.PropertyType, token);
             property.SetValue(Node, child.Node, null);
             for (int i = 0; i < token.Count; i++)
             {
