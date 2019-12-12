@@ -7,12 +7,16 @@ namespace WickedFlame.Yaml.Serialization
     {
         private readonly PropertyMapper _mapper;
         private readonly object _item;
+        private readonly IToken _token;
 
         public TokenDeserializer(Type type, IToken token)
         {
             _mapper = new PropertyMapper(type);
             _item = type.CreateInstance(token);
+            _token = token;
         }
+
+        public object Node => _item;
 
         public void Deserialize(IToken token)
         {
@@ -40,14 +44,18 @@ namespace WickedFlame.Yaml.Serialization
             }
 
             var child = new TokenDeserializer(property.PropertyType, token);
-            property.SetValue(Node, child.Node, null);
-            for (var i = 0; i < token.Count; i++)
-            {
-                child.Deserialize(token[i]);
-            }
+            child.DeserializeChildren();
 
+            property.SetValue(Node, child.Node, null);
         }
 
-        public object Node => _item;
+        public void DeserializeChildren()
+        {
+            // refactor the line to be parsed as property
+            for (var i = 0; i < _token.Count; i++)
+            {
+                Deserialize(_token[i]);
+            }
+        }
     }
 }

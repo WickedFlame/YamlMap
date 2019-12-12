@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace WickedFlame.Yaml.Serialization
 {
     public interface ITokenDeserializer
     {
+        object Node { get; }
+
         void Deserialize(IToken token);
+
+        void DeserializeChildren();
     }
 }

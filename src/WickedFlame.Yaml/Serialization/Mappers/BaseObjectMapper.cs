@@ -19,16 +19,11 @@ namespace WickedFlame.Yaml.Serialization.Mappers
         {
             // create a new reader for the list type
             var child = new TokenDeserializer(type, token);
-
+            child.DeserializeChildren();
+            
             // add the element to the list
             addChild(child);
-
-            // refactor the line to be parsed as property
-            for (var i = 0; i < token.Count; i++)
-            {
-                child.Deserialize(token[i]);
-            }
-
+            
             return true;
         }
     }
