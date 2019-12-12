@@ -15,10 +15,10 @@ namespace WickedFlame.Yaml.Serialization.Mappers
             return false;
         }
 
-        protected bool AddChildNode(Type type, IToken token, Action<YamlNodeMapper> addChild)
+        protected bool AddChildNode(Type type, IToken token, Action<TokenDeserializer> addChild)
         {
             // create a new reader for the list type
-            var child = new YamlNodeMapper(type, token);
+            var child = new TokenDeserializer(type, token);
 
             // add the element to the list
             addChild(child);
@@ -26,7 +26,7 @@ namespace WickedFlame.Yaml.Serialization.Mappers
             // refactor the line to be parsed as property
             for (var i = 0; i < token.Count; i++)
             {
-                child.MapToken(token[i]);
+                child.Deserialize(token[i]);
             }
 
             return true;

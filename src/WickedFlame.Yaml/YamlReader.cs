@@ -14,7 +14,7 @@ namespace WickedFlame.Yaml
 
         public T Read<T>(string[] lines) where T : class, new()
         {
-            var reader = new YamlNodeMapper(typeof(T), null);
+            var reader = new TokenDeserializer(typeof(T), null);
 
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);
@@ -22,7 +22,7 @@ namespace WickedFlame.Yaml
 
             for (var i = 0; i < tokens.Count; i++)
             {
-                reader.MapToken(tokens[i]);
+                reader.Deserialize(tokens[i]);
             }
 
             return (T)reader.Node;
