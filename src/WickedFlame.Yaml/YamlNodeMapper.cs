@@ -65,11 +65,6 @@ namespace WickedFlame.Yaml
 
             }
 
-
-            var property = _mapper.GetProperty(token);
-
-
-
             // check if it is a property or just a string
             if (token.TokenType == TokenType.ListItem)
             {
@@ -92,8 +87,11 @@ namespace WickedFlame.Yaml
                         {
                             c.MapToken(token[i]);
                         }
+
+                        return;
                     }
-                    else if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+                    
+                    if (nodeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
                     {
                         var keytype = nodeType.GetGenericArguments()[0];
                         var valuetype = nodeType.GetGenericArguments()[1];
@@ -114,38 +112,42 @@ namespace WickedFlame.Yaml
                         {
                             c.MapToken(tmp[i]);
                         }
-                    }
 
-                    if (nodeType.IsArray)
-                    {
-                        if (Node is IList arr)
-                        {
-                            for (var i = 0; i < arr.Count; i++)
-                            {
-                                // try find the next slot that is empty
-                                if (arr[i] != null)
-                                {
-                                    continue;
-                                }
-
-                                var c = new YamlNodeMapper(property.PropertyType, token);
-                                arr[i] = c.Node;
-                                
-                                for (var i2 = 0; i2 < token.Count; i2++)
-                                {
-                                    c.MapToken(token[i]);
-                                }
-
-                                break;
-                            }
-                        }
+                        return;
                     }
                 }
 
-                return;
+                if (nodeType.IsArray)
+                {
+                    if (Node is IList arr)
+                    {
+                        for (var i = 0; i < arr.Count; i++)
+                        {
+                            // try find the next slot that is empty
+                            if (arr[i] != null)
+                            {
+                                continue;
+                            }
+
+                            var c = new YamlNodeMapper(nodeType.GetElementType(), token);
+                            arr[i] = c.Node;
+
+                            for (var i2 = 0; i2 < token.Count; i2++)
+                            {
+                                c.MapToken(token[i2]);
+                            }
+
+                            break;
+                        }
+
+                        return;
+                    }
+                }
+
+                throw new InvalidConfigurationException($"The configured Property {token.Key} could not be converted to type {Node.GetType().FullName}");
             }
 
-
+            var property = _mapper.GetProperty(token);
             if (property == null)
             {
                 throw new InvalidConfigurationException($"The configured Property {token.Key} does not exist in the Type {Node.GetType().FullName}");

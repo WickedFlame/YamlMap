@@ -18,9 +18,9 @@ namespace WickedFlame.Yaml
         /// </summary>
         /// <typeparam name="T">The type to create an instance of</typeparam>
         /// <returns>An instance of type T</returns>
-        public static T CreateInstance<T>()
+        public static T CreateInstance<T>(IToken token)
         {
-            return (T)GetConstructorMethod(typeof(T)).Invoke();
+            return (T)GetConstructorMethod(typeof(T), token).Invoke();
         }
 
         public static object CreateInstance(this Type type, IToken token)
