@@ -55,10 +55,10 @@ namespace WickedFlame.Yaml.Serialization.Mappers
                 return false;
             }
 
-            return DefaultMapper.ParsePrimitive(propertyInfo, item, ((ValueToken)token).Value);
+            return ParsePrimitive(propertyInfo, item, ((ValueToken)token).Value);
         }
 
-        public static bool ParsePrimitive(PropertyInfo prop, object entity, object value)
+        public bool ParsePrimitive(PropertyInfo prop, object entity, object value)
         {
             if (!_supportedTypes.Contains(prop.PropertyType))
             {

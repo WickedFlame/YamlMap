@@ -2,7 +2,7 @@
 
 namespace WickedFlame.Yaml.Serialization.Mappers
 {
-    public class ListMapper : BaseObjectMapper, IObjectMapper
+    public class ArrayMapper : BaseObjectMapper, IObjectMapper
     {
         public bool Map(IToken token, object item)
         {
