@@ -1,9 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace WickedFlame.Yaml.Serialization
 {
     internal static class TypeExtensions
     {
+        private static Dictionary<Type, IEnumerable<PropertyInfo>> _propertyCache = new Dictionary<Type, IEnumerable<PropertyInfo>>();
+
+        public static PropertyInfo GetProperty(this Type type, IToken token)
+        {
+            if (type.IsGenericType)
+            {
+                type = type.GetGenericArguments()[0];
+            }
+
+            if (!_propertyCache.ContainsKey(type))
+            {
+                _propertyCache.Add(type, type.GetProperties());
+            }
+
+            var properties = _propertyCache[type];
+            return properties.FirstOrDefault(p => p.Name == token.Key);
+        }
+
         public static bool HasGenericType(this Type type)
         {
             while (type != null)

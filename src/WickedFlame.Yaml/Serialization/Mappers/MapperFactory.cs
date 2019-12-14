@@ -13,7 +13,7 @@ namespace WickedFlame.Yaml.Serialization.Mappers
             {typeof(IList), () => new ListMapper()}
         };
 
-        public static IObjectMapper GetObjectMapper(object node)
+        public static IObjectMapper GetObjectMapper(object node, Type type)
         {
             var mapperType = node.GetType();
             if (mapperType.IsGenericType)
@@ -31,7 +31,13 @@ namespace WickedFlame.Yaml.Serialization.Mappers
                 return _objectMappers[mapperType].Invoke();
             }
 
-            return null;
+            if (_objectMappers.ContainsKey(type))
+            {
+                return _objectMappers[type].Invoke();
+            }
+
+            _objectMappers.Add(type, () => new DefaultMapper(type));
+            return _objectMappers[type].Invoke();
         }
     }
 }
