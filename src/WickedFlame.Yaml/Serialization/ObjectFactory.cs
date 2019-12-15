@@ -7,7 +7,7 @@ namespace WickedFlame.Yaml.Serialization
     /// <summary>
     /// Factory Class that generates instances of a type
     /// </summary>
-    internal static class ObjectFactory
+    public static class ObjectFactory
     {
         private static readonly Dictionary<Type, Type> genericInterfaceImplementations = new Dictionary<Type, Type>
         {
