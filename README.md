@@ -75,3 +75,9 @@ WrappedText: >
 
 ```
 
+Quotations
+```
+Movies: "Casablanca, Spellbound, Notorious"
+Drive: "c: is a drive"
+```
+
