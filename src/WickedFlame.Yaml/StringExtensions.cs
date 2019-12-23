@@ -1,5 +1,5 @@
 ﻿
-namespace WickedFlame.Yaml.Serialization
+namespace WickedFlame.Yaml
 {
     public static class StringExtensions
     {

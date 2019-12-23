@@ -103,8 +103,27 @@ namespace WickedFlame.Yaml
         {
             TokenType = TokenType.Value;
             Key = key;
-            Value = value;
+            Value = ParseValue(value);
             Indentation = indentation;
+        }
+
+        private string ParseValue(string value)
+        {
+            var quotations = new List<string>
+            {
+                "'",
+                "\""
+            };
+
+            foreach(var c in quotations)
+            {
+                if (value.StartsWith(c) && value.EndsWith(c))
+                {
+                    return value.Substring(1, value.Length - 2);
+                }
+            }
+
+            return value;
         }
 
         public TokenType TokenType { get; }
