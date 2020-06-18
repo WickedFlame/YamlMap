@@ -39,7 +39,24 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             Assert.AreEqual("two", parsed.ValueList[1]);
         }
 
-        public class PrimitiveValues
+		[Test]
+		public void ParsePrivitive_EmptyString()
+		{
+			var lines = new[]
+			{
+				"Value:",
+				"ValueList:",
+				"  - one",
+				"  - two"
+			};
+
+			var reader = new YamlReader();
+			var parsed = reader.Read<PrimitiveValues>(lines);
+
+			Assert.AreEqual(string.Empty, parsed.Value);
+		}
+
+		public class PrimitiveValues
         {
             public string Value { get; set; }
 

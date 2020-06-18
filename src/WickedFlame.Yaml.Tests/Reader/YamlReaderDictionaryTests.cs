@@ -48,6 +48,8 @@ namespace WickedFlame.Yaml.Tests.Reader
         [Test]
         public void WickedFlame_Yaml_YamlReader_Dictionary_List()
         {
+			// this is a list of object instead of a dictionary
+			// to use dictionary remove the -
             var lines = new[]
             {
                 "Dictionary:",
@@ -56,10 +58,8 @@ namespace WickedFlame.Yaml.Tests.Reader
             };
 
             var reader = new YamlReader();
-            Assert.Throws<InvalidConfigurationException>(() => reader.Read<StringNode>(lines));
-
-            //Assert.That(data.Dictionary.Count() == 0);
-        }
+			Assert.Throws<InvalidConfigurationException>(() => reader.Read<StringNode>(lines));
+		}
 
         [Test]
         public void WickedFlame_Yaml_YamlReader_Dictionary_Objects()

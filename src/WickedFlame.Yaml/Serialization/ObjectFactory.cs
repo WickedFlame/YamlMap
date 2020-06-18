@@ -63,14 +63,19 @@ namespace WickedFlame.Yaml.Serialization
                 }
             }
 
-            try
+			if (type == typeof(string))
+			{
+				return string.Empty;
+			}
+
+			try
             {
                 return Activator.CreateInstance(type);
             }
             catch (Exception e)
             {
-                throw new InvalidConfigurationException($"Could not create an instance of Type {type.FullName}", e);
-            }
+	            throw new InvalidConfigurationException($"Could not create an instance of Type {type.FullName}", e);
+			}
         }
     }
 }
