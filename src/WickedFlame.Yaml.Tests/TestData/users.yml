@@ -2,7 +2,10 @@
   name: tim
   password: 1234
   #logintype: local
-
+  scopes:
+    - name: WasJobs
+    - name: Diagnostics
+    - name: CDN
 
 - id: DEE7B0CB-CB0F-4CF5-812F-C72C6A4E9829
   name: testuser
@@ -12,3 +15,7 @@
 - id: 5483D984-2221-4902-A5F6-C50F63970E97
   name: 37712
   #logintype: oxas
+  scopes:
+    - name: WasJobs
+    - name: Diagnostics
+    - name: CDN

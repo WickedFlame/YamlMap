@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace WickedFlame.Yaml.Tests.Reader
@@ -45,7 +46,32 @@ namespace WickedFlame.Yaml.Tests.Reader
             Assert.That(data.ObjectArray[1].Name == "two" && data.ObjectArray[1].Id == 2);
         }
 
-        public class StringNode
+        [Test]
+        public void WickedFlame_Yaml_YamlReader_Array_Nested()
+        {
+	        var lines = new[]
+	        {
+				"- ObjectArray:",
+		        "    - Name: one",
+		        "      Id: 1",
+		        "    - Name: two",
+		        "      Id: 2",
+		        "- ObjectArray:",
+		        "    - Name: one-2",
+		        "      Id: 1-2",
+		        "    - Name: two-2",
+		        "      Id: 2-2"
+			};
+
+	        var reader = new YamlReader();
+	        var data = reader.Read<List<StringNode>>(lines);
+
+	        Assert.That(data.Count() == 2);
+	        //Assert.That(data.ObjectArray[0].Name == "one" && data.ObjectArray[0].Id == 1);
+	        //Assert.That(data.ObjectArray[1].Name == "two" && data.ObjectArray[1].Id == 2);
+        }
+
+		public class StringNode
         {
             public string[] Array { get; set; }
 

@@ -19,7 +19,8 @@ namespace WickedFlame.Yaml.Tests
 			var reader = new YamlReader();
 			var users = reader.Read<List<User>>(path);
 
-			Assert.IsNotNull(users);
+			Assert.IsTrue(users.Count == 3);
+
 		}
 		public class User
 		{
