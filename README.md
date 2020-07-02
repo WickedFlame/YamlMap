@@ -4,6 +4,15 @@
 
 A .NET Yaml Parser
 
+# Usage
+```
+var items = YamlConverter.Read<Item>(filepath);
+
+// or
+var reader = new YamlReader();
+var items = reader.Read<Item>(filepath);
+```
+
 # Currently implemented 
 - Reading YAML strings to Tokens
 - Deserializing YAML string to a POCO
