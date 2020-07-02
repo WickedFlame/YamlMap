@@ -22,7 +22,7 @@ namespace WickedFlame.Yaml.Serialization
             }
 
             var properties = _propertyCache[type];
-            return properties.FirstOrDefault(p => p.Name == token.Key);
+            return properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
         }
 
         public static bool HasGenericType(this Type type)

@@ -1,0 +1,14 @@
+﻿- id: E4A3531E-A113-48EE-A9BF-3BB6DD2D80C3
+  name: tim
+  password: 1234
+  #logintype: local
+
+
+- id: DEE7B0CB-CB0F-4CF5-812F-C72C6A4E9829
+  name: testuser
+  password: secret
+  #logintype: local
+
+- id: 5483D984-2221-4902-A5F6-C50F63970E97
+  name: 37712
+  #logintype: oxas

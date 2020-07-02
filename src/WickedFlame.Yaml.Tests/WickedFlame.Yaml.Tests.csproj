@@ -54,4 +54,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\users.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

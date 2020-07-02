@@ -49,7 +49,7 @@ namespace WickedFlame.Yaml.Serialization.Mappers
                 return false;
             }
 
-            var propertyInfo = _properties.FirstOrDefault(p => p.Name == token.Key);
+            var propertyInfo = _properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
             if (propertyInfo == null)
             {
                 return false;
