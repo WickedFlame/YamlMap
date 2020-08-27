@@ -50,7 +50,7 @@ artifacts:
     name: WickedFlame.Yaml.dll
 
   # pushing all *.nupkg files in directory
-  - path: '*.nupkg'
+  - path: 'src\WickedFlame.Yaml\bin\Release\*.nupkg'
   
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
