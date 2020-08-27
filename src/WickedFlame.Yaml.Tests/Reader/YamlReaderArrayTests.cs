@@ -15,18 +15,39 @@ namespace WickedFlame.Yaml.Tests.Reader
             {
                 "Array:",
                 "  - one",
-                "  - 1"
+                "  - 1",
+				"  - this is a test",
+				"  - \"[brackets with] spaces\""
             };
 
             var reader = new YamlReader();
             var data = reader.Read<StringNode>(lines);
 
-            Assert.That(data.Array.Count() == 2);
+            Assert.That(data.Array.Count() == 4);
             Assert.That(data.Array[0] == "one");
             Assert.That(data.Array[1] == "1");
+            Assert.That(data.Array[2] == "this is a test");
+            Assert.That(data.Array[3] == "[brackets with] spaces");
         }
 
         [Test]
+        public void WickedFlame_Yaml_YamlReader_Array_Brackets()
+        {
+	        var lines = new[]
+	        {
+		        "Array: [one, 1, this is a test]"
+	        };
+
+	        var reader = new YamlReader();
+	        var data = reader.Read<StringNode>(lines);
+
+	        Assert.That(data.Array.Count() == 3);
+	        Assert.That(data.Array[0] == "one");
+	        Assert.That(data.Array[1] == "1");
+	        Assert.That(data.Array[2] == "this is a test");
+        }
+
+		[Test]
         public void WickedFlame_Yaml_YamlReader_Array_Object()
         {
             var lines = new[]

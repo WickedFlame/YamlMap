@@ -55,7 +55,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
 
 			Assert.AreEqual(string.Empty, parsed.Value);
 		}
-
+		
 		public class PrimitiveValues
         {
             public string Value { get; set; }

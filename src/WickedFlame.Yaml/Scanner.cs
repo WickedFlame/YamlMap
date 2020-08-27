@@ -45,28 +45,48 @@ namespace WickedFlame.Yaml
             }
 
             var input = NextLine(_index);
-            if (input.Contains('['))
+            var specialReader = NextReader(input);
+            if (specialReader != null)
             {
-                while (!input.Contains(']'))
-                {
-                    _index = _index + 1;
-                    if (_index >= _input.Length)
-                    {
-                        break;
-                    }
+	            switch (specialReader.ReaderType)
+	            {
+		            case TokenReaderType.Bracket:
+			            while (!input.Contains(']'))
+			            {
+				            _index = _index + 1;
+				            if (_index >= _input.Length)
+				            {
+					            break;
+				            }
 
-                    input += NextLine(_index);
-                }
+				            input += NextLine(_index);
+			            }
 
-                var listInput = input.Substring(input.IndexOf('[') + 1);
-                listInput = listInput.Substring(0, listInput.IndexOf(']'));
-                var arr = listInput.Split(',');
-                foreach (var item in arr)
-                {
-                    _scannedTokens.Enqueue(new YamlLine($"- {item.TrimStart()}".Indent(2)));
-                }
+			            var listInput = input.Substring(input.IndexOf('[') + 1);
+			            listInput = listInput.Substring(0, listInput.IndexOf(']'));
+			            var arr = listInput.Split(',');
+			            foreach (var item in arr)
+			            {
+				            _scannedTokens.Enqueue(new YamlLine($"- {item.TrimStart()}".Indent(2)));
+			            }
 
-                input = input.Substring(0, input.IndexOf(':') + 1);
+			            input = input.Substring(0, input.IndexOf(':') + 1);
+			            break;
+
+					case TokenReaderType.DoubleQuotation:
+					case TokenReaderType.SingleQuoatation:
+						var mark = specialReader.ReaderType == TokenReaderType.SingleQuoatation ? '\'' : '"';
+						var start = input.IndexOf(mark);
+						var end = input.LastIndexOf(mark);
+						if (end == start || end < input.Length - 1)
+						{
+							throw new InvalidConfigurationException($"Found unexpected end of stream while scanning a quoted scalar at line {_index + 1} column {end}");
+						}
+
+						input = input.Remove(start, 1)
+							.Remove(end - 1, 1);
+						break;
+	            }
             }
 
             var line = new YamlLine(input);
@@ -84,5 +104,82 @@ namespace WickedFlame.Yaml
 
             return input;
         }
+
+        private ITokenReader NextReader(string line)
+        {
+	        var readers = new List<ITokenReader>
+	        {
+		        new BracketTokenReader(),
+		        new SingleQuotationTokenReader(),
+		        new DoubleQuotationTokenReader()
+	        };
+
+	        var next = new
+	        {
+		        Reader = (ITokenReader) null,
+		        Index = int.MaxValue
+	        };
+
+	        foreach (var reader in readers)
+	        {
+		        var index = reader.IndexOfNext(line);
+		        if (index < 0 || index > next.Index)
+		        {
+			        continue;
+		        }
+
+		        next = new
+		        {
+			        Reader = reader,
+			        Index = index
+		        };
+	        }
+
+	        return next.Reader;
+        }
+    }
+
+    public enum TokenReaderType
+    {
+		Bracket,
+		SingleQuoatation,
+		DoubleQuotation
+    }
+
+	public interface ITokenReader
+    {
+	    TokenReaderType ReaderType { get; }
+
+		int IndexOfNext(string line);
+    }
+
+    public class BracketTokenReader : ITokenReader
+    {
+	    public TokenReaderType ReaderType => TokenReaderType.Bracket;
+
+	    public int IndexOfNext(string line)
+	    {
+		    return line.IndexOf('[');
+	    }
+    }
+
+    public class SingleQuotationTokenReader : ITokenReader
+    {
+	    public TokenReaderType ReaderType => TokenReaderType.SingleQuoatation;
+
+		public int IndexOfNext(string line)
+	    {
+		    return line.IndexOf('\'');
+	    }
+    }
+
+    public class DoubleQuotationTokenReader : ITokenReader
+    {
+	    public TokenReaderType ReaderType => TokenReaderType.DoubleQuotation;
+
+		public int IndexOfNext(string line)
+	    {
+		    return line.IndexOf('"');
+	    }
     }
 }
