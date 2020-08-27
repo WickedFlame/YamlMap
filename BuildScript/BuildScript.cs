@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using FlubuCore.Context;
 using FlubuCore.Scripting;
 using FlubuCore.Tasks.Attributes;
@@ -11,8 +12,8 @@ public class BuildScript : DefaultBuildScript
 	//[FetchBuildVersionFromFile(AllowSuffix = true)]
 	//public BuildVersion BuildVersion { get; set; }
 
-	//[FromArg("version", "Compile Version")]
-	//public string Version { get; set; }
+	[FromArg("version", "Compile Version")]
+	public string Version { get; set; } = "1.0.0";
 
 	protected override void ConfigureBuildProperties(IBuildPropertiesContext context)
 	{
@@ -21,10 +22,6 @@ public class BuildScript : DefaultBuildScript
 		context.Properties.Set(DotNetBuildProps.ProductName, "WickedFlame.Yaml");
 		context.Properties.Set(BuildProps.SolutionFileName, "..\\WickedFlame.Yaml.sln");
 		context.Properties.Set(BuildProps.BuildConfiguration, "Release");
-		//// Remove SetDefaultTarget's if u dont't want default targets to be included or if you want to define them by yourself.
-		//// Included default target's: clean output(bin, obj), fetch build version from file, generate common assembly info, compile.
-		//// compile target depend's on clean output, fetch build version from file and generate common assembly info.
-		//context.Properties.SetDefaultTargets(DefaultTargets.Dotnet);
 	}
 
 	protected override void ConfigureTargets(ITaskContext context)
@@ -42,8 +39,8 @@ public class BuildScript : DefaultBuildScript
 		//	.AddCoreTask(x => x.Build()
 		//		.Version(BuildVersion.Version.ToString()));
 
-		var version = context.CreateTarget("version")
-			.AddTask(x => x.FetchVersionFromExternalSourceTask());
+		//var version = context.CreateTarget("version")
+		//	.AddTask(x => x.FetchVersionFromExternalSourceTask());
 
 		var clean = context.CreateTarget("Clean")
 			.SetDescription("Clean's the solution.")
@@ -53,9 +50,11 @@ public class BuildScript : DefaultBuildScript
 			.CreateTarget("compile")
 			.SetDescription("Compiles the VS solution and sets version to FlubuExample.csproj")
 			.DependsOn(clean)
-			.DependsOn(version)
+			//.DependsOn(version)
 			.AddCoreTask(x => x.Restore())
-			.AddCoreTask(x => x.Build());
+			.AddCoreTask(x => x.Build()
+				.Version(Version)
+				.WithArguments($"-p:PackageVersion={Version}", $"-p:AssemblyVersion={Version}", $"-p:FileVersion={Version}"));
 
 		var test = context.CreateTarget("test")
 			.AddCoreTaskAsync(x => x.Test().Project(@"..\src\WickedFlame.Yaml.Tests"));
