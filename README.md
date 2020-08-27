@@ -46,6 +46,22 @@ Movies:
   - Notorious
 ```
 
+Inline Lists
+```
+Movies: [Casablanca, Spellbound, Notorious]
+```
+
+Multiline Lists
+```
+Movies: [Casablanca, 
+   Spellbound, Notorious]
+```
+
+Quotes
+```
+Movies: "[Casablanca] Spellbound, Notorious"
+AlternativeMovies: '[Casablanca] Spellbound, Notorious'
+```
 
 # Not yet implemented YAML Features
 
@@ -57,11 +73,6 @@ Blocks
 Inline Objects
 ```
 User: {name: John Smith, age: 33}
-```
-
-Inline Lists
-```
-Movies: [Casablanca, Spellbound, Notorious]
 ```
 
 Block statements
