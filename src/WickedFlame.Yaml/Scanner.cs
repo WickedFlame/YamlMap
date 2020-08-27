@@ -82,9 +82,6 @@ namespace WickedFlame.Yaml
 						{
 							throw new InvalidConfigurationException($"Found unexpected end of stream while scanning a quoted scalar at line {_index + 1} column {end}");
 						}
-
-						input = input.Remove(start, 1)
-							.Remove(end - 1, 1);
 						break;
 	            }
             }
