@@ -112,6 +112,21 @@ namespace WickedFlame.Yaml.Tests.Reader
 			Assert.Throws<InvalidConfigurationException>(() => reader.Read<PrimitiveValues>(lines));
 		}
 
+
+		[Test]
+		public void ParseQuotatedString_DoubleQuotations_Special()
+		{
+			var lines = new[]
+			{
+				"Value: \"c: is a drive\""
+			};
+
+			var reader = new YamlReader();
+			var parsed = reader.Read<PrimitiveValues>(lines);
+
+			Assert.AreEqual("c: is a drive", parsed.Value);
+		}
+
 		public class PrimitiveValues
         {
             public string Value { get; set; }

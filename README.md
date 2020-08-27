@@ -57,10 +57,10 @@ Movies: [Casablanca,
    Spellbound, Notorious]
 ```
 
-Quotes
+Quotations
 ```
-Movies: "[Casablanca] Spellbound, Notorious"
-AlternativeMovies: '[Casablanca] Spellbound, Notorious'
+Movies: "Casablanca, Spellbound, Notorious"
+Drive: 'c: is a drive'
 ```
 
 # Not yet implemented YAML Features
@@ -93,11 +93,5 @@ WrappedText: >
   Blank lines denote
   paragraph breaks
 
-```
-
-Quotations
-```
-Movies: "Casablanca, Spellbound, Notorious"
-Drive: "c: is a drive"
 ```
 
