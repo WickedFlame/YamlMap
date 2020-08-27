@@ -7,6 +7,15 @@ version: 0.2.1.{build}
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
 
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
 # branches to build
 branches:
   # whitelist
@@ -24,7 +33,7 @@ before_build:
 
 build_script:
   - ps: cd BuildScript
-  - ps: flubu rebuild -version='{version}'
+  - ps: flubu -version='{version}'
 
 # to disable automatic tests 
 test: off

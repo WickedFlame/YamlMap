@@ -52,9 +52,9 @@ public class BuildScript : DefaultBuildScript
 			.DependsOn(clean)
 			//.DependsOn(version)
 			.AddCoreTask(x => x.Restore())
-			.AddCoreTask(x => x.Build()
-				.Version(Version)
-				.WithArguments($"-p:PackageVersion={Version}", $"-p:AssemblyVersion={Version}", $"-p:FileVersion={Version}"));
+			.AddCoreTask(x => x.Build());
+				//.Version(Version)
+				//.WithArguments($"-p:PackageVersion={Version}", $"-p:AssemblyVersion={Version}", $"-p:FileVersion={Version}"));
 
 		var test = context.CreateTarget("test")
 			.AddCoreTaskAsync(x => x.Test().Project(@"..\src\WickedFlame.Yaml.Tests"));
