@@ -34,7 +34,7 @@ namespace WickedFlame.Yaml.Serialization
             var property = _type.GetProperty(token);
             if (property == null)
             {
-                throw new InvalidConfigurationException($"The configured Property {token.Key} does not exist in the Type {Node.GetType().FullName}");
+                throw new InvalidConfigurationException($"The configured token {token} could not be mapped to the Type {Node.GetType().FullName}");
             }
 
             var child = new TokenDeserializer(property.PropertyType, token);
