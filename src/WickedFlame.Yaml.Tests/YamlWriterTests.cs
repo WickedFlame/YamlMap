@@ -61,11 +61,78 @@ namespace WickedFlame.Yaml.Tests
             Assert.AreEqual(sb.ToString(), data);
         }
 
-        public class YamlItem
+        [Test]
+        public void WickedFlame_Yaml_YamlWriter_StringArry()
+        {
+	        var item = new YamlItem
+	        {
+		        Simple = "root",
+		        StringList = new [] {"one", "2"}
+	        };
+
+	        var reader = new YamlWriter();
+	        var data = reader.Write(item);
+
+	        var sb = new StringBuilder();
+	        sb.AppendLine("Simple: root");
+	        sb.AppendLine("StringList:");
+	        sb.AppendLine("  - one");
+	        sb.Append("  - 2");
+
+			Assert.AreEqual(sb.ToString(), data);
+        }
+
+        [Test]
+        public void WickedFlame_Yaml_YamlWriter_ObjectList()
+        {
+	        var item = new YamlItem
+	        {
+		        Simple = "root",
+		        ObjList = new List<YamlItem>
+		        {
+			        new YamlItem {Simple = "one"},
+			        new YamlItem {Child = new YamlItem {Simple = "child"}}
+		        }
+	        };
+
+	        var reader = new YamlWriter();
+	        var data = reader.Write(item);
+
+	        var sb = new StringBuilder();
+	        sb.AppendLine("Simple: root");
+	        sb.AppendLine("ObjList:");
+	        sb.AppendLine("  - Simple: one");
+	        sb.AppendLine("  - Child:");
+	        sb.Append("     Simple: child");
+
+	        Assert.AreEqual(sb.ToString(), data);
+        }
+
+        [Test]
+        public void WickedFlame_Yaml_YamlWriter_SpecialString()
+        {
+	        var item = new YamlItem {Simple = "tes:one"};
+
+	        var reader = new YamlWriter();
+	        var data = reader.Write(new { Value = "tes:one" });
+	        Assert.AreEqual("Value: 'tes:one'", data);
+
+	        data = reader.Write(new { Value = "tes[one" });
+	        Assert.AreEqual("Value: 'tes[one'", data);
+
+	        data = reader.Write(new { Value = "tes]one" });
+	        Assert.AreEqual("Value: 'tes]one'", data);
+		}
+
+		public class YamlItem
         {
             public string Simple { get; set; }
 
             public YamlItem Child { get; set; }
+
+			public IEnumerable<string> StringList { get; set; }
+
+			public IEnumerable<YamlItem> ObjList { get; set; }
         }
     }
 }

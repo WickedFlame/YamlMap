@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Text;
 
 namespace WickedFlame.Yaml.Serialization
 {
     public class TokenSerializer
     {
+	    private static char[] SpecialChars = new[] {':', '[', ']'};
+
         public string Serialize<T>(T item)
         {
             var sb = new StringBuilder();
@@ -72,6 +75,11 @@ namespace WickedFlame.Yaml.Serialization
                     SerializeNode(value, sb, indentation + 2);
                     continue;
                 }
+
+				if(value is string s && SpecialChars.Any(c => s.Contains(c)))
+				{
+					value = $"'{s}'";
+				}
 
                 sb.AppendLine($"{name}: {value}".Indent(indentation));
             }
