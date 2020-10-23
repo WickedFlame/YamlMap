@@ -103,7 +103,7 @@ namespace WickedFlame.Yaml.Tests
 	        sb.AppendLine("ObjList:");
 	        sb.AppendLine("  - Simple: one");
 	        sb.AppendLine("  - Child:");
-	        sb.Append("     Simple: child");
+	        sb.Append("      Simple: child");
 
 	        Assert.AreEqual(sb.ToString(), data);
         }
