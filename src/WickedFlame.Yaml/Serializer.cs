@@ -13,7 +13,20 @@ namespace WickedFlame.Yaml
 
 		public static T Deserialize<T>(string yaml)
 		{
-			throw new NotImplementedException();
+			var deserializer = new TokenDeserializer(typeof(T), null);
+
+			var lines = yaml.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+
+			var scanner = new Scanner(lines);
+			var parser = new Parser(scanner);
+			var tokens = parser.Parse();
+
+			for (var i = 0; i < tokens.Count; i++)
+			{
+				deserializer.Deserialize(tokens[i]);
+			}
+
+			return (T)deserializer.Node;
 		}
 	}
 }

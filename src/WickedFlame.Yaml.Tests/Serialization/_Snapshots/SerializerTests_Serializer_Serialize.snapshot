@@ -1,0 +1,9 @@
+---data
+Simple: root
+StringList:
+  - one
+  - 2
+ObjList:
+  - Simple: one
+  - Child:
+      Simple: child

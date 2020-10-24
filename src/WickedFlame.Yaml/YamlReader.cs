@@ -14,7 +14,7 @@ namespace WickedFlame.Yaml
 
         public T Read<T>(string[] lines) where T : class, new()
         {
-            var reader = new TokenDeserializer(typeof(T), null);
+            var deserializer = new TokenDeserializer(typeof(T), null);
 
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);
@@ -22,10 +22,10 @@ namespace WickedFlame.Yaml
 
             for (var i = 0; i < tokens.Count; i++)
             {
-                reader.Deserialize(tokens[i]);
+	            deserializer.Deserialize(tokens[i]);
             }
 
-            return (T)reader.Node;
+            return (T)deserializer.Node;
         }
 
         private string[] ReadAllLines(string file)
