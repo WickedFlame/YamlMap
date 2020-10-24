@@ -9,8 +9,11 @@ namespace WickedFlame.Yaml
     {
         public string Write<T>(T item)
         {
-            var serializer = new TokenSerializer();
-            return serializer.Serialize(item);
+	        var serialized = Serializer.Serialize(item);
+
+			// save to file here
+
+	        return serialized;
         }
     }
 }
