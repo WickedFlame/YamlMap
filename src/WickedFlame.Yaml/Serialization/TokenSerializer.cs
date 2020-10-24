@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Linq;
 using System.Text;
+using System.Xml.Schema;
 
 namespace WickedFlame.Yaml.Serialization
 {
     public class TokenSerializer
     {
-	    private static char[] SpecialChars = new[] {':', '[', ']'};
+	    
 
         public string Serialize<T>(T item)
         {
@@ -31,11 +32,11 @@ namespace WickedFlame.Yaml.Serialization
                         SerializeNode(itm, lstSb, indentation + 2);
 
                         sb.Append($"- ".Indent(indentation));
-                        sb.AppendLine(lstSb.ToString().Trim());
+                        sb.AppendLine(lstSb.ToSerializeableString().Trim());
                         continue;
                     }
 
-                    sb.AppendLine($"- {itm}".Indent(indentation));
+                    sb.AppendLine($"- {itm.ToSerializeableString()}".Indent(indentation));
                 }
 
                 return;
@@ -52,13 +53,12 @@ namespace WickedFlame.Yaml.Serialization
                         continue;
                     }
 
-                    sb.AppendLine($"{itm.Key}: {itm.Value}".Indent(indentation));
+                    sb.AppendLine($"{itm.Key}: {itm.Value.ToSerializeableString()}".Indent(indentation));
                 }
 
                 return;
             }
-
-
+			
             var properties = item.GetType().GetProperties();
             foreach (var property in properties)
             {
@@ -69,20 +69,42 @@ namespace WickedFlame.Yaml.Serialization
                 }
 
                 var name = property.Name;
-                if (value.GetType().IsClass && !(value is string))
-                {
-                    sb.AppendLine($"{name}:".Indent(indentation));
-                    SerializeNode(value, sb, indentation + 2);
-                    continue;
-                }
 
-				if(value is string s && SpecialChars.Any(c => s.Contains(c)))
-				{
-					value = $"'{s}'";
+                if (value is Type type)
+                {
+	                sb.AppendLine($"{name}: {type}, {type.Assembly.GetName().Name}".Indent(indentation));
+	                continue;
 				}
 
-                sb.AppendLine($"{name}: {value}".Indent(indentation));
+                if (value.GetType().IsClass && !(value is string))
+                {
+	                sb.AppendLine($"{name}:".Indent(indentation));
+	                SerializeNode(value, sb, indentation + 2);
+	                continue;
+                }
+
+                sb.AppendLine($"{name}: {value.ToSerializeableString()}".Indent(indentation));
             }
         }
+    }
+
+    internal static class SerializerExtensions
+    {
+	    private static char[] SpecialChars = new[] { ':', '[', ']' };
+
+		public static string ToSerializeableString(this object value)
+	    {
+		    if (value == null)
+		    {
+				return null;
+		    }
+
+		    if (value is string s && SpecialChars.Any(c => s.Contains(c)))
+		    {
+			    value = $"'{s}'";
+		    }
+
+		    return value.ToString();
+	    }
     }
 }

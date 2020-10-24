@@ -109,10 +109,8 @@ namespace WickedFlame.Yaml.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_SpecialString()
+        public void WickedFlame_Yaml_YamlWriter_String_SpecialChars()
         {
-	        var item = new YamlItem {Simple = "tes:one"};
-
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Value = "tes:one" });
 	        Assert.AreEqual("Value: 'tes:one'", data);
@@ -123,6 +121,34 @@ namespace WickedFlame.Yaml.Tests
 	        data = reader.Write(new { Value = "tes]one" });
 	        Assert.AreEqual("Value: 'tes]one'", data);
 		}
+
+        [Test]
+        public void WickedFlame_Yaml_YamlWriter_StringList_SpecialChars()
+        {
+	        var reader = new YamlWriter();
+	        var data = reader.Write(new { Values = new[]
+	        {
+		        "tes:one" ,
+		        "tes[one",
+				"tes]one"}
+			});
+
+			var sb = new StringBuilder()
+				.AppendLine("Values:")
+				.AppendLine("  - 'tes:one'")
+				.AppendLine("  - 'tes[one'")
+				.Append("  - 'tes]one'");
+
+			Assert.AreEqual(sb.ToString(), data);
+		}
+
+		[Test]
+        public void WickedFlame_Yaml_YamlWriter_Type()
+        {
+	        var reader = new YamlWriter();
+	        var data = reader.Write(new { Type = typeof(YamlWriter) });
+	        Assert.AreEqual("Type: WickedFlame.Yaml.YamlWriter, WickedFlame.Yaml", data);
+        }
 
 		public class YamlItem
         {
