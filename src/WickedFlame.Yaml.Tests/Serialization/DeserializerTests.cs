@@ -38,14 +38,14 @@ ObjList:
 			Assert.AreEqual(typeof(GenericType<DeserializerType>), item.Type);
 		}
 
-		//[Test]
-		//[Ignore("not implemented")]
-		//public void Deserialize_AnonymousType()
-		//{
-		//	var value = @"Value: simple value";
-		//	var item = Serializer.Deserialize(() => new { Value = "" }, value);
-		//	Assert.AreEqual("simple value", item.Value);
-		//}
+		[Test]
+		[Ignore("not implemented")]
+		public void Deserialize_AnonymousType()
+		{
+			var value = @"Value: simple value";
+			var item = Serializer.Deserialize(() => new { Value = "" }, value);
+			Assert.AreEqual("simple value", item.Value);
+		}
 
 		public class TestlItem
 		{
