@@ -48,7 +48,7 @@ public class BuildScript : DefaultBuildScript
 
 		var compile = context
 			.CreateTarget("compile")
-			.SetDescription("Compiles the VS solution and sets version to FlubuExample.csproj")
+			.SetDescription("Compiles the VS solution and sets version")
 			.DependsOn(clean)
 			//.DependsOn(version)
 			.AddCoreTask(x => x.Restore())

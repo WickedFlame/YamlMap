@@ -39,36 +39,53 @@ namespace WickedFlame.Yaml.Serialization.Mappers
 
         public bool Map(IToken token, object item)
         {
-            if (!(token is ValueToken))
-            {
-                return false;
-            }
+	        if (!(token is ValueToken))
+	        {
+		        return false;
+	        }
 
-            if (string.IsNullOrEmpty(token.Key))
-            {
-                return false;
-            }
+	        if (string.IsNullOrEmpty(token.Key))
+	        {
+		        return false;
+	        }
 
-            var propertyInfo = _properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
-            if (propertyInfo == null)
-            {
-                return false;
-            }
+	        var propertyInfo = _properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
+	        if (propertyInfo == null)
+	        {
+		        return false;
+	        }
 
-            return ParsePrimitive(propertyInfo, item, ((ValueToken)token).Value);
+	        if (ParsePrimitive(propertyInfo, item, ((ValueToken) token).Value, TypeConverter.Convert))
+	        {
+		        return true;
+	        }
+
+	        if (propertyInfo.PropertyType == typeof(Type))
+	        {
+		        if (ParsePrimitive(propertyInfo, item, ((ValueToken) token).Value, (t, s) => Type.GetType(s)))
+		        {
+			        return true;
+		        }
+	        }
+
+	        return false;
         }
 
-        public bool ParsePrimitive(PropertyInfo prop, object entity, object value)
+        public bool ParsePrimitive(PropertyInfo prop, object entity, object value, Func<Type, string, object> converter)
         {
-            if (!_supportedTypes.Contains(prop.PropertyType))
-            {
-                return false;
-            }
+	        if (!_supportedTypes.Contains(prop.PropertyType))
+	        {
+		        return false;
+	        }
 
-            var converted = TypeConverter.Convert(prop.PropertyType, value?.ToString());
-            prop.SetValue(entity, converted, null);
-            return true;
-        }
+	        var converted = converter(prop.PropertyType, value?.ToString());
+	        if (converted == null)
+	        {
+		        return false;
+	        }
 
+	        prop.SetValue(entity, converted, null);
+	        return true;
+		}
     }
 }

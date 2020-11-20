@@ -31,9 +31,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             };
 
             var reader = new YamlReader();
-            var parsed = reader.Read<PrimitiveValues>(lines);
-
-            Assert.AreEqual(null, parsed.Value);
+            Assert.Throws<InvalidConfigurationException>(() => reader.Read<PrimitiveValues>(lines));
         }
 
         [Test]
