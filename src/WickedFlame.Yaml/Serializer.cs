@@ -29,9 +29,5 @@ namespace WickedFlame.Yaml
 			return (T)deserializer.Node;
 		}
 
-		public static T Deserialize<T>(Func<T> template, string yaml)
-		{
-			return Serializer.Deserialize<T>(yaml);
-		}
 	}
 }
