@@ -28,5 +28,6 @@ namespace WickedFlame.Yaml
 
 			return (T)deserializer.Node;
 		}
+
 	}
 }

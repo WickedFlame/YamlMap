@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -25,7 +26,7 @@ namespace WickedFlame.Yaml.Serialization
             return properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
         }
 
-        public static bool HasGenericType(this Type type)
+		public static bool HasGenericType(this Type type)
         {
             while (type != null)
             {
