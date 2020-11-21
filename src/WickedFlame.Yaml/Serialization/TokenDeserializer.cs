@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using WickedFlame.Yaml.Serialization.Mappers;
 
 namespace WickedFlame.Yaml.Serialization
@@ -34,7 +35,17 @@ namespace WickedFlame.Yaml.Serialization
             var property = _type.GetProperty(token);
             if (property == null)
             {
-                throw new InvalidConfigurationException($"The configured token {token} could not be mapped to the Type {Node.GetType().FullName}");
+	            var msg = new StringBuilder()
+		            .AppendLine($"The configured token {token} could not be mapped")
+		            .AppendLine($" Property: {token.Key}")
+		            .AppendLine($" Expected type: {Node.GetType().FullName}");
+
+	            if (token is ValueToken val)
+	            {
+		            msg.AppendLine($" Value: {val.Value}");
+	            }
+
+				throw new InvalidConfigurationException(msg.ToString());
             }
 
             var child = new TokenDeserializer(property.PropertyType, token);
