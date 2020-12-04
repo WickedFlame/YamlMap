@@ -10,17 +10,22 @@ var items = YamlConverter.Read<Item>(filepath);
 
 // or
 var reader = new YamlReader();
-var items = reader.Read<Item>(filepath);
+items = reader.Read<Item>(filepath);
+
+// serialize an object to string
+var yml = Serializer.Serialize(items);
+
+// deserialize a string to a object
+items = Serializer.Deserialize<Item>(yml);
 ```
 
-# Currently implemented 
+# Implemented serialization features
 - Reading YAML strings to Tokens
 - Deserializing YAML string to a POCO
-
-# Not yet implemented 
+- Writing Tokens to YAML
 - Serializing POCO to YAML
 
-# Currently implemented YAML Features
+# Implemented YAML features
 Comments
 ```
 # This is a comment
