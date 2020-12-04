@@ -100,6 +100,18 @@ namespace WickedFlame.Yaml.Serialization
                 return Type.GetType(value);
             }
 
+            if (type.IsEnum)
+            {
+	            try
+	            {
+		            return Enum.Parse(type, value, true);
+	            }
+	            catch (ArgumentException)
+	            {
+					// returns null anyway so do nothing
+	            }
+            }
+
             return null;
         }
 

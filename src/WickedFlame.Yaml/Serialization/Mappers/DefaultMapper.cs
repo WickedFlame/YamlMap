@@ -60,7 +60,7 @@ namespace WickedFlame.Yaml.Serialization.Mappers
 
         public bool ParsePrimitive(PropertyInfo prop, object item, object value)
         {
-	        if (!_supportedTypes.Contains(prop.PropertyType))
+	        if (!_supportedTypes.Contains(prop.PropertyType) && !prop.PropertyType.IsEnum)
 	        {
 		        return false;
 	        }
