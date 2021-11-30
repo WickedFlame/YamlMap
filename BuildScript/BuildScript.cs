@@ -18,9 +18,9 @@ public class BuildScript : DefaultBuildScript
 	protected override void ConfigureBuildProperties(IBuildPropertiesContext context)
 	{
 		//context.Properties.Set(BuildProps.NUnitConsolePath, @"packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe");
-		context.Properties.Set(BuildProps.ProductId, "WickedFlame.Yaml");
-		context.Properties.Set(DotNetBuildProps.ProductName, "WickedFlame.Yaml");
-		context.Properties.Set(BuildProps.SolutionFileName, "..\\WickedFlame.Yaml.sln");
+		context.Properties.Set(BuildProps.ProductId, "YamlMap");
+		context.Properties.Set(DotNetBuildProps.ProductName, "YamlMap");
+		context.Properties.Set(BuildProps.SolutionFileName, "..\\YamlMap.sln");
 		context.Properties.Set(BuildProps.BuildConfiguration, "Release");
 	}
 
@@ -57,7 +57,7 @@ public class BuildScript : DefaultBuildScript
 				//.WithArguments($"-p:PackageVersion={Version}", $"-p:AssemblyVersion={Version}", $"-p:FileVersion={Version}"));
 
 		var test = context.CreateTarget("test")
-			.AddCoreTaskAsync(x => x.Test().Project(@"..\src\WickedFlame.Yaml.Tests"));
+			.AddCoreTaskAsync(x => x.Test().Project(@"..\src\YamlMap.Tests"));
 
 		//var vsSolution = context.GetVsSolution();
 		//var testProjects = vsSolution.FilterProjects("*.Tests");

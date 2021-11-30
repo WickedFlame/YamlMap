@@ -53,7 +53,7 @@ before_build:
 
 build:
   parallel: true                  # enable MSBuild parallel builds
-  project: WickedFlame.Yaml.sln   # path to Visual Studio solution or project
+  project: YamlMap.sln   # path to Visual Studio solution or project
   publish_wap: false              # package Web Application Projects (WAP) for Web Deploy
   publish_wap_xcopy: false        # package Web Application Projects (WAP) for XCopy deployment
   publish_azure: false            # package Azure Cloud Service projects and push to artifacts
@@ -108,8 +108,8 @@ test_script:
 #---------------------------------#
 
 artifacts:
-  - path: src\WickedFlame.Yaml\bin\Release\netstandard2.0\WickedFlame.Yaml.dll
-    name: WickedFlame.Yaml.dll
+  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.dll
+    name: YamlMap.dll
 
   # pushing all *.nupkg files in directory
   - path: '.\*.nupkg'

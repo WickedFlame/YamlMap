@@ -2,11 +2,11 @@
 
 
 # version format
-version: 1.0.5.{build}
+version: 1.1.0.{build}
 
 environment:
-  rc_version: 1.0.5
-  base_version: 1.0.5
+  rc_version: 1.1.0
+  base_version: 1.1.0
 
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
@@ -28,7 +28,7 @@ branches:
     - dev
 #    - somebranch
 
-os: Visual Studio 2019
+os: Visual Studio 2022
 install:
   - set PATH=C:\Program Files (x86)\MSBuild\16.0\Bin;%PATH%
 
@@ -48,14 +48,14 @@ test: off
 #---------------------------------#
 
 artifacts:
-  - path: src\WickedFlame.Yaml\bin\Release\netstandard2.0\WickedFlame.Yaml.dll
-    name: WickedFlame.Yaml.dll
+  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.dll
+    name: YamlMap.dll
 
-  - path: src\WickedFlame.Yaml\bin\Release\net48\WickedFlame.Yaml.dll
-    name: WickedFlame.Yaml.dll
+  - path: src\YamlMap\bin\Release\net48\YamlMap.dll
+    name: YamlMap.dll
 
   # pushing all *.nupkg files in directory
-  - path: 'src\WickedFlame.Yaml\bin\Release\*.nupkg'
+  - path: 'src\YamlMap\bin\Release\*.nupkg'
   
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
