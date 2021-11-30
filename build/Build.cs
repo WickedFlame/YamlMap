@@ -60,4 +60,16 @@ class Build : NukeBuild
                 .EnableNoRestore());
         });
 
+    Target Test => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DotNetTest(s => s
+                .SetProjectFile(Solution)
+                .SetConfiguration("Debug"));
+        });
+
+    Target ReleaseBuild => _ => _
+        .DependsOn(Compile)
+        .DependsOn(Test);
 }
