@@ -30,15 +30,17 @@ branches:
 
 os: Visual Studio 2022
 install:
-  - set PATH=C:\Program Files (x86)\MSBuild\16.0\Bin;%PATH%
+#  - set PATH=C:\Program Files (x86)\MSBuild\16.0\Bin;%PATH%
+  - dotnet tool install --global Nuke.GlobalTool
 
 
-before_build:
-  - ps: dotnet tool install --global FlubuCore.Tool --version 5.1.8
+#before_build:
+#  - ps: dotnet tool install --global FlubuCore.Tool --version 5.1.8
 
 build_script:
-  - ps: cd BuildScript
-  - ps: flubu rebuild
+  - nuke
+#  - ps: cd BuildScript
+#  - ps: flubu rebuild
 
 # to disable automatic tests 
 test: off
