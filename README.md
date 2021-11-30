@@ -1,6 +1,6 @@
-# Yaml
-[![Build Status](https://travis-ci.org/WickedFlame/Yaml.svg?branch=master)](https://travis-ci.org/WickedFlame/Yaml)
-[![Build status](https://ci.appveyor.com/api/projects/status/u0vhwefngralstax?svg=true)](https://ci.appveyor.com/project/chriswalpen/yaml)
+# YamlMap
+[![Build Status](https://travis-ci.org/WickedFlame/YamlMap.svg?branch=master)](https://travis-ci.org/WickedFlame/YamlMap)
+[![Build status](https://ci.appveyor.com/api/projects/status/u0vhwefngralstax?svg=true)](https://ci.appveyor.com/project/chriswalpen/yamlmap)
 
 A .NET Yaml Parser
 
