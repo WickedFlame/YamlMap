@@ -14,7 +14,7 @@ dotnet_csproj:
   patch: true
   file: '**\*.csproj'
   version: '{version}'
-  package_version: $(base_version)-RC{build}
+  package_version: $(base_version)-RC0{build}
   assembly_version: $(base_version)
   file_version: '{version}'
   informational_version: '{version}'

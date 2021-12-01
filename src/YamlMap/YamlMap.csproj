@@ -7,7 +7,10 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>Christian Walpen</Authors>
     <Company>WickedFlame</Company>
-    <Description>A Yaml Parser for .NET</Description>
+    <Description>
+		A .NET Yaml Parser.
+		Map Yaml to .NET objects and vice versa.
+    </Description>
     <Copyright>@WickedFlame 2019</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>YAML Parser</PackageTags>
