@@ -16,7 +16,7 @@ StringList:
   - one
   - 2
 ObjList:
-  - Simple: one
+  - Simple: simple
   - Child:
       Simple: child";
 

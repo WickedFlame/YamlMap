@@ -3,7 +3,7 @@ Child:
 ObjList:
   Child:
   ObjList:
-  Simple: one
+  Simple: simple
   StringList:
   Child:
     Child:
@@ -11,7 +11,7 @@ ObjList:
     Simple: child
     StringList:
   ObjList:
-  Simple: 
+  Simple: null
   StringList:
 Simple: root
 StringList:
