@@ -8,21 +8,21 @@ using NUnit.Framework;
 namespace YamlMap.Tests
 {
     [TestFixture]
-    public class YamlReaderFileElementsTests
+    public class YamlFileReaderFileElementsTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_SimpleProperty_Root()
+        public void YamlFileReader_File_SimpleProperty_Root()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("SimpleProperty.yml");
 
             Assert.AreEqual("id", data.Id);
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_ObjectProperty_Root()
+        public void YamlFileReader_File_ObjectProperty_Root()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("ObjectProperty.yml");
 
             Assert.IsNotNull(data.SimpleObject);
@@ -30,9 +30,9 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_ObjectProperty_Nested()
+        public void YamlFileReader_File_ObjectProperty_Nested()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("Nested.yml");
 
             Assert.IsNotNull(data.Nested);
@@ -41,18 +41,18 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_ObjectProperty_AfterNested()
+        public void YamlFileReader_File_ObjectProperty_AfterNested()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("Nested.yml");
 
             Assert.AreEqual("first object", data.Nested.Name);
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_StringList()
+        public void YamlFileReader_File_StringList()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("StringList.yml");
 
             Assert.That(data.StringList.Count == 3);
@@ -62,9 +62,9 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_EnumerableList()
+        public void YamlFileReader_File_EnumerableList()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("EnumerableList.yml");
 
             Assert.That(data.EnumerableList.Count() == 3);
@@ -74,9 +74,9 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_ObjectList()
+        public void YamlFileReader_File_ObjectList()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("ObjectList.yml");
 
             Assert.That(data.ObjectList.Count() == 2);
@@ -85,9 +85,9 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_File_NestedObjectList()
+        public void YamlFileReader_File_NestedObjectList()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("NestedObjectList.yml");
 
             Assert.That(data.NestedObjectList.First().Name == "first");

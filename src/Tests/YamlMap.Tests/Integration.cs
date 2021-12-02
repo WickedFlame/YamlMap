@@ -16,7 +16,7 @@ namespace YamlMap.Tests
 			var path = Uri.UnescapeDataString(new UriBuilder(typeof(Integration).Assembly.CodeBase).Path);
 			path = Path.Combine(Path.GetDirectoryName(path), "TestData", "users.yml");
 
-			var reader = new YamlReader();
+			var reader = new YamlFileReader();
 			var users = reader.Read<List<User>>(path);
 
 			Assert.IsTrue(users.Count == 3);

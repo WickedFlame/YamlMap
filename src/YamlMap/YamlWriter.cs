@@ -11,8 +11,6 @@ namespace YamlMap
         {
 	        var serialized = Serializer.Serialize(item);
 
-			// save to file here
-
 	        return serialized;
         }
     }

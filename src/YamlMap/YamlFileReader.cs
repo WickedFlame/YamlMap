@@ -5,11 +5,11 @@ using YamlMap.Serialization;
 namespace YamlMap
 {
     //https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
-    public class YamlReader
+    public class YamlFileReader
     {
-        public T Read<T>(string yaml) where T : class, new()
+        public T Read<T>(string file) where T : class, new()
         {
-            return Read<T>(yaml.Split(Environment.NewLine));
+            return Read<T>(ReadAllLines(file));
         }
 
         public T Read<T>(string[] lines) where T : class, new()

@@ -12,18 +12,26 @@ A .NET Yaml Parser.
 Map Yaml to .NET objects and vice versa.  
 
 # Usage
+## Deserialize a yaml string to a object
 ```
-var items = YamlConverter.Read<Item>(filepath);
+// Read a file using a YamlReader
+var reader = new YamlReader();
+var item = reader.Read<Item>(filepath);
 
 // or
-var reader = new YamlReader();
-items = reader.Read<Item>(filepath);
+
+// Read a string using the static Serializer
+var item = Serializer.Deserialize<Item>(yml);
+```
+
+## Serialize a object to a yaml string
+```
+// Write a file using a YamlWriter
+var writer = new YamlWriter();
+writer.Write(filepath, item);
 
 // serialize an object to string
-var yml = Serializer.Serialize(items);
-
-// deserialize a string to a object
-items = Serializer.Deserialize<Item>(yml);
+var yml = Serializer.Serialize(item);
 ```
 
 # Implemented serialization features

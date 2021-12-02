@@ -1,0 +1,19 @@
+---data
+Child:
+ObjList:
+  Child:
+  ObjList:
+  Simple: simple
+  StringList:
+  Child:
+    Child:
+    ObjList:
+    Simple: child
+    StringList:
+  ObjList:
+  Simple: null
+  StringList:
+Simple: root
+StringList:
+  one
+  2

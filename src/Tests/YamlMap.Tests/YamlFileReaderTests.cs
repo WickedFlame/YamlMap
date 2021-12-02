@@ -8,12 +8,12 @@ using NUnit.Framework;
 namespace YamlMap.Tests
 {
     [TestFixture]
-    public class YamlReaderTests
+    public class YamlFileReaderTests
     {
         [Test]
         public void WickedFlame_Yaml_YamlReader_SimpleProperty_Root()
         {
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("YamlTest.yml");
 
             Assert.AreEqual("id", data.Id);
@@ -27,7 +27,7 @@ namespace YamlMap.Tests
                 "Id: InvalidProperty",
                 "InexistentProperty: fail"
             };
-            var reader = new YamlReader();
+            var reader = new YamlFileReader();
 
             Assert.Throws<InvalidConfigurationException>(() => reader.Read<YamlRoot>(lines));
         }
