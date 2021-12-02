@@ -55,63 +55,65 @@ namespace YamlMap
 
         static class ParserFunctionFactory
         {
-            private static readonly Dictionary<string, Func<IToken, YamlLine, IToken>> _functions;
-
-            static ParserFunctionFactory()
+            private static readonly Dictionary<string, Func<IToken, YamlLine, IToken>> _functions = new Dictionary<string, Func<IToken, YamlLine, IToken>>
             {
-                _functions = new Dictionary<string, Func<IToken, YamlLine, IToken>>();
-
-                _functions.Add("ListPropertyValue", (token, line) =>
                 {
-                    // add new object to the tree
-                    var list = new Token(null, line.Indentation, TokenType.ListItem);
+                    "ListPropertyValue", (token, line) =>
+                    {
+                        // add new object to the tree
+                        var list = new Token(null, line.Indentation, TokenType.ListItem);
 
-                    // list item
-                    token.Set(list);
+                        // list item
+                        token.Set(list);
 
-                    var value = new ValueToken(line.Property, line.Value, line.Indentation + 2);
-                    list.Set(value);
+                        var value = new ValueToken(line.Property, line.Value, line.Indentation + 2);
+                        list.Set(value);
 
-                    return list;
-                });
-
-                _functions.Add("ListProperty", (token, line) =>
+                        return list;
+                    }
+                },
                 {
-                    // add new list to the tree
-                    var list = new Token(null, line.Indentation, TokenType.ListItem);
-                    token.Set(list);
+                    "ListProperty", (token, line) =>
+                    {
+                        // add new list to the tree
+                        var list = new Token(null, line.Indentation, TokenType.ListItem);
+                        token.Set(list);
 
-                    // object node to list
-                    var child = new Token(line.Property, line.Indentation + 2);
-                    list.Set(child);
-                    return child;
-                });
-
-                _functions.Add("List", (token, line) =>
+                        // object node to list
+                        var child = new Token(line.Property, line.Indentation + 2);
+                        list.Set(child);
+                        return child;
+                    }
+                },
                 {
-                    var child = new ValueToken(line.Property, line.Value, line.Indentation + 2);
-                    token.Set(child);
+                    "List", (token, line) =>
+                    {
+                        var child = new ValueToken(line.Property, line.Value, line.Indentation + 2);
+                        token.Set(child);
 
-                    return token;
-                });
-
-                _functions.Add("PropertyValue", (token, line) =>
+                        return token;
+                    }
+                },
                 {
-                    var child = new ValueToken(line.Property, line.Value, line.Indentation);
-                    token.Set(child);
+                    "PropertyValue", (token, line) =>
+                    {
+                        var child = new ValueToken(line.Property, line.Value, line.Indentation);
+                        token.Set(child);
 
-                    return token;
-                });
-
-                _functions.Add("Property", (token, line) =>
+                        return token;
+                    }
+                },
                 {
-                    // add new object to the tree
-                    var child = new Token(line.Property, line.Indentation);
+                    "Property", (token, line) =>
+                    {
+                        // add new object to the tree
+                        var child = new Token(line.Property, line.Indentation);
 
-                    token.Set(child);
-                    return child;
-                });
-            }
+                        token.Set(child);
+                        return child;
+                    }
+                }
+            };
 
             public static Func<IToken, YamlLine, IToken> GetFunction(YamlLine line)
             {
