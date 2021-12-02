@@ -20,23 +20,17 @@ namespace YamlMap
 			return writer.Write(item);
         }
 
-		public static T Deserialize<T>(string yaml)
+		/// <summary>
+		/// Deserialize a string to a object
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="yaml"></param>
+		/// <returns></returns>
+		public static T Deserialize<T>(string yaml) where T : class, new()
 		{
-			var deserializer = new TokenDeserializer(typeof(T), null);
-
-			var lines = yaml.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-
-			var scanner = new Scanner(lines);
-			var parser = new Parser(scanner);
-			var tokens = parser.Parse();
-
-			for (var i = 0; i < tokens.Count; i++)
-			{
-				deserializer.Deserialize(tokens[i]);
-			}
-
-			return (T)deserializer.Node;
-		}
+            var reader = new YamlReader();
+			return reader.Read<T>(yaml);
+        }
 
 	}
 }

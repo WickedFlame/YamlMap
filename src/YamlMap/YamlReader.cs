@@ -5,13 +5,31 @@ using YamlMap.Serialization;
 namespace YamlMap
 {
     //https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+
+    /// <summary>
+    /// Deserialize a yaml string to a object
+    /// </summary>
     public class YamlReader
     {
+        /// <summary>
+        /// Read a yaml string and map it to a object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="yaml"></param>
+        /// <returns></returns>
         public T Read<T>(string yaml) where T : class, new()
         {
-            return Read<T>(yaml.Split(Environment.NewLine));
+            var lines = yaml.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            return Read<T>(lines);
         }
 
+        /// <summary>
+        /// Read a array of yaml string and map it to a object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lines"></param>
+        /// <returns></returns>
         public T Read<T>(string[] lines) where T : class, new()
         {
             var deserializer = new TokenDeserializer(typeof(T), null);
@@ -26,16 +44,6 @@ namespace YamlMap
             }
 
             return (T)deserializer.Node;
-        }
-
-        private string[] ReadAllLines(string file)
-        {
-            if (!File.Exists(file))
-            {
-                file = FindFile(file);
-            }
-
-            return File.ReadAllLines(file);
         }
 
         private string FindFile(string file)
