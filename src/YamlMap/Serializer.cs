@@ -3,13 +3,22 @@ using YamlMap.Serialization;
 
 namespace YamlMap
 {
-	public class Serializer
+	/// <summary>
+	/// Serializer for yaml strings
+	/// </summary>
+	public static class Serializer
 	{
+		/// <summary>
+		/// Serialize a object to a yaml string
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		public static string Serialize<T>(T item)
-		{
-			var tokenSerializer = new TokenSerializer();
-			return tokenSerializer.Serialize(item);
-		}
+        {
+            var writer = new YamlWriter();
+			return writer.Write(item);
+        }
 
 		public static T Deserialize<T>(string yaml)
 		{
