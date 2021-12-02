@@ -1,5 +1,7 @@
 # YamlMap
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WickedFlame/YamlMap/Build?label=Build&logo=Github&style=for-the-badge)](https://github.com/WickedFlame/YamlMap/actions/workflows/build.yml)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/WickedFlame/YamlMap/Build/dev?label=DEV&logo=github&style=for-the-badge)](https://github.com/WickedFlame/YamlMap/actions/workflows/build.yml)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/WickedFlame/YamlMap/linux%20build/dev?label=DEV%20LINUX&logo=github&style=for-the-badge)](https://github.com/WickedFlame/YamlMap/actions/workflows/linux.yml)  
 [![Build status](https://img.shields.io/appveyor/build/chriswalpen/yamlmap/master?label=Master&logo=appveyor&style=for-the-badge)](https://ci.appveyor.com/project/chriswalpen/yamlmap/branch/master)
 [![Build status](https://img.shields.io/appveyor/build/chriswalpen/yamlmap/dev?label=Dev&logo=appveyor&style=for-the-badge)](https://ci.appveyor.com/project/chriswalpen/yamlmap/branch/dev)
   
