@@ -8,23 +8,24 @@ namespace YamlMap.Tests.Serialization
 {
 	public class DeserializerTests
 	{
-		[Test]
-		public void Serializer_Deserialize()
-		{
-			var value = @"Simple: root
-StringList:
-  - one
-  - 2
-ObjList:
-  - Simple: simple
-  - Child:
-      Simple: child";
+        [Test]
+        public void Serializer_Deserialize()
+        {
 
-			var item = Serializer.Deserialize<TestlItem>(value);
-			item.MatchSnapshot();
-		}
+            var value = new StringBuilder().AppendLine("Simple: root")
+                .AppendLine("StringList:")
+                .AppendLine("  - one")
+                .AppendLine("  - 2")
+                .AppendLine("ObjList:")
+                .AppendLine("  - Simple: simple")
+                .AppendLine("  - Child:")
+                .AppendLine("      Simple: child").ToString();
 
-		[Test]
+            var item = Serializer.Deserialize<TestlItem>(value);
+            item.MatchSnapshot();
+        }
+
+        [Test]
 		public void Deserialize_Type()
 		{
 			var item = Serializer.Deserialize<DeserializerType>("Type: YamlMap.Tests.Serialization.DeserializerType, YamlMap.Tests");
