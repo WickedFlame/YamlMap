@@ -1,30 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace YamlMap
 {
-    public interface IToken
-    {
-        TokenType TokenType { get; }
-
-        string Key { get; }
-
-        int Count { get; }
-
-        IToken this[string key] { get; }
-
-        IToken this[int index] { get; }
-
-        int Indentation { get; }
-
-        IToken Parent { get; set; }
-
-        void Set(IToken value);
-    }
-
     public class Token : IToken
     {
         private readonly List<IToken> _children = new List<IToken>();
@@ -43,12 +22,26 @@ namespace YamlMap
             Indentation = indentaiton;
         }
 
+        /// <summary>
+        /// Gets the <see cref="TokenType"/>
+        /// </summary>
         public TokenType TokenType { get; }
 
+        /// <summary>
+        /// Gets the key
+        /// </summary>
         public string Key { get; }
 
+        /// <summary>
+        /// Gets the count of childrens of the token
+        /// </summary>
         public int Count => _children.Count;
 
+        /// <summary>
+        /// Gets the <see cref="IToken"/> containing the given key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public IToken this[string key]
         {
             get
@@ -57,6 +50,11 @@ namespace YamlMap
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="IToken"/> at the given index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public IToken this[int index]
         {
             get
@@ -66,10 +64,20 @@ namespace YamlMap
             }
         }
 
+        /// <summary>
+        /// Gets the indentation of the value in the yaml
+        /// </summary>
         public int Indentation { get; set; }
 
+        /// <summary>
+        /// Gets the parent <see cref="IToken"/>
+        /// </summary>
         public IToken Parent { get; set; }
 
+        /// <summary>
+        /// Add a <see cref="IToken"/> to the children
+        /// </summary>
+        /// <param name="token"></param>
         public void Set(IToken token)
         {
             if (!string.IsNullOrEmpty(token.Key))

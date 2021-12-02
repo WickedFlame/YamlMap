@@ -3,27 +3,19 @@ using System.Linq;
 
 namespace YamlMap
 {
-    public interface IScanner
-    {
-        YamlLine ScanNext();
-    }
-
-    public enum ScannToken
-    {
-        Default,
-        Object,
-        List
-    }
-
+	/// <summary>
+	/// Scanner that parses a yaml string to a list of <see cref="YamlLine"/>
+	/// </summary>
     public class Scanner : IScanner
     {
         private readonly string[] _input;
         private int _index;
+        private readonly Queue<YamlLine> _scannedTokens;
 
-        private ScannToken _scannToken = ScannToken.Default;
-
-        private Queue<YamlLine> _scannedTokens;
-
+		/// <summary>
+		/// Creates a new instance of a <see cref="IScanner"/>
+		/// </summary>
+		/// <param name="input"></param>
         public Scanner(string[] input)
         {
             _scannedTokens = new Queue<YamlLine>();
@@ -31,7 +23,12 @@ namespace YamlMap
             _index = -1;
         }
 
-        public YamlLine ScanNext()
+		/// <summary>
+		/// Scan the string for the next <see cref="YamlLine"/>
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="InvalidConfigurationException"></exception>
+		public YamlLine ScanNext()
         {
             if (_scannedTokens.Count > 0)
             {

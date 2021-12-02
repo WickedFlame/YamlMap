@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Polaroider;
 using YamlMap.Tests.Serialization;
 
-namespace YamlMap.Tests.Reader
+namespace YamlMap.Tests
 {
     public class YamlReaderTests
     {
@@ -25,6 +25,19 @@ namespace YamlMap.Tests.Reader
             var reader = new YamlReader();
             var item = reader.Read<TestlItem>(value);
             item.MatchSnapshot();
+        }
+
+        [Test]
+        public void YamlReader_NoProperty()
+        {
+            var lines = new[]
+            {
+                "Id: InvalidProperty",
+                "InexistentProperty: fail"
+            };
+            var reader = new YamlReader();
+
+            Assert.Throws<InvalidConfigurationException>(() => reader.Read<YamlRoot>(lines));
         }
 
         public class TestlItem

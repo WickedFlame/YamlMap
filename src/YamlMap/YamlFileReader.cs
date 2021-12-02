@@ -1,31 +1,34 @@
 ﻿using System;
 using System.IO;
-using YamlMap.Serialization;
 
 namespace YamlMap
 {
     //https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+
+    /// <summary>
+    /// Read a yaml file and parse it to a object
+    /// </summary>
     public class YamlFileReader
     {
-        public T Read<T>(string file) where T : class, new()
+        private readonly YamlReader _reader;
+
+        /// <summary>
+        /// Creates a new reader to read yaml files
+        /// </summary>
+        public YamlFileReader()
         {
-            return Read<T>(ReadAllLines(file));
+            _reader = new YamlReader();
         }
 
-        public T Read<T>(string[] lines) where T : class, new()
+        /// <summary>
+        /// Read the yaml file and parse it to a object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public T Read<T>(string file) where T : class, new()
         {
-            var deserializer = new TokenDeserializer(typeof(T), null);
-
-            var scanner = new Scanner(lines);
-            var parser = new Parser(scanner);
-            var tokens = parser.Parse();
-
-            for (var i = 0; i < tokens.Count; i++)
-            {
-	            deserializer.Deserialize(tokens[i]);
-            }
-
-            return (T)deserializer.Node;
+            return _reader.Read<T>(ReadAllLines(file));
         }
 
         private string[] ReadAllLines(string file)

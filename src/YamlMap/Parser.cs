@@ -3,15 +3,26 @@ using System.Collections.Generic;
 
 namespace YamlMap
 {
+    /// <summary>
+    /// Uses a <see cref="IScanner"/> to tokenize a yaml string
+    /// </summary>
     public class Parser
     {
         private readonly IScanner _scanner;
 
+        /// <summary>
+        /// Creates a new instance of the parser
+        /// </summary>
+        /// <param name="scanner"></param>
         public Parser(IScanner scanner)
         {
             _scanner = scanner;
         }
 
+        /// <summary>
+        /// Parse the yaml to a <see cref="IToken"/>
+        /// </summary>
+        /// <returns></returns>
         public IToken Parse()
         {
             var line = _scanner.ScanNext();
