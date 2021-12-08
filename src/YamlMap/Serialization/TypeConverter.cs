@@ -3,8 +3,18 @@ using System.Globalization;
 
 namespace YamlMap.Serialization
 {
-    public class TypeConverter
+    /// <summary>
+    /// Converter that converts a string value to a defined type
+    /// </summary>
+    public static class TypeConverter
     {
+        /// <summary>
+        /// Convert the string to a given type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="FormatException"></exception>
         public static object Convert(Type type, string value)
         {
             if (type == typeof(string))
@@ -115,6 +125,11 @@ namespace YamlMap.Serialization
             return null;
         }
 
+        /// <summary>
+        /// Parser a string to a boolean
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool ParseBoolean(object value)
         {
             if (value == null || value == DBNull.Value)
