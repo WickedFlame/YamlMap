@@ -6,10 +6,17 @@ using System.Xml.Schema;
 
 namespace YamlMap.Serialization
 {
+    /// <summary>
+    /// Serializer that creates tokens of objects
+    /// </summary>
     public class TokenSerializer
     {
-	    
-
+	    /// <summary>
+        /// Serialize the item to a string
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public string Serialize<T>(T item)
         {
             var sb = new StringBuilder();
@@ -86,25 +93,5 @@ namespace YamlMap.Serialization
                 sb.AppendLine($"{name}: {value.ToSerializeableString()}".Indent(indentation));
             }
         }
-    }
-
-    internal static class SerializerExtensions
-    {
-	    private static char[] SpecialChars = new[] { ':', '[', ']' };
-
-		public static string ToSerializeableString(this object value)
-	    {
-		    if (value == null)
-		    {
-				return null;
-		    }
-
-		    if (value is string s && SpecialChars.Any(c => s.Contains(c)))
-		    {
-			    value = $"'{s}'";
-		    }
-
-		    return value.ToString();
-	    }
     }
 }

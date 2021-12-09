@@ -31,19 +31,19 @@ namespace YamlMap
 
             while (line != null)
             {
-                while (token.Parent != null && line.Indentation <= token.Indentation)
+                var function = ParserFunctionFactory.GetFunction(line);
+                if (function != null)
                 {
-                    if (token.Parent == null)
+                    while (token.Parent != null && line.Indentation <= token.Indentation)
                     {
-                        break;
+                        if (token.Parent == null)
+                        {
+                            break;
+                        }
+
+                        token = token.Parent;
                     }
 
-                    token = token.Parent;
-                }
-
-                var function = ParserFunctionFactory.GetFunction(line);
-                if(function != null)
-                {
                     token = function(token, line);
                 }
 

@@ -309,5 +309,41 @@ namespace YamlMap.Tests
             Assert.That(result.Count == 1);
             Assert.AreEqual("true", ((ValueToken)result[0]).Value);
         }
+
+        [Test]
+        public void YamlMap_Parser_EmptyItem()
+        {
+            var lines = new[]
+            {
+                "First: one",
+                "",
+                "Comment: true"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.That(result.Count == 2);
+            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+        }
+
+        [Test]
+        public void YamlMap_Parser_Comment()
+        {
+            var lines = new[]
+            {
+                "First: one",
+                "# invalid",
+                "Comment: true"
+            };
+            var scanner = new Scanner(lines);
+            var parser = new Parser(scanner);
+
+            var result = parser.Parse();
+
+            Assert.That(result.Count == 2);
+            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+        }
     }
 }

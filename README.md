@@ -7,7 +7,12 @@
   
 [![NuGet Version](https://img.shields.io/nuget/v/yamlmap.svg?style=for-the-badge&label=Latest)](https://www.nuget.org/packages/yamlmap/)
 [![NuGet Version](https://img.shields.io/nuget/vpre/yamlmap.svg?style=for-the-badge&label=RC)](https://www.nuget.org/packages/yamlmap/)
-
+  
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab8916dc1225487a8a19923e6c96d7fe)](https://www.codacy.com/gh/WickedFlame/YamlMap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WickedFlame/YamlMap&amp;utm_campaign=Badge_Grade)
+  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WickedFlame_Yaml&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WickedFlame_Yaml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=WickedFlame_Yaml&metric=coverage)](https://sonarcloud.io/summary/new_code?id=WickedFlame_Yaml)
+  
 A .NET Yaml Parser.  
 Map Yaml to .NET objects and vice versa.  
 
