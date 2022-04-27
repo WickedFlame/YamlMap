@@ -1,62 +1,64 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-
-# version format
-version: 1.2.2.{build}
-
 environment:
   base_version: 1.2.2
+
+version: $(base_version).{build}
 
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
 
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: '{version}'
-  package_version: $(base_version)-RC{build}
-  assembly_version: $(base_version)
-  file_version: '{version}'
-  informational_version: '{version}'
+image:
+  - Visual Studio 2022
 
-# branches to build
-branches:
-  # whitelist
-  only:
-    - master
-    - dev
-#    - somebranch
+for:
+  - 
+    branches:
+      # whitelist
+      only:
+        - dev
 
-os: Visual Studio 2022
-install:
-#  - set PATH=C:\Program Files (x86)\MSBuild\16.0\Bin;%PATH%
-  - dotnet tool install --global Nuke.GlobalTool
+    # Do not build on tags (GitHub only)
+    skip_tags: true
 
+    install:
+      - dotnet tool install Nuke.GlobalTool --global --version 6.0.1 --no-cache
 
-#before_build:
-#  - ps: dotnet tool install --global FlubuCore.Tool --version 5.1.8
+    before_build:
+      - dotnet restore ./build/_build.csproj
 
-build_script:
-  - nuke ReleaseBuild
-#  - ps: cd BuildScript
-#  - ps: flubu rebuild
+    build_script:
+      - nuke FullBuild --isrc true --version "%base_version%" --buildno "%APPVEYOR_BUILD_NUMBER%"
 
-# to disable automatic tests 
-test: off
+  - 
+    branches:
+      # whitelist
+      only:
+        - master
+
+    # Do not build on tags (GitHub only)
+    skip_tags: true
+
+    install:
+      - dotnet tool install Nuke.GlobalTool --global --version 6.0.1 --no-cache
+
+    before_build:
+      - dotnet restore ./build/_build.csproj
+
+    build_script:
+      - nuke FullBuild --isrc false --version "%base_version%" --buildno "%APPVEYOR_BUILD_NUMBER%"
 
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
-  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.dll
+  - path: src\YamlMap\bin\Release\netstandard2.1\YamlMap.dll
     name: YamlMap.dll
-
-  - path: src\YamlMap\bin\Release\net48\YamlMap.dll
-    name: YamlMap.dll
-
+  - path: src\YamlMap\bin\Release\netstandard2.1\YamlMap.xml
+    name: YamlMap.xml
   # pushing all *.nupkg files in directory
-  - path: 'src\YamlMap\bin\Release\*.nupkg'
+  - path: '**\*.nupkg'
   
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
