@@ -25,6 +25,19 @@ namespace YamlMap
         }
 
         /// <summary>
+        /// Read a yaml string amd map to a object of the given type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="yaml"></param>
+        /// <returns></returns>
+        public object Read(Type type, string yaml)
+        {
+            var lines = yaml.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            return Read(type, lines);
+        }
+
+        /// <summary>
         /// Read a array of yaml string and map it to a object
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -32,7 +45,18 @@ namespace YamlMap
         /// <returns></returns>
         public T Read<T>(string[] lines) where T : class, new()
         {
-            var deserializer = new TokenDeserializer(typeof(T), null);
+            return (T)Read(typeof(T), lines);
+        }
+
+        /// <summary>
+        /// Read a array of yaml string amd map to a object of the given type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        public object Read(Type type, string[] lines)
+        {
+            var deserializer = new TokenDeserializer(type, null);
 
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);
@@ -40,10 +64,10 @@ namespace YamlMap
 
             for (var i = 0; i < tokens.Count; i++)
             {
-	            deserializer.Deserialize(tokens[i]);
+                deserializer.Deserialize(tokens[i]);
             }
 
-            return (T)deserializer.Node;
+            return deserializer.Node;
         }
 
         private string FindFile(string file)
