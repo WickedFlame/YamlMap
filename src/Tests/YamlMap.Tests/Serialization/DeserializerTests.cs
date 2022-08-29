@@ -26,6 +26,23 @@ namespace YamlMap.Tests.Serialization
         }
 
         [Test]
+        public void Serializer_Deserialize_ByType()
+        {
+
+            var value = new StringBuilder().AppendLine("Simple: root")
+                .AppendLine("StringList:")
+                .AppendLine("  - one")
+                .AppendLine("  - 2")
+                .AppendLine("ObjList:")
+                .AppendLine("  - Simple: simple")
+                .AppendLine("  - Child:")
+                .AppendLine("      Simple: child").ToString();
+
+            var item = Serializer.Deserialize(typeof(TestlItem), value);
+            item.MatchSnapshot();
+        }
+
+        [Test]
 		public void Deserialize_Type()
 		{
 			var item = Serializer.Deserialize<DeserializerType>("Type: YamlMap.Tests.Serialization.DeserializerType, YamlMap.Tests");

@@ -32,5 +32,16 @@ namespace YamlMap
 			return reader.Read<T>(yaml);
         }
 
-	}
+		/// <summary>
+		/// Deserialize a string to a object
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="yaml"></param>
+		/// <returns></returns>
+		public static object Deserialize(Type type, string yaml)
+        {
+            var reader = new YamlReader();
+            return reader.Read(type, yaml);
+		}
+    }
 }
