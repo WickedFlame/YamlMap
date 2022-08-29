@@ -13,7 +13,7 @@ namespace YamlMap.Tests
         [SetUp]
         public void Setup()
         {
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path)), "WriterTest.yml");
+            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -28,7 +28,7 @@ namespace YamlMap.Tests
                 Id = "writer test"
             };
 
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path)), "WriterTest.yml");
+            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
 
             var writer = new YamlFileWriter();
             writer.Write(path, item);

@@ -1,0 +1,71 @@
+# http://www.appveyor.com/docs/appveyor-yml
+
+
+# version format
+version: 1.2.2.{build}
+
+environment:
+  base_version: 1.2.2
+
+# you can use {branch} name in version format too
+# version: 1.0.{build}-{branch}
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: $(base_version)-RC{build}
+  assembly_version: $(base_version)
+  file_version: '{version}'
+  informational_version: '{version}'
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+    - dev
+#    - somebranch
+
+os: Visual Studio 2022
+install:
+#  - set PATH=C:\Program Files (x86)\MSBuild\16.0\Bin;%PATH%
+  - dotnet tool install --global Nuke.GlobalTool
+
+
+#before_build:
+#  - ps: dotnet tool install --global FlubuCore.Tool --version 5.1.8
+
+build_script:
+  - nuke ReleaseBuild
+#  - ps: cd BuildScript
+#  - ps: flubu rebuild
+
+# to disable automatic tests 
+test: off
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.dll
+    name: YamlMap.dll
+
+  - path: src\YamlMap\bin\Release\net48\YamlMap.dll
+    name: YamlMap.dll
+
+  # pushing all *.nupkg files in directory
+  - path: 'src\YamlMap\bin\Release\*.nupkg'
+  
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+# deploy:
+    # Deploying to NuGet feed
+#  - provider: NuGet
+#    server: https://my.nuget.server/feed
+#    api_key: 
+#      secure: UlhUOcqPXsN837S8VwqMZ+10mKTxkqlnvCS5mwSyUGkFwwukfBtvXNpX81+bjS1j
+#    skip_symbols: true
+#    symbol_server: https://your.symbol.server/feed
+#    artifact: MeasureMap.nupkg

@@ -33,13 +33,26 @@ class Build : NukeBuild
     [GitRepository] readonly GitRepository GitRepository;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
-    AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
+    AbsolutePath ArtifactsDirectory => RootDirectory / "Artifacts";
+    
+    AbsolutePath TestsDirectory => RootDirectory / "Tests";
+    
+    [Parameter("Version to be injected in the Build")]
+    public string Version { get; set; } = $"1.2.2";
+
+    [Parameter("The Buildnumber provided by the CI")]
+    public string BuildNo = "2";
+
+    [Parameter("Is RC Version")]
+    public bool IsRc = false;
+    
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
             SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             EnsureCleanDirectory(ArtifactsDirectory);
         });
 
@@ -57,6 +70,11 @@ class Build : NukeBuild
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
+                .SetVersion($"{Version}.{BuildNo}")
+                .SetAssemblyVersion($"{Version}.{BuildNo}")
+                .SetFileVersion(Version)
+                .SetInformationalVersion($"{Version}.{BuildNo}")
+                .AddProperty("PackageVersion", PackageVersion)
                 .EnableNoRestore());
         });
 
@@ -66,10 +84,24 @@ class Build : NukeBuild
         {
             DotNetTest(s => s
                 .SetProjectFile(Solution)
-                .SetConfiguration("Debug"));
+                .SetConfiguration(Configuration)
+                .SetNoBuild(true)
+                .SetFilter("FullyQualifiedName!~Integration.Tests")
+                .EnableNoRestore());
         });
 
-    Target ReleaseBuild => _ => _
+    Target FullBuild => _ => _
         .DependsOn(Compile)
         .DependsOn(Test);
+    
+    Target Deploy => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            CopyFileToDirectory($"{SourceDirectory}/YamlMap/bin/{Configuration}/YamlMap.{PackageVersion}.nupkg", "C:\\Projects\\NuGet Store", FileExistsPolicy.Overwrite, false);
+            CopyFileToDirectory($"{SourceDirectory}/YamlMap/bin/{Configuration}/YamlMap.{PackageVersion}.snupkg", "C:\\Projects\\NuGet Store", FileExistsPolicy.Overwrite, false);
+        });
+
+    string PackageVersion
+        => IsRc ? int.Parse(BuildNo) < 10 ? $"{Version}-RC0{BuildNo}" : $"{Version}-RC{BuildNo}" : Version;
 }
