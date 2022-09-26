@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace YamlMap.Serialization
 {
     /// <summary>
     /// Factory Class that generates instances of a type
     /// </summary>
-    public static class ObjectFactory
+    public static class ObjectBuilder
     {
         private static readonly Dictionary<Type, Type> genericInterfaceImplementations = new Dictionary<Type, Type>
         {
@@ -27,6 +25,13 @@ namespace YamlMap.Serialization
             { typeof(IDictionary), typeof(Dictionary<object, object>) }
         };
 
+        /// <summary>
+        /// Create a instance of the type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidConfigurationException"></exception>
         public static object CreateInstance(this Type type, IToken token)
         {
             if (type.IsArray)
@@ -72,7 +77,9 @@ namespace YamlMap.Serialization
 
 			try
             {
-                return Activator.CreateInstance(type);
+                //return Activator.CreateInstance(type);
+
+                return InstanceFactory.Factory.CreateInstance(type, token.GetChildTokens()).Invoke();
             }
             catch (Exception e)
             {
