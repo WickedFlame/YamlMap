@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ### Added
 - Create instances of types with parameterless constructors
+- Added Benchmarks to ensure performance
   
 ### Changed
  
