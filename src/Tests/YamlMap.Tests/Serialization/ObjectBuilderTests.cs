@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 using YamlMap.Serialization;
+using static YamlMap.Tests.Serialization.ObjectBuilderTests;
 
 namespace YamlMap.Tests.Serialization
 {
@@ -62,6 +64,35 @@ namespace YamlMap.Tests.Serialization
             Assert.AreEqual(3, ((IList) obj).Count);
         }
 
+        [Test]
+        public void ObjectBuilder_Generics()
+        {
+            var type = typeof(GenericTest<TestObject>);
+            var token = new Token("test", 1);
+
+            var obj = type.CreateInstance(token);
+
+            obj.Should().NotBeNull();
+            obj.Should().BeAssignableTo<GenericTest<TestObject>>();
+        }
+
+        [Test]
+        public void ObjectBuilder_GenericTypeDefinition()
+        {
+            var type = typeof(GenericTest<>);
+            var token = new Token("test", 1);
+
+            var obj = type.CreateInstance(token);
+
+            obj.Should().NotBeNull();
+            obj.Should().BeAssignableTo<GenericTest<object>>();
+        }
+
         public class TestObject { }
+
+        public class GenericTest<T>
+        {
+            public int Test { get; set; }
+        }
     }
 }

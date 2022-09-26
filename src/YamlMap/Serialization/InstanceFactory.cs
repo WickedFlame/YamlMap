@@ -16,13 +16,13 @@ namespace YamlMap.Serialization
         /// Create an instance of the type
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="tokens"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
-        public Func<object> CreateInstance(Type type, IToken[] tokens)
+        public Func<object> CreateInstance(Type type, IToken token)
         {
             var resolver = new ContractResolver();
             var contract = resolver.GetConstructor(type);
-            contract.Parameters = resolver.CreateConstructoParameters(contract.Constructor, tokens);
+            contract.Parameters = resolver.CreateConstructoParameters(contract.Constructor, token.GetChildTokens());
 
             return () => CreateInstance(contract);
         }

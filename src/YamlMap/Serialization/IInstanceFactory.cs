@@ -11,8 +11,8 @@ namespace YamlMap.Serialization
         /// Create a instance of the type
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="tokens"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
-        Func<object> CreateInstance(Type type, IToken[] tokens);
+        Func<object> CreateInstance(Type type, IToken token);
     }
 }
