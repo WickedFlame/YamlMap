@@ -11,7 +11,7 @@ namespace YamlMap.Tests
     public class YamlFileReaderTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_SimpleProperty_Root()
+        public void YamlMap_YamlReader_SimpleProperty_Root()
         {
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("YamlTest.yml");

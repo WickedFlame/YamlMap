@@ -11,7 +11,7 @@ namespace YamlMap.Tests.Serialization.Mappers
     public class ArrayMapperTests
     {
         [Test]
-        public void WickedFlame_Yaml_Serialization_ArrayMapper_Simple()
+        public void YamlMap_Serialization_ArrayMapper_Simple()
         {
             var token = new ValueToken("Key", "Value", 0);
             var list = new string[1];
@@ -24,7 +24,7 @@ namespace YamlMap.Tests.Serialization.Mappers
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_ArrayMapper()
+        public void YamlMap_Serialization_ArrayMapper()
         {
 
             var token = new Token("tmp", 0);

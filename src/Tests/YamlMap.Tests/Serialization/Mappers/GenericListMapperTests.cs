@@ -11,7 +11,7 @@ namespace YamlMap.Tests.Serialization.Mappers
     public class GenericListMapperTests
     {
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericListMapper_Simple()
+        public void YamlMap_Serialization_GenericListMapper_Simple()
         {
             var token = new ValueToken("Key", "Value", 0);
             var list = new List<string>();
@@ -24,7 +24,7 @@ namespace YamlMap.Tests.Serialization.Mappers
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericListMapper()
+        public void YamlMap_Serialization_GenericListMapper()
         {
 
             var token = new Token("Key", 0);
@@ -40,7 +40,7 @@ namespace YamlMap.Tests.Serialization.Mappers
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericListMapper_NoList()
+        public void YamlMap_Serialization_GenericListMapper_NoList()
         {
 
             var token = new Token("Key", 0);

@@ -18,7 +18,7 @@ namespace YamlMap.Tests.Serialization
         [TestCase(typeof(ICollection<TestObject>), typeof(List<TestObject>))]
         [TestCase(typeof(IDictionary<string, string>), typeof(Dictionary<string, string>))]
         [TestCase(typeof(IDictionary<string, TestObject>), typeof(Dictionary<string, TestObject>))]
-        public void WickedFlame_Yaml_Serialization_ObjectFactory_GenericLists(Type input, Type expected)
+        public void YamlMap_Serialization_ObjectFactory_GenericLists(Type input, Type expected)
         {
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
@@ -30,7 +30,7 @@ namespace YamlMap.Tests.Serialization
         [TestCase(typeof(IList), typeof(List<object>))]
         [TestCase(typeof(ICollection), typeof(List<object>))]
         [TestCase(typeof(IDictionary), typeof(Dictionary<object, object>))]
-        public void WickedFlame_Yaml_Serialization_ObjectFactory_NonGenericLists(Type input, Type expected)
+        public void YamlMap_Serialization_ObjectFactory_NonGenericLists(Type input, Type expected)
         {
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
@@ -39,7 +39,7 @@ namespace YamlMap.Tests.Serialization
         }
 
         [TestCase(typeof(TestObject), typeof(TestObject))]
-        public void WickedFlame_Yaml_Serialization_ObjectFactory_BasicObject(Type input, Type expected)
+        public void YamlMap_Serialization_ObjectFactory_BasicObject(Type input, Type expected)
         {
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
@@ -48,7 +48,7 @@ namespace YamlMap.Tests.Serialization
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_ObjectFactory_Array()
+        public void YamlMap_Serialization_ObjectFactory_Array()
         {
             var type = typeof(string[]);
             var token = new Token("test", 0);

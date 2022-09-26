@@ -10,7 +10,7 @@ namespace YamlMap.Tests.Reader
     public class YamlReaderListTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_List()
+        public void YamlMap_YamlReader_List()
         {
             var lines = new[]
             {
@@ -28,7 +28,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_List_Interface()
+        public void YamlMap_YamlReader_List_Interface()
         {
             var lines = new[]
             {
@@ -46,7 +46,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_List_IEnumerable()
+        public void YamlMap_YamlReader_List_IEnumerable()
         {
             var lines = new[]
             {
