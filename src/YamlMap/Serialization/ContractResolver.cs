@@ -17,7 +17,7 @@ namespace YamlMap.Serialization
         /// <returns></returns>
         public ObjectContract GetConstructor(Type type)
         {
-            var ctors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            var ctors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
                 .Select(c =>
                     new
                     {
