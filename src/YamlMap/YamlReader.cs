@@ -56,11 +56,11 @@ namespace YamlMap
         /// <returns></returns>
         public object Read(Type type, string[] lines)
         {
-            var deserializer = new TokenDeserializer(type, null);
-
             var scanner = new Scanner(lines);
             var parser = new Parser(scanner);
             var tokens = parser.Parse();
+
+            var deserializer = new TokenDeserializer(type, tokens);
 
             for (var i = 0; i < tokens.Count; i++)
             {

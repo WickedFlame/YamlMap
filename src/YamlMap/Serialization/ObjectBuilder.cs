@@ -7,7 +7,7 @@ namespace YamlMap.Serialization
     /// <summary>
     /// Factory Class that generates instances of a type
     /// </summary>
-    public static class ObjectFactory
+    public static class ObjectBuilder
     {
         private static readonly Dictionary<Type, Type> genericInterfaceImplementations = new Dictionary<Type, Type>
         {
@@ -25,24 +25,27 @@ namespace YamlMap.Serialization
             { typeof(IDictionary), typeof(Dictionary<object, object>) }
         };
 
+        /// <summary>
+        /// Create a instance of the type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidConfigurationException"></exception>
         public static object CreateInstance(this Type type, IToken token)
         {
             if (type.IsArray)
             {
-                return Array.CreateInstance(type.GetElementType(), token.Count);
+                var arrayType = type.GetElementType();
+                if(arrayType != null)
+                {
+                    return ArrayInstanceFactory.Factory.CreateInstance(arrayType, token).Invoke();
+                }
             }
 
             if (type.IsGenericTypeDefinition)
             {
-                var genericArgs = type.GetGenericArguments();
-                var typeArgs = new Type[genericArgs.Length];
-                for (var i = 0; i < genericArgs.Length; i++)
-                {
-                    typeArgs[i] = typeof(object);
-                }
-
-                var realizedType = type.MakeGenericType(typeArgs);
-                return realizedType.CreateInstance(token);
+                return GenericTypeInstanceFactory.Factory.CreateInstance(type, token).Invoke();
             }
 
             if (type.IsInterface)
@@ -70,7 +73,7 @@ namespace YamlMap.Serialization
 
 			try
             {
-                return Activator.CreateInstance(type);
+                return InstanceFactory.Factory.CreateInstance(type, token).Invoke();
             }
             catch (Exception e)
             {

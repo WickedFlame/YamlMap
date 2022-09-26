@@ -10,7 +10,7 @@ namespace YamlMap.Tests.Reader
     public class YamlReaderDictionaryTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Dictionary()
+        public void YamlMap_YamlReader_Dictionary()
         {
             var lines = new[]
             {
@@ -28,7 +28,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Dictionary_Interface()
+        public void YamlMap_YamlReader_Dictionary_Interface()
         {
             var lines = new[]
             {
@@ -46,7 +46,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Dictionary_List()
+        public void YamlMap_YamlReader_Dictionary_List()
         {
 			// this is a list of object instead of a dictionary
 			// to use dictionary remove the -
@@ -62,7 +62,7 @@ namespace YamlMap.Tests.Reader
 		}
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Dictionary_Objects()
+        public void YamlMap_YamlReader_Dictionary_Objects()
         {
             var lines = new[]
             {

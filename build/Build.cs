@@ -14,7 +14,6 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
 class Build : NukeBuild
 {
@@ -39,7 +38,7 @@ class Build : NukeBuild
     AbsolutePath TestsDirectory => RootDirectory / "Tests";
     
     [Parameter("Version to be injected in the Build")]
-    public string Version { get; set; } = $"1.2.3";
+    public string Version { get; set; } = $"1.2.4";
 
     [Parameter("The Buildnumber provided by the CI")]
     public string BuildNo = "2";

@@ -1,68 +1,70 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net48</TargetFrameworks>
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net48</TargetFrameworks>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <LangVersion>9.0</LangVersion>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\EnumerableList.yml" />
-    <None Remove="Assets\Nested.yml" />
-    <None Remove="Assets\NestedObjectList.yml" />
-    <None Remove="Assets\ObjectList.yml" />
-    <None Remove="Assets\ObjectProperty.yml" />
-    <None Remove="Assets\SimpleProperty.yml" />
-    <None Remove="Assets\StringList.yml" />
-    <None Remove="Assets\YamlTest.yml" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Assets\EnumerableList.yml" />
+        <None Remove="Assets\Nested.yml" />
+        <None Remove="Assets\NestedObjectList.yml" />
+        <None Remove="Assets\ObjectList.yml" />
+        <None Remove="Assets\ObjectProperty.yml" />
+        <None Remove="Assets\SimpleProperty.yml" />
+        <None Remove="Assets\StringList.yml" />
+        <None Remove="Assets\YamlTest.yml" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="3.1.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="nunit" Version="3.13.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.3.0-alpha-net7.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220726-02" />
-    <PackageReference Include="Polaroider" Version="2.0.6" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="coverlet.msbuild" Version="3.1.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions" Version="6.7.0" />
+        <PackageReference Include="nunit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+        <PackageReference Include="Polaroider" Version="2.0.6" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\YamlMap\YamlMap.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\YamlMap\YamlMap.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Assets\NestedObjectList.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\StringList.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\EnumerableList.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\SimpleProperty.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\ObjectProperty.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Nested.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\ObjectList.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\YamlTest.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <Content Include="Assets\NestedObjectList.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\StringList.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\EnumerableList.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\SimpleProperty.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\ObjectProperty.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\Nested.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\ObjectList.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\YamlTest.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TestData\users.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="TestData\users.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>

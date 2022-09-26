@@ -11,7 +11,7 @@ namespace YamlMap.Tests
     public class YamlReaderArrayElementsTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_SimpleProperty_Root()
+        public void YamlMap_YamlReader_Array_SimpleProperty_Root()
         {
             var lines = new[]
             {
@@ -25,7 +25,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_ObjectProperty_Root()
+        public void YamlMap_YamlReader_Array_ObjectProperty_Root()
         {
             var lines = new[]
             {
@@ -42,7 +42,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_ObjectProperty_Nested()
+        public void YamlMap_YamlReader_Array_ObjectProperty_Nested()
         {
             var lines = new[]
             {
@@ -62,7 +62,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_ObjectProperty_AfterNested()
+        public void YamlMap_YamlReader_Array_ObjectProperty_AfterNested()
         {
             var lines = new[]
             {
@@ -80,7 +80,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_StringList()
+        public void YamlMap_YamlReader_Array_StringList()
         {
             var lines = new[]
             {
@@ -101,7 +101,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_EnumerableList()
+        public void YamlMap_YamlReader_Array_EnumerableList()
         {
             var lines = new[]
             {
@@ -122,7 +122,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_ObjectList()
+        public void YamlMap_YamlReader_Array_ObjectList()
         {
             var lines = new[]
             {
@@ -143,7 +143,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_NestedObjectList()
+        public void YamlMap_YamlReader_Array_NestedObjectList()
         {
             var lines = new[]
             {

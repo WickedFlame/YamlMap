@@ -9,7 +9,7 @@ namespace YamlMap.Tests
     public class YamlWriterTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlWriter()
+        public void YamlMap_YamlWriter()
         {
             var item = new YamlItem
             {
@@ -24,7 +24,7 @@ namespace YamlMap.Tests
 
         //TODO: null property
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_null()
+        public void YamlMap_YamlWriter_null()
         {
             var item = new YamlItem
             {
@@ -39,7 +39,7 @@ namespace YamlMap.Tests
 
         //TODO: protected/private property
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_Child()
+        public void YamlMap_YamlWriter_Child()
         {
             var item = new YamlItem
             {
@@ -62,7 +62,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_StringArry()
+        public void YamlMap_YamlWriter_StringArry()
         {
 	        var item = new YamlItem
 	        {
@@ -83,7 +83,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_ObjectList()
+        public void YamlMap_YamlWriter_ObjectList()
         {
 	        var item = new YamlItem
 	        {
@@ -109,7 +109,7 @@ namespace YamlMap.Tests
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_String_SpecialChars()
+        public void YamlMap_YamlWriter_String_SpecialChars()
         {
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Value = "tes:one" });
@@ -123,7 +123,7 @@ namespace YamlMap.Tests
 		}
 
         [Test]
-        public void WickedFlame_Yaml_YamlWriter_StringList_SpecialChars()
+        public void YamlMap_YamlWriter_StringList_SpecialChars()
         {
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Values = new[]
@@ -143,7 +143,7 @@ namespace YamlMap.Tests
 		}
 
 		[Test]
-        public void WickedFlame_Yaml_YamlWriter_Type()
+        public void YamlMap_YamlWriter_Type()
         {
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Type = typeof(YamlWriter) });

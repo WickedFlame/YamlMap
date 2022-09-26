@@ -9,7 +9,7 @@ namespace YamlMap.Tests.Reader
     public class YamlReaderArrayTests
     {
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array()
+        public void YamlMap_YamlReader_Array()
         {
             var lines = new[]
             {
@@ -31,7 +31,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_Brackets()
+        public void YamlMap_YamlReader_Array_Brackets()
         {
 	        var lines = new[]
 	        {
@@ -48,7 +48,7 @@ namespace YamlMap.Tests.Reader
         }
 
 		[Test]
-        public void WickedFlame_Yaml_YamlReader_Array_Object()
+        public void YamlMap_YamlReader_Array_Object()
         {
             var lines = new[]
             {
@@ -68,7 +68,7 @@ namespace YamlMap.Tests.Reader
         }
 
         [Test]
-        public void WickedFlame_Yaml_YamlReader_Array_Nested()
+        public void YamlMap_YamlReader_Array_Nested()
         {
 	        var lines = new[]
 	        {

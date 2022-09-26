@@ -11,7 +11,7 @@ namespace YamlMap.Tests.Serialization.Mappers
     public class GenericDictionaryMapperTests
     {
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericDictionaryMapper_Simple()
+        public void YamlMap_Serialization_GenericDictionaryMapper_Simple()
         {
             var token = new ValueToken("Key", "Value", 0);
             var list = new Dictionary<string, string>();
@@ -24,7 +24,7 @@ namespace YamlMap.Tests.Serialization.Mappers
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericDictionaryMapper()
+        public void YamlMap_Serialization_GenericDictionaryMapper()
         {
 
             var token = new Token("Key", 0);
@@ -40,7 +40,7 @@ namespace YamlMap.Tests.Serialization.Mappers
         }
 
         [Test]
-        public void WickedFlame_Yaml_Serialization_GenericDictionaryMapper_NoDictionary()
+        public void YamlMap_Serialization_GenericDictionaryMapper_NoDictionary()
         {
 
             var token = new Token("Key", 0);
