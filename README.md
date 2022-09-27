@@ -121,7 +121,7 @@ WrappedText: >
 ```
 
 # Best practice
-## Deserialing to Object
+## Deserializng yaml to a Object
 To deserialize a Yaml to a object, it is best to have a parameterless constructor.  
 If a object needs to have a constructor with parameters, the parameter names have to be the same as the properties that they are mapped to.  
 Else YamlMap will not be able to mapt the correct values to the parameters.  
