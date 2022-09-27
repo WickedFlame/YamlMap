@@ -25,14 +25,3 @@ ProfilerSession.StartSession()
     })
     .RunSession()
     .Trace();
-
-
-//ProfilerSession.StartSession()
-//    .SetIterations(10)
-//    .Task(c =>
-//    {
-//        var reader = new YamlReader();
-//        reader.Read<TestlItem>(value);
-//    })
-//    .RunSession()
-//    .Trace();
