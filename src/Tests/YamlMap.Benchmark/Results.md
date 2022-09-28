@@ -1,4 +1,21 @@
 ﻿
+# MeasureMap - vNext
+## Summary
+| Category | Metric            |            Value |
+| :------- | :---------------- | ---------------: |
+| Warmup   | Duration Warmup   | 00:00:00.1034451 |
+| Setup    | Threads           |               10 |
+|          | Iterations        |              100 |
+| Duration | Duration          | 00:00:00.2872490 |
+|          | Total Time        | 00:00:00.4672076 |
+|          | Avg. Time         | 00:00:00.0046720 |
+|          | Avg. Milliseconds |         4.672 ms |
+|          | Throughput        |      348.13002/s |
+|          | Fastest           | 00:00:00.0002071 |
+|          | Slowest           | 00:00:00.0115830 |
+| Memory   | Memory init size  |           127592 |
+|          | Memory end size   |           173752 |
+|          | Memory increase   |            46160 |
 
 
 # MeasureMap - v1.2.4
