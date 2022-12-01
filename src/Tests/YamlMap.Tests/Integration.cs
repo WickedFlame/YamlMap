@@ -13,9 +13,7 @@ namespace YamlMap.Tests
 		[Test]
 		public void LoadDataFromFile()
 		{
-            var codeBase = Assembly.GetExecutingAssembly().Location;
-            var uri = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(uri.Path);
+            var path = Assembly.GetExecutingAssembly().Location;
             path = Path.Combine(Path.GetDirectoryName(path), "TestData", "users.yml");
 
             var reader = new YamlFileReader();

@@ -15,9 +15,7 @@ namespace YamlMap.Tests
         [SetUp]
         public void Setup()
         {
-            var codeBase = Assembly.GetExecutingAssembly().Location;
-            var uri = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(uri.Path);
+            var path = Assembly.GetExecutingAssembly().Location;
             _path = Path.Combine(Path.GetDirectoryName(path), "WriterTest.yml");
 
             if (File.Exists(_path))
