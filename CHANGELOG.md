@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
-## [Unreleased] - yyyy-mm-dd
+## vNext
+### Added
+  
+### Changed
  
+### Fixed
+ 
+## v1.2.4
 ### Added
 - Create instances of types with parameterless constructors
 - Added Benchmarks to ensure performance
@@ -14,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ### Fixed
  
-## [1.2.3] - 2022-08-15
+## v1.2.3
    
 ### Added
  
