@@ -13,15 +13,18 @@ namespace YamlMap.Tests
 		[Test]
 		public void LoadDataFromFile()
 		{
-			var path = Uri.UnescapeDataString(new UriBuilder(typeof(Integration).Assembly.Location).Path);
-			path = Path.Combine(Path.GetDirectoryName(path), "TestData", "users.yml");
+            var codeBase = Assembly.GetExecutingAssembly().Location;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
+            path = Path.Combine(Path.GetDirectoryName(path), "TestData", "users.yml");
 
-			var reader = new YamlFileReader();
+            var reader = new YamlFileReader();
 			var users = reader.Read<List<User>>(path);
 
 			Assert.IsTrue(users.Count == 3);
 
 		}
+
 		public class User
 		{
 			public enum UserType

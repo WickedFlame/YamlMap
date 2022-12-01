@@ -10,13 +10,19 @@ namespace YamlMap.Tests
 {
     public class YamlFileWriterTests
     {
+        private string _path;
+
         [SetUp]
         public void Setup()
         {
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
-            if (File.Exists(path))
+            var codeBase = Assembly.GetExecutingAssembly().Location;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
+            _path = Path.Combine(Path.GetDirectoryName(path), "WriterTest.yml");
+
+            if (File.Exists(_path))
             {
-                File.Delete(path);
+                File.Delete(_path);
             }
         }
 
@@ -28,12 +34,10 @@ namespace YamlMap.Tests
                 Id = "writer test"
             };
 
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
-
             var writer = new YamlFileWriter();
-            writer.Write(path, item);
+            writer.Write(_path, item);
 
-            File.ReadAllText(path).MatchSnapshot();
+            File.ReadAllText(_path).MatchSnapshot();
         }
     }
 }
