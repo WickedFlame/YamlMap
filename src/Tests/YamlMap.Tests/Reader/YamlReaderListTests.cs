@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace YamlMap.Tests.Reader
@@ -61,6 +62,42 @@ namespace YamlMap.Tests.Reader
             Assert.That(data.IEnumerable.Count() == 2);
             Assert.That(data.IEnumerable.First() == "one");
             Assert.That(data.IEnumerable.Last() == "1");
+        }
+
+        [Test]
+        public void YamlMap_YamlReader_List_Invalid_Indentation()
+        {
+            var lines = new[]
+            {
+                "IEnumerable:",
+                "- one",
+                "- 1"
+            };
+
+            var reader = new YamlReader();
+            Action act = () => reader.Read<StringNode>(lines);
+            act.Should().Throw<InvalidConfigurationException>();
+        }
+
+        [Test]
+        public void YamlMap_YamlReader_List_Invalid_Indentation_Message()
+        {
+            var lines = new[]
+            {
+                "IEnumerable:",
+                "- one",
+                "- 1"
+            };
+
+            var reader = new YamlReader();
+            try
+            {
+                reader.Read<StringNode>(lines);
+            }
+            catch (InvalidConfigurationException e)
+            {
+                e.Message.Should().Be("The configured ListItem 'one' could not be mapped to Type 'YamlMap.Tests.Reader.YamlReaderListTests+StringNode'. This is an indication that the configured Node does not match the expected Type on the Object");
+            }
         }
 
         public class StringNode

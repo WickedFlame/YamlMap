@@ -4,10 +4,19 @@ using System.Linq;
 
 namespace YamlMap
 {
+    /// <summary>
+    /// Token representing a yaml element
+    /// </summary>
     public class Token : IToken
     {
         private readonly List<IToken> _children = new List<IToken>();
 
+        /// <summary>
+        /// Creates a new Token representing a yaml element
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="indentaiton"></param>
+        /// <param name="tokenType"></param>
         public Token(string key, int indentaiton, TokenType tokenType)
         {
             Key = key;
@@ -15,11 +24,14 @@ namespace YamlMap
             Indentation = indentaiton;
         }
 
-        public Token(string key, int indentaiton)
+        /// <summary>
+        /// Creates a new Token representing a yaml element
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="indentaiton"></param>
+        public Token(string key, int indentaiton) 
+            : this(key, indentaiton, TokenType.Object)
         {
-            TokenType = TokenType.Object;
-            Key = key;
-            Indentation = indentaiton;
         }
 
         /// <summary>
@@ -94,6 +106,10 @@ namespace YamlMap
             _children.Add(token);
         }
 
+        /// <summary>
+        /// Gets the string value
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (TokenType == TokenType.ListItem || string.IsNullOrEmpty(Key))
@@ -102,61 +118,6 @@ namespace YamlMap
             }
 
             return $"[{TokenType}] Key: {Key}";
-        }
-    }
-
-    public class ValueToken : IToken
-    {
-        public ValueToken(string key, string value, int indentation)
-        {
-            TokenType = TokenType.Value;
-            Key = key;
-            Value = ParseValue(value);
-            Indentation = indentation;
-        }
-
-        private string ParseValue(string value)
-        {
-            var quotations = new List<string>
-            {
-                "'",
-                "\""
-            };
-
-            foreach(var c in quotations)
-            {
-                if (value.StartsWith(c) && value.EndsWith(c))
-                {
-                    return value.Substring(1, value.Length - 2);
-                }
-            }
-
-            return value;
-        }
-
-        public TokenType TokenType { get; }
-
-        public string Key { get; }
-
-        public int Count => 0;
-
-        public IToken this[string key] => throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
-
-        public IToken this[int index] => throw new InvalidOperationException("A ValueToken cannot be used with a Indexer");
-
-        public int Indentation { get; set; }
-
-        public IToken Parent { get; set; }
-
-        public string Value { get; }
-
-        public void Set(IToken value)
-        {
-        }
-
-        public override string ToString()
-        {
-            return $"[{TokenType}] {Key} : {Value}";
         }
     }
 }

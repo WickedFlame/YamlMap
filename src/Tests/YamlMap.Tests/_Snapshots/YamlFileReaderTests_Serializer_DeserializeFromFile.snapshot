@@ -1,0 +1,15 @@
+---data
+Dictionary:
+EnumerableList:
+Id: id
+Nested:
+NestedObjectList:
+  Name: first
+  Nested:
+    Name: second
+    Nested:
+      Name: third
+      Nested:
+ObjectList:
+SimpleObject:
+StringList:

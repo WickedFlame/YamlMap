@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace YamlMap.Tests.Reader
@@ -58,8 +59,32 @@ namespace YamlMap.Tests.Reader
             };
 
             var reader = new YamlReader();
-			Assert.Throws<InvalidConfigurationException>(() => reader.Read<StringNode>(lines));
+            Action act = () => reader.Read<StringNode>(lines);
+            act.Should().Throw<InvalidConfigurationException>();
 		}
+
+        [Test]
+        public void YamlMap_YamlReader_Dictionary_List_ExceptionMessage()
+        {
+            // this is a list of object instead of a dictionary
+            // to use dictionary remove the -
+            var lines = new[]
+            {
+                "Dictionary:",
+                "  - Name: one",
+                "  - Id: 1"
+            };
+
+            var reader = new YamlReader();
+            try
+            {
+                reader.Read<StringNode>(lines);
+            }
+            catch (InvalidConfigurationException e)
+            {
+                e.Message.Should().Be("The configured Node 'Name: one' could not be mapped to Type 'System.String'. This is an indication that the configured Node does not match the expected Type on the Object");
+            }
+        }
 
         [Test]
         public void YamlMap_YamlReader_Dictionary_Objects()

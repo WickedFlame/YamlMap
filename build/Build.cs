@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
@@ -36,12 +37,14 @@ class Build : NukeBuild
     AbsolutePath ArtifactsDirectory => RootDirectory / "Artifacts";
     
     AbsolutePath TestsDirectory => RootDirectory / "Tests";
-    
+
+    AbsolutePath DeployPath => (AbsolutePath)"C:" / "Projects" / "NuGet Store";
+
     [Parameter("Version to be injected in the Build")]
-    public string Version { get; set; } = $"1.2.4";
+    public string Version { get; set; } = $"1.2.5";
 
     [Parameter("The Buildnumber provided by the CI")]
-    public string BuildNo = "2";
+    public int BuildNo = 10;
 
     [Parameter("Is RC Version")]
     public bool IsRc = false;
@@ -94,13 +97,32 @@ class Build : NukeBuild
         .DependsOn(Test);
     
     Target Deploy => _ => _
-        .DependsOn(Compile)
+        .DependsOn(FullBuild)
         .Executes(() =>
         {
-            CopyFileToDirectory($"{SourceDirectory}/YamlMap/bin/{Configuration}/YamlMap.{PackageVersion}.nupkg", "C:\\Projects\\NuGet Store", FileExistsPolicy.Overwrite, false);
-            CopyFileToDirectory($"{SourceDirectory}/YamlMap/bin/{Configuration}/YamlMap.{PackageVersion}.snupkg", "C:\\Projects\\NuGet Store", FileExistsPolicy.Overwrite, false);
+            // copy to artifacts folder
+            foreach (var file in Directory.GetFiles(RootDirectory, $"*.{PackageVersion}.nupkg", SearchOption.AllDirectories))
+            {
+                CopyFile(file, ArtifactsDirectory / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+            }
+
+            foreach (var file in Directory.GetFiles(RootDirectory, $"*.{PackageVersion}.snupkg", SearchOption.AllDirectories))
+            {
+                CopyFile(file, ArtifactsDirectory / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+            }
+
+            // copy to local store
+            foreach (var file in Directory.GetFiles(ArtifactsDirectory, $"*.{PackageVersion}.nupkg", SearchOption.AllDirectories))
+            {
+                CopyFile(file, DeployPath / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+            }
+
+            foreach (var file in Directory.GetFiles(ArtifactsDirectory, $"*.{PackageVersion}.snupkg", SearchOption.AllDirectories))
+            {
+                CopyFile(file, DeployPath / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+            }
         });
 
     string PackageVersion
-        => IsRc ? int.Parse(BuildNo) < 10 ? $"{Version}-RC0{BuildNo}" : $"{Version}-RC{BuildNo}" : Version;
+        => IsRc ? BuildNo < 10 ? $"{Version}-RC0{BuildNo}" : $"{Version}-RC{BuildNo}" : Version;
 }

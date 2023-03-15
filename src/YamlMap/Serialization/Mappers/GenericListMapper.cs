@@ -2,8 +2,17 @@
 
 namespace YamlMap.Serialization.Mappers
 {
+    /// <summary>
+    /// Mapper or lists
+    /// </summary>
     public class GenericListMapper : BaseObjectMapper, IObjectMapper
     {
+        /// <summary>
+        /// Map the token to the list
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Map(IToken token, object item)
         {
             var list = item as IList;

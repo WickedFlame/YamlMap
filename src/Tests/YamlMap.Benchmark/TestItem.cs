@@ -1,6 +1,7 @@
 ﻿
 namespace YamlMap.Benchmark
 {
+#pragma warning disable CS8618
     public class TestlItem
     {
         public string Simple { get; set; }
@@ -22,4 +23,5 @@ namespace YamlMap.Benchmark
 
         public IEnumerable<TestlItem> ObjList { get; set; }
     }
+#pragma warning restore CS8618
 }

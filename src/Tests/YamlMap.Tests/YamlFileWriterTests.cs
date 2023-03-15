@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
 using NUnit.Framework;
 using Polaroider;
 
@@ -10,13 +7,17 @@ namespace YamlMap.Tests
 {
     public class YamlFileWriterTests
     {
+        private string _path;
+
         [SetUp]
         public void Setup()
         {
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
-            if (File.Exists(path))
+            var path = Assembly.GetExecutingAssembly().Location;
+            _path = Path.Combine(Path.GetDirectoryName(path), "WriterTest.yml");
+
+            if (File.Exists(_path))
             {
-                File.Delete(path);
+                File.Delete(_path);
             }
         }
 
@@ -28,12 +29,23 @@ namespace YamlMap.Tests
                 Id = "writer test"
             };
 
-            var path = Path.Combine(Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path)), "WriterTest.yml");
-
             var writer = new YamlFileWriter();
-            writer.Write(path, item);
+            writer.Write(_path, item);
 
-            File.ReadAllText(path).MatchSnapshot();
+            File.ReadAllText(_path).MatchSnapshot();
+        }
+
+        [Test]
+        public void Serializer_SerializeToFile()
+        {
+            var item = new YamlRoot
+            {
+                Id = "writer test"
+            };
+
+            Serializer.SerializeToFile(_path, item);
+
+            File.ReadAllText(_path).MatchSnapshot();
         }
     }
 }

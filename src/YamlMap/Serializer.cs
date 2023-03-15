@@ -1,5 +1,4 @@
 ﻿using System;
-using YamlMap.Serialization;
 
 namespace YamlMap
 {
@@ -18,6 +17,18 @@ namespace YamlMap
         {
             var writer = new YamlWriter();
 			return writer.Write(item);
+        }
+
+		/// <summary>
+		/// Serialize a object and save this to a file
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="fileName"></param>
+		/// <param name="item"></param>
+        public static void SerializeToFile<T>(string fileName, T item)
+        {
+			var writer = new YamlFileWriter();
+            writer.Write(fileName, item);
         }
 
 		/// <summary>
@@ -43,5 +54,17 @@ namespace YamlMap
             var reader = new YamlReader();
             return reader.Read(type, yaml);
 		}
+
+        /// <summary>
+        /// Deserialize a yaml from a file to a object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static T DeserializeFromFile<T>(string fileName) where T : class, new()
+        {
+            var reader = new YamlFileReader();
+            return reader.Read<T>(fileName);
+        }
     }
 }

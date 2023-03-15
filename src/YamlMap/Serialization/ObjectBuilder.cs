@@ -77,7 +77,7 @@ namespace YamlMap.Serialization
             }
             catch (Exception e)
             {
-	            throw new InvalidConfigurationException($"Could not create an instance of Type {type.FullName}", e);
+	            throw new YamlSerializationException($"Could not create an instance of Type {type.FullName}", e);
 			}
         }
     }

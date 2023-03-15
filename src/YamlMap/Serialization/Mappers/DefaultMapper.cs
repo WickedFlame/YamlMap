@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace YamlMap.Serialization.Mappers
 {
+    /// <summary>
+    /// Default mapper for objects
+    /// </summary>
     public class DefaultMapper : IObjectMapper
     {
         static readonly IEnumerable<Type> _supportedTypes = new List<Type>
@@ -27,6 +30,10 @@ namespace YamlMap.Serialization.Mappers
 
         private readonly PropertyInfo[] _properties;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         public DefaultMapper(Type type)
         {
             //if (type.IsGenericType)
@@ -37,6 +44,12 @@ namespace YamlMap.Serialization.Mappers
             _properties = type.GetProperties();
         }
 
+        /// <summary>
+        /// Map the token to the object
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Map(IToken token, object item)
         {
 	        if (!(token is ValueToken valueToken))
@@ -58,6 +71,13 @@ namespace YamlMap.Serialization.Mappers
 			return ParsePrimitive(propertyInfo, item, valueToken.Value);
         }
 
+        /// <summary>
+        /// Parse primitive values
+        /// </summary>
+        /// <param name="prop"></param>
+        /// <param name="item"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool ParsePrimitive(PropertyInfo prop, object item, object value)
         {
 	        if (!_supportedTypes.Contains(prop.PropertyType) && !prop.PropertyType.IsEnum)
