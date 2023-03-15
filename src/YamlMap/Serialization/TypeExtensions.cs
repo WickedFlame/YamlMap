@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -8,7 +7,7 @@ namespace YamlMap.Serialization
 {
     internal static class TypeExtensions
     {
-        private static object _lock = new ();
+        private static readonly object _lock = new ();
         private static Dictionary<Type, IEnumerable<PropertyInfo>> _propertyCache = new Dictionary<Type, IEnumerable<PropertyInfo>>();
 
         /// <summary>
