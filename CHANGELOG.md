@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Use List<> to map to IEnumerable<> properties
   
 ### Changed
-- Breaking - Thrwo YamlSerializationException instead of InvalidConfigurationException when creating objects
+- Breaking - Throw YamlSerializationException instead of InvalidConfigurationException when creating objects
+- Exceptions deliver better messages to show what configuration caused the problem
  
 ### Fixed
  

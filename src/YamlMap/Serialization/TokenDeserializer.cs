@@ -47,20 +47,7 @@ namespace YamlMap.Serialization
             }
 
             var property = _type.GetProperty(token);
-            if (property == null)
-            {
-	            var msg = new StringBuilder()
-		            .AppendLine($"The configured token {token} could not be mapped")
-		            .AppendLine($" Property: {token.Key}")
-		            .AppendLine($" Expected type: {Node.GetType().FullName}");
-
-	            if (token is ValueToken val)
-	            {
-		            msg.AppendLine($" Value: {val.Value}");
-	            }
-
-				throw new InvalidConfigurationException(msg.ToString());
-            }
+            PropertyValidator.Assert(property, token, Node.GetType());
 
             var child = new TokenDeserializer(property.PropertyType, token);
             child.DeserializeChildren();
