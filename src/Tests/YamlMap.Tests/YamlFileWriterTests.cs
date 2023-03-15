@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
 using NUnit.Framework;
 using Polaroider;
 
@@ -34,6 +31,19 @@ namespace YamlMap.Tests
 
             var writer = new YamlFileWriter();
             writer.Write(_path, item);
+
+            File.ReadAllText(_path).MatchSnapshot();
+        }
+
+        [Test]
+        public void Serializer_SerializeToFile()
+        {
+            var item = new YamlRoot
+            {
+                Id = "writer test"
+            };
+
+            Serializer.SerializeToFile(_path, item);
 
             File.ReadAllText(_path).MatchSnapshot();
         }

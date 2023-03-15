@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using YamlMap;
 using NUnit.Framework;
+using Polaroider;
 
 namespace YamlMap.Tests
 {
@@ -95,6 +96,4 @@ namespace YamlMap.Tests
             Assert.That(data.NestedObjectList.First().Nested.Nested.Name == "third");
         }
     }
-
-    
 }

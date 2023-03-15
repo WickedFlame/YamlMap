@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## vNext
 ### Added
 - Use List<> to map to IEnumerable<> properties
+- Extended Serializer to serialize to file and deserialize from file
   
 ### Changed
 - Breaking - Throw YamlSerializationException instead of InvalidConfigurationException when creating objects

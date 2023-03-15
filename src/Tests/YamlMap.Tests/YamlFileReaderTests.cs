@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YamlMap;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Polaroider;
 
 namespace YamlMap.Tests
 {
@@ -17,6 +13,12 @@ namespace YamlMap.Tests
             var data = reader.Read<YamlRoot>("YamlTest.yml");
 
             Assert.AreEqual("id", data.Id);
+        }
+
+        [Test]
+        public void Serializer_DeserializeFromFile()
+        {
+            Serializer.DeserializeFromFile<YamlRoot>("NestedObjectList.yml").MatchSnapshot();
         }
     }
 }
