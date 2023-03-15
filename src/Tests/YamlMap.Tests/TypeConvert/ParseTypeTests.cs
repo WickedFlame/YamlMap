@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using YamlMap.Serialization;
 
 namespace YamlMap.Tests.TypeConvert
 {
@@ -31,7 +32,7 @@ namespace YamlMap.Tests.TypeConvert
             };
 
             var reader = new YamlReader();
-            Assert.Throws<InvalidConfigurationException>(() => reader.Read<PrimitiveValues>(lines));
+            Assert.Throws<YamlSerializationException>(() => reader.Read<PrimitiveValues>(lines));
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace YamlMap.Tests.TypeConvert
             };
 
             var reader = new YamlReader();
-            Assert.Throws<InvalidConfigurationException>(() => reader.Read<PrimitiveValues>(lines));
+            Assert.Throws<YamlSerializationException>(() => reader.Read<PrimitiveValues>(lines));
         }
 
         [Test]
