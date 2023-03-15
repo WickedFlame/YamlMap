@@ -8,8 +8,15 @@ namespace YamlMap.Serialization
 {
     internal static class TypeExtensions
     {
+        private static object _lock = new ();
         private static Dictionary<Type, IEnumerable<PropertyInfo>> _propertyCache = new Dictionary<Type, IEnumerable<PropertyInfo>>();
 
+        /// <summary>
+        /// Get the property
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public static PropertyInfo GetProperty(this Type type, IToken token)
         {
             if (type.IsGenericType)
@@ -17,7 +24,7 @@ namespace YamlMap.Serialization
                 type = type.GetGenericArguments()[0];
             }
 
-            lock (_propertyCache)
+            lock (_lock)
             {
                 if (!_propertyCache.ContainsKey(type))
                 {
@@ -29,6 +36,11 @@ namespace YamlMap.Serialization
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
 		public static bool HasGenericType(this Type type)
         {
             while (type != null)
@@ -44,6 +56,12 @@ namespace YamlMap.Serialization
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="genericTypeDefinitions"></param>
+        /// <returns></returns>
         public static Type GetTypeWithGenericTypeDefinitionOfAny(this Type type, params Type[] genericTypeDefinitions)
         {
             foreach (var genericTypeDefinition in genericTypeDefinitions)
@@ -63,6 +81,12 @@ namespace YamlMap.Serialization
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="genericTypeDefinition"></param>
+        /// <returns></returns>
         public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
         {
             foreach (var t in type.GetInterfaces())
@@ -82,6 +106,11 @@ namespace YamlMap.Serialization
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static Type GetGenericType(this Type type)
         {
             while (type != null)
