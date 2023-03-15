@@ -71,6 +71,13 @@ namespace YamlMap.Serialization.Mappers
 			return ParsePrimitive(propertyInfo, item, valueToken.Value);
         }
 
+        /// <summary>
+        /// Parse primitive values
+        /// </summary>
+        /// <param name="prop"></param>
+        /// <param name="item"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool ParsePrimitive(PropertyInfo prop, object item, object value)
         {
 	        if (!_supportedTypes.Contains(prop.PropertyType) && !prop.PropertyType.IsEnum)

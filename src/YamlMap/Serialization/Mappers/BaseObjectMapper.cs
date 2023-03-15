@@ -7,6 +7,12 @@ namespace YamlMap.Serialization.Mappers
     /// </summary>
     public abstract class BaseObjectMapper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="addValue"></param>
+        /// <returns></returns>
         protected bool AddValueToken(IToken token, Action<ValueToken> addValue)
         {
             if (token is ValueToken valueToken)
@@ -18,6 +24,13 @@ namespace YamlMap.Serialization.Mappers
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <param name="addChild"></param>
+        /// <returns></returns>
         protected bool AddChildNode(Type type, IToken token, Action<TokenDeserializer> addChild)
         {
             // create a new reader for the list type

@@ -106,6 +106,10 @@ namespace YamlMap
             _children.Add(token);
         }
 
+        /// <summary>
+        /// Gets the string value
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (TokenType == TokenType.ListItem || string.IsNullOrEmpty(Key))
