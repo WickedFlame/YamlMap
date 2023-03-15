@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using YamlMap.Serialization.Mappers;
-using ArrayMapper = YamlMap.Serialization.Mappers.ArrayMapper;
 
 namespace YamlMap.Tests.Serialization.Mappers
 {
@@ -38,6 +35,18 @@ namespace YamlMap.Tests.Serialization.Mappers
             Assert.IsTrue(ok);
             Assert.AreEqual("Value", item[0].Key);
         }
+
+        [Test]
+        public void ArrayMapper_Not_Array()
+        {
+            var token = new ValueToken("Key", "Value", 0);
+            var list = "value";
+
+            var mapper = new ArrayMapper();
+            mapper.Map(token, list).Should().BeFalse();
+        }
+
+
 
         public class ArrayMapperItem
         {

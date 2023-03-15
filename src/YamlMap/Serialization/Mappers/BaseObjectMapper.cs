@@ -2,6 +2,9 @@
 
 namespace YamlMap.Serialization.Mappers
 {
+    /// <summary>
+    /// baseclass for mappers
+    /// </summary>
     public abstract class BaseObjectMapper
     {
         protected bool AddValueToken(IToken token, Action<ValueToken> addValue)

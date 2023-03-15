@@ -2,8 +2,17 @@
 
 namespace YamlMap.Serialization.Mappers
 {
+    /// <summary>
+    /// Mapper for arrays
+    /// </summary>
     public class ArrayMapper : BaseObjectMapper, IObjectMapper
     {
+        /// <summary>
+        /// Map the token to the object
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Map(IToken token, object item)
         {
             if (!(item is IList array))

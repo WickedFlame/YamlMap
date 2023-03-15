@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 namespace YamlMap.Serialization.Mappers
 {
+    /// <summary>
+    /// Mapper for dictionaries
+    /// </summary>
     public class GenericDictionaryMapper : BaseObjectMapper, IObjectMapper
     {
+        /// <summary>
+        /// Map the token to the dictionary
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Map(IToken token, object item)
         {
             var dictionary = item as IDictionary;

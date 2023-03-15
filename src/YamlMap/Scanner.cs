@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using YamlMap.Scanning;
 
 namespace YamlMap
 {
@@ -131,49 +132,5 @@ namespace YamlMap
 
 	        return next.Reader;
         }
-    }
-
-    public enum TokenReaderType
-    {
-		Bracket,
-		SingleQuoatation,
-		DoubleQuotation
-    }
-
-	public interface ITokenReader
-    {
-	    TokenReaderType ReaderType { get; }
-
-		int IndexOfNext(string line);
-    }
-
-    public class BracketTokenReader : ITokenReader
-    {
-	    public TokenReaderType ReaderType => TokenReaderType.Bracket;
-
-	    public int IndexOfNext(string line)
-	    {
-		    return line.IndexOf('[');
-	    }
-    }
-
-    public class SingleQuotationTokenReader : ITokenReader
-    {
-	    public TokenReaderType ReaderType => TokenReaderType.SingleQuoatation;
-
-		public int IndexOfNext(string line)
-	    {
-		    return line.IndexOf('\'');
-	    }
-    }
-
-    public class DoubleQuotationTokenReader : ITokenReader
-    {
-	    public TokenReaderType ReaderType => TokenReaderType.DoubleQuotation;
-
-		public int IndexOfNext(string line)
-	    {
-		    return line.IndexOf('"');
-	    }
     }
 }
