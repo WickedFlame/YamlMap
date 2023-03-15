@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
-## vNext
+## v1.3.0
 ### Added
 - Use List<> to map to IEnumerable<> properties
 - Extended Serializer to serialize to file and deserialize from file
