@@ -22,7 +22,7 @@ for:
     skip_tags: true
 
     install:
-      - dotnet tool install Nuke.GlobalTool --global --version 6.0.1 --no-cache
+      - dotnet tool install Nuke.GlobalTool --global --version 6.3.0 --no-cache
 
     before_build:
       - dotnet restore ./build/_build.csproj
@@ -40,7 +40,7 @@ for:
     skip_tags: true
 
     install:
-      - dotnet tool install Nuke.GlobalTool --global --version 6.0.1 --no-cache
+      - dotnet tool install Nuke.GlobalTool --global --version 6.3.0 --no-cache
 
     before_build:
       - dotnet restore ./build/_build.csproj
@@ -53,9 +53,9 @@ for:
 #---------------------------------#
 
 artifacts:
-  - path: src\YamlMap\bin\Release\netstandard2.1\YamlMap.dll
+  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.dll
     name: YamlMap.dll
-  - path: src\YamlMap\bin\Release\netstandard2.1\YamlMap.xml
+  - path: src\YamlMap\bin\Release\netstandard2.0\YamlMap.xml
     name: YamlMap.xml
   # pushing all *.nupkg files in directory
   - path: '**\*.nupkg'
