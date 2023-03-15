@@ -17,13 +17,16 @@ namespace YamlMap.Serialization
                 type = type.GetGenericArguments()[0];
             }
 
-            if (!_propertyCache.ContainsKey(type))
+            lock (_propertyCache)
             {
-                _propertyCache.Add(type, type.GetProperties());
-            }
+                if (!_propertyCache.ContainsKey(type))
+                {
+                    _propertyCache.Add(type, type.GetProperties());
+                }
 
-            var properties = _propertyCache[type];
-            return properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
+                var properties = _propertyCache[type];
+                return properties.FirstOrDefault(p => p.Name.ToLower() == token.Key?.ToLower());
+            }
         }
 
 		public static bool HasGenericType(this Type type)
