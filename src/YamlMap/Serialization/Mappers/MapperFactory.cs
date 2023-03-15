@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace YamlMap.Serialization.Mappers
 {
-    public class MapperFactory
+    /// <summary>
+    /// Gets mappers used to map values to objects
+    /// </summary>
+    public static class MapperFactory
     {
         private static readonly Dictionary<Type, Func<IObjectMapper>> _objectMappers = new Dictionary<Type, Func<IObjectMapper>>
         {
@@ -13,6 +16,12 @@ namespace YamlMap.Serialization.Mappers
             {typeof(IList), () => new ArrayMapper()}
         };
 
+        /// <summary>
+        /// Get the <see cref="IObjectMapper"/> containing the logic to map data to a type
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static IObjectMapper GetObjectMapper(object node, Type type)
         {
             var mapperType = node.GetType();
@@ -23,6 +32,7 @@ namespace YamlMap.Serialization.Mappers
 
             if (mapperType.IsArray)
             {
+                // use the list mapper type for arrays
                 mapperType = typeof(IList);
             }
 
