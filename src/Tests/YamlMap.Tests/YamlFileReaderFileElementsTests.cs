@@ -5,6 +5,7 @@ using System.Text;
 using YamlMap;
 using NUnit.Framework;
 using Polaroider;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests
 {
@@ -17,7 +18,7 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("SimpleProperty.yml");
 
-            Assert.AreEqual("id", data.Id);
+            ClassicAssert.AreEqual("id", data.Id);
         }
 
         [Test]
@@ -26,8 +27,8 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("ObjectProperty.yml");
 
-            Assert.IsNotNull(data.SimpleObject);
-            Assert.AreEqual("Object name", data.SimpleObject.Name);
+            ClassicAssert.IsNotNull(data.SimpleObject);
+            ClassicAssert.AreEqual("Object name", data.SimpleObject.Name);
         }
 
         [Test]
@@ -36,9 +37,9 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("Nested.yml");
 
-            Assert.IsNotNull(data.Nested);
-            Assert.IsNotNull(data.Nested.Nested);
-            Assert.AreEqual("nested object", data.Nested.Nested.Name);
+            ClassicAssert.IsNotNull(data.Nested);
+            ClassicAssert.IsNotNull(data.Nested.Nested);
+            ClassicAssert.AreEqual("nested object", data.Nested.Nested.Name);
         }
 
         [Test]
@@ -47,7 +48,7 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("Nested.yml");
 
-            Assert.AreEqual("first object", data.Nested.Name);
+            ClassicAssert.AreEqual("first object", data.Nested.Name);
         }
 
         [Test]

@@ -19,7 +19,7 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
 			var users = reader.Read<List<User>>(path);
 
-			Assert.IsTrue(users.Count == 3);
+			Assert.That(users.Count == 3);
 
 		}
 

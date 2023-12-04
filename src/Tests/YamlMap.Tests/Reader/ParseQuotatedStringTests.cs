@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests.Reader
 {
@@ -19,7 +20,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual("[value] test", parsed.Value);
+			ClassicAssert.AreEqual("[value] test", parsed.Value);
 		}
 
 		[Test]
@@ -33,7 +34,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual("[value] test", parsed.Value);
+			ClassicAssert.AreEqual("[value] test", parsed.Value);
 		}
 
 		[Test]
@@ -47,7 +48,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual("[value] 'test", parsed.Value);
+			ClassicAssert.AreEqual("[value] 'test", parsed.Value);
 		}
 
 		[Test]
@@ -61,7 +62,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual("[value] \"test", parsed.Value);
+			ClassicAssert.AreEqual("[value] \"test", parsed.Value);
 		}
 
 		[Test]
@@ -124,7 +125,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual("c: is a drive", parsed.Value);
+			ClassicAssert.AreEqual("c: is a drive", parsed.Value);
 		}
 
 		public class PrimitiveValues

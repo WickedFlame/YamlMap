@@ -41,10 +41,10 @@ class Build : NukeBuild
     AbsolutePath DeployPath => (AbsolutePath)"C:" / "Projects" / "NuGet Store";
 
     [Parameter("Version to be injected in the Build")]
-    public string Version { get; set; } = $"1.2.5";
+    public string Version { get; set; } = $"1.3.1";
 
     [Parameter("The Buildnumber provided by the CI")]
-    public int BuildNo = 10;
+    public int BuildNo = 1;
 
     [Parameter("Is RC Version")]
     public bool IsRc = false;
@@ -53,9 +53,9 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(ArtifactsDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(f => f.DeleteDirectory());
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(f => f.DeleteDirectory());
+            ArtifactsDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _

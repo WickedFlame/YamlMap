@@ -85,6 +85,29 @@ namespace YamlMap.Tests.Reader
             Assert.That(data.ObjectDictionary["two"].Name == "test two");
         }
 
+        [Test]
+        public void YamlReaderDictionaryType_Dictionary_Objects_Direct()
+        {
+            var lines = new[]
+            {
+                "one:",
+                "  Id: 1",
+                "  Name: test one",
+                "two:",
+                "  Id: 2",
+                "  Name: test two"
+            };
+
+            var reader = new YamlReader();
+            var data = reader.Read<Dictionary<string, DictObject>>(lines);
+
+            Assert.That(data.Count() == 2);
+            Assert.That(data["one"].Id == 1);
+            Assert.That(data["one"].Name == "test one");
+            Assert.That(data["two"].Id == 2);
+            Assert.That(data["two"].Name == "test two");
+        }
+
         public class StringNode
         {
             public Dictionary<string, string> Dictionary { get; set; }

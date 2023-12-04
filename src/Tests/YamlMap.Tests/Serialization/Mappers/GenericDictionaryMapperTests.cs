@@ -19,8 +19,8 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericDictionaryMapper();
             var ok = mapper.Map(token, list);
 
-            Assert.IsTrue(ok);
-            Assert.AreEqual("Value", list["Key"]);
+            Assert.That(ok, Is.True);
+            Assert.That("Value", Is.EqualTo(list["Key"]));
         }
 
         [Test]
@@ -35,8 +35,8 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericDictionaryMapper();
             var ok = mapper.Map(token, item);
 
-            Assert.IsTrue(ok);
-            Assert.AreEqual("Value", item["Key"].Key);
+            Assert.That(ok);
+            Assert.That("Value", Is.EqualTo(item["Key"].Key));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericDictionaryMapper();
             var ok = mapper.Map(token, item);
 
-            Assert.IsFalse(ok);
+            Assert.That(ok, Is.False);
         }
 
         public class ArrayMapperItem

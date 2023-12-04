@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using YamlMap;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests
 {
@@ -21,7 +22,7 @@ namespace YamlMap.Tests
             var reader = new YamlReader();
             var data = reader.Read<YamlRoot>(lines);
 
-            Assert.AreEqual("1", data.Id);
+            ClassicAssert.AreEqual("1", data.Id);
         }
 
         [Test]
@@ -37,8 +38,8 @@ namespace YamlMap.Tests
             var reader = new YamlReader();
             var data = reader.Read<YamlRoot>(lines);
 
-            Assert.IsNotNull(data.SimpleObject);
-            Assert.AreEqual("Object name", data.SimpleObject.Name);
+            ClassicAssert.IsNotNull(data.SimpleObject);
+            ClassicAssert.AreEqual("Object name", data.SimpleObject.Name);
         }
 
         [Test]
@@ -56,9 +57,9 @@ namespace YamlMap.Tests
             var reader = new YamlReader();
             var data = reader.Read<YamlRoot>(lines);
 
-            Assert.IsNotNull(data.Nested);
-            Assert.IsNotNull(data.Nested.Nested);
-            Assert.AreEqual("nested object", data.Nested.Nested.Name);
+            ClassicAssert.IsNotNull(data.Nested);
+            ClassicAssert.IsNotNull(data.Nested.Nested);
+            ClassicAssert.AreEqual("nested object", data.Nested.Nested.Name);
         }
 
         [Test]
@@ -76,7 +77,7 @@ namespace YamlMap.Tests
             var reader = new YamlReader();
             var data = reader.Read<YamlRoot>(lines);
 
-            Assert.AreEqual("first object", data.Nested.Name);
+            ClassicAssert.AreEqual("first object", data.Nested.Name);
         }
 
         [Test]

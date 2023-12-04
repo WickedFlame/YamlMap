@@ -26,7 +26,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("  - value 2");
             sb.Append("  - value 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("  key2: value 2");
             sb.Append("  key3: value 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("  - Value: value 3");
             sb.Append("    Name: test 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("  - value 2");
             sb.Append("  - value 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("  - Value: value 3");
             sb.Append("    Name: test 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("    Value: value 3");
             sb.Append("    Name: test 3");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
 
         [Test]
@@ -191,7 +191,7 @@ namespace YamlMap.Tests.Serialization
             sb.AppendLine("    Two:");
             sb.Append("      Name: two");
 
-            Assert.AreEqual(sb.ToString(), result);
+            Assert.That(sb.ToString(), Is.EqualTo(result));
         }
     }
 }

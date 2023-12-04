@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests.TypeConvert
 {
@@ -19,7 +20,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            ClassicAssert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            ClassicAssert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
         }
 
         [Test]
@@ -47,7 +48,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            ClassicAssert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
         }
 
         [Test]
@@ -61,7 +62,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            ClassicAssert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
         }
 
         [Test]
@@ -80,8 +81,8 @@ namespace YamlMap.Tests.TypeConvert
             //var parsed = reader.Read<PrimitiveValues>(lines);
 
             //Assert.That(parsed.ValueList.Count == 2);
-            //Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
-            //Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
+            //ClassicAssert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
+            //ClassicAssert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
         }
 
         public class PrimitiveValues

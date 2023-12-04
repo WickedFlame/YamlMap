@@ -25,7 +25,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [TestCase(typeof(IEnumerable), typeof(List<object>))]
@@ -37,7 +37,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [TestCase(typeof(TestObject), typeof(TestObject))]
@@ -46,7 +46,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [Test]
@@ -60,8 +60,8 @@ namespace YamlMap.Tests.Serialization
 
             var obj = type.CreateInstance(token);
 
-            Assert.IsInstanceOf<IList>(obj);
-            Assert.AreEqual(3, ((IList) obj).Count);
+            Assert.That(obj, Is.InstanceOf<IList>());
+            Assert.That(3, Is.EqualTo(((IList) obj).Count));
         }
 
         [Test]

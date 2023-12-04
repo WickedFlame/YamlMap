@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests
 {
@@ -20,10 +21,10 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Ids"][0]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Ids"][1]).Value);
-            Assert.AreEqual("3", ((ValueToken)result["Ids"][2]).Value);
-            Assert.AreEqual("4", ((ValueToken)result["Ids"][3]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Ids"][0]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Ids"][1]).Value);
+            ClassicAssert.AreEqual("3", ((ValueToken)result["Ids"][2]).Value);
+            ClassicAssert.AreEqual("4", ((ValueToken)result["Ids"][3]).Value);
         }
 
         [Test]
@@ -39,10 +40,10 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Ids"][0]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Ids"][1]).Value);
-            Assert.AreEqual("3", ((ValueToken)result["Ids"][2]).Value);
-            Assert.AreEqual("4", ((ValueToken)result["Ids"][3]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Ids"][0]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Ids"][1]).Value);
+            ClassicAssert.AreEqual("3", ((ValueToken)result["Ids"][2]).Value);
+            ClassicAssert.AreEqual("4", ((ValueToken)result["Ids"][3]).Value);
         }
     }
 }

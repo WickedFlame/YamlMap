@@ -19,7 +19,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -63,8 +63,8 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 1), parsed.ValueList[0]);
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.ValueList[1]);
+            Assert.That(new DateTime(1919, 12, 1), Is.EqualTo(parsed.ValueList[0]));
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.ValueList[1]));
         }
         
         [Test]
@@ -78,7 +78,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 31), parsed.Value);
+            Assert.That(new DateTime(1919, 12, 31), Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -108,8 +108,8 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 21), parsed.ValueList[0]);
-            Assert.AreEqual(new DateTime(1919, 12, 21), parsed.ValueList[1]);
+            Assert.That(new DateTime(1919, 12, 21), Is.EqualTo(parsed.ValueList[0]));
+            Assert.That(new DateTime(1919, 12, 21), Is.EqualTo(parsed.ValueList[1]));
         }
 
 
@@ -129,8 +129,8 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(new DateTime(1919, 12, 21, 13, 45, 21), parsed.ValueList[0]);
-            Assert.AreEqual(new DateTime(1919, 12, 21, 1, 20, 45), parsed.ValueList[1]);
+            Assert.That(new DateTime(1919, 12, 21, 13, 45, 21), Is.EqualTo(parsed.ValueList[0]));
+            Assert.That(new DateTime(1919, 12, 21, 1, 20, 45), Is.EqualTo(parsed.ValueList[1]));
         }
 
         public class PrimitiveValues

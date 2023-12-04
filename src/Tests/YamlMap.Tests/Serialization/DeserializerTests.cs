@@ -46,14 +46,14 @@ namespace YamlMap.Tests.Serialization
 		public void Deserialize_Type()
 		{
 			var item = Serializer.Deserialize<DeserializerType>("Type: YamlMap.Tests.Serialization.DeserializerType, YamlMap.Tests");
-			Assert.AreEqual(typeof(DeserializerType), item.Type);
+			Assert.That(typeof(DeserializerType), Is.EqualTo(item.Type));
 		}
 
 		[Test]
 		public void Deserialize_GenericType()
 		{
 			var item = Serializer.Deserialize<DeserializerType>("Type: \"YamlMap.Tests.Serialization.GenericType`1[[YamlMap.Tests.Serialization.DeserializerType, YamlMap.Tests]], YamlMap.Tests\"");
-			Assert.AreEqual(typeof(GenericType<DeserializerType>), item.Type);
+			Assert.That(typeof(GenericType<DeserializerType>), Is.EqualTo(item.Type));
 		}
 
 

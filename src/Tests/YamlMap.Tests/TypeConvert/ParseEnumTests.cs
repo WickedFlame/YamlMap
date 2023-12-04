@@ -20,7 +20,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(EnumValue.First, parsed.Value);
+            Assert.That(EnumValue.First, Is.EqualTo(parsed.Value)   );
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
 	        var reader = new YamlReader();
 	        var parsed = reader.Read<PrimitiveValues>(lines);
 
-	        Assert.AreEqual(EnumValue.First, parsed.Value);
+	        Assert.That(EnumValue.First, Is.EqualTo(parsed.Value));
         }
 
 		[Test]
@@ -48,7 +48,7 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(EnumValue.None, parsed.Value);
+            Assert.That(EnumValue.None, Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -64,8 +64,8 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual(EnumValue.First, parsed.ValueList[0]);
-			Assert.AreEqual(EnumValue.Second, parsed.ValueList[1]);
+			Assert.That(EnumValue.First, Is.EqualTo(parsed.ValueList[0]));
+			Assert.That(EnumValue.Second, Is.EqualTo(parsed.ValueList[1]));
 		}
 
         [Test]
@@ -82,9 +82,9 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
 	        var reader = new YamlReader();
 	        var parsed = reader.Read<PrimitiveValues>(lines);
 
-	        Assert.AreEqual(EnumValue.None, parsed.Value);
-	        Assert.AreEqual(EnumValue.First, parsed.ValueList[0]);
-	        Assert.AreEqual(EnumValue.Second, parsed.ValueList[1]);
+	        Assert.That(EnumValue.None, Is.EqualTo(parsed.Value));
+	        Assert.That(EnumValue.First, Is.EqualTo(parsed.ValueList[0]));
+	        Assert.That(EnumValue.Second, Is.EqualTo(parsed.ValueList[1]));
         }
 
         [Test]
@@ -102,11 +102,11 @@ namespace WickedFlame.Yaml.Tests.TypeConvert
 	        var reader = new YamlReader();
 	        var parsed = reader.Read<PrimitiveValues>(lines);
 
-	        Assert.AreEqual(EnumValue.First, parsed.Value);
+	        Assert.That(EnumValue.First, Is.EqualTo(parsed.Value));
 
-	        Assert.AreEqual(EnumValue.None, parsed.ValueList[0]);
-			Assert.AreEqual(EnumValue.First, parsed.ValueList[1]);
-			Assert.AreEqual(EnumValue.Second, parsed.ValueList[2]);
+	        Assert.That(EnumValue.None, Is.EqualTo(parsed.ValueList[0]));
+			Assert.That(EnumValue.First, Is.EqualTo(parsed.ValueList[1]));
+			Assert.That(EnumValue.Second, Is.EqualTo(parsed.ValueList[2]));
 		}
 
 		public enum EnumValue
