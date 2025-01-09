@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace YamlMap.Tests.Reader
 {
     [TestFixture]
-    //[Ignore("Array is not yet implemented")]
     public class YamlReaderArrayTests
     {
         [Test]
@@ -23,11 +23,11 @@ namespace YamlMap.Tests.Reader
             var reader = new YamlReader();
             var data = reader.Read<StringNode>(lines);
 
-            Assert.That(data.Array.Count() == 4);
-            Assert.That(data.Array[0] == "one");
-            Assert.That(data.Array[1] == "1");
-            Assert.That(data.Array[2] == "this is a test");
-            Assert.That(data.Array[3] == "[brackets with] spaces");
+            data.Array.Should().HaveCount(4);
+            data.Array[0].Should().Be("one");
+            data.Array[1].Should().Be("1");
+            data.Array[2].Should().Be("this is a test");
+            data.Array[3].Should().Be("[brackets with] spaces");
         }
 
         [Test]

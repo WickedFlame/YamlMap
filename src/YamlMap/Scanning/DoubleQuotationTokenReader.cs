@@ -1,5 +1,4 @@
-﻿
-namespace YamlMap.Scanning
+﻿namespace YamlMap.Scanning
 {
     /// <summary>
     /// Token reader for double quotes
@@ -18,7 +17,15 @@ namespace YamlMap.Scanning
         /// <returns></returns>
         public int IndexOfNext(string line)
         {
-            return line.IndexOf('"');
+            var index = line.IndexOf('"');
+            var property = line.IndexOf(':');
+            var list = line.IndexOf('-');
+
+            return index == 0 ||
+                property > 0 && index == property + 2 || 
+                list > 0 && index == list + 2 
+                ? index 
+                : -1;
         }
     }
 }
