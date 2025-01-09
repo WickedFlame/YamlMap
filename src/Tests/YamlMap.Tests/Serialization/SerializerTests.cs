@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 using Polaroider;
 
@@ -24,9 +25,22 @@ namespace YamlMap.Tests.Serialization
 
 			var serialized = Serializer.Serialize(item);
 			serialized.MatchSnapshot();
+        }
+
+        [Test]
+        public void Serializer_Null()
+		{
+			var item = new
+			{
+				Name = "item",
+				Value = (string) null
+			};
+
+			Serializer.Serialize(item).Should().Be("Name: item");
 		}
 
-		public class TestlItem
+
+        public class TestlItem
 		{
 			public string Simple { get; set; }
 
