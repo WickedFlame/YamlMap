@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using YamlMap.Scanning;
 
@@ -81,6 +82,13 @@ namespace YamlMap
 							throw new InvalidConfigurationException($"Found unexpected end of stream while scanning a quoted scalar at line {_index + 1} column {end}");
 						}
 						break;
+					
+					case TokenReaderType.MultilineString:
+						//
+						// read all lines until the next property is reached
+						input = specialReader.Read(this, input);
+						break;
+					
 	            }
             }
 
@@ -88,7 +96,12 @@ namespace YamlMap
             return line;
         }
 
-        private string NextLine(int index)
+        /// <summary>
+        /// Get the next line at the index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public string NextLine(int index)
         {
             var input = _input[index];
 
@@ -100,13 +113,25 @@ namespace YamlMap
             return input;
         }
 
+        /// <summary>
+        /// Add the given number to the index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int AddToIndex(int index)
+        {
+	        _index = _index + index;
+	        return _index;
+        }
+
         private ITokenReader NextReader(string line)
         {
 	        var readers = new List<ITokenReader>
 	        {
 		        new BracketTokenReader(),
 		        new SingleQuotationTokenReader(),
-		        new DoubleQuotationTokenReader()
+		        new DoubleQuotationTokenReader(),
+		        new MultilineStringTokenReader()
 	        };
 
 	        var next = new

@@ -17,5 +17,13 @@ namespace YamlMap.Scanning
         /// <param name="line"></param>
         /// <returns></returns>
         int IndexOfNext(string line);
+
+        /// <summary>
+        /// Parse the next property
+        /// </summary>
+        /// <param name="scanner"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        string Read(IScanner scanner, string input);
     }
 }

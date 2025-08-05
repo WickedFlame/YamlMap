@@ -1,4 +1,6 @@
-﻿namespace YamlMap.Scanning
+﻿using System;
+
+namespace YamlMap.Scanning
 {
     /// <summary>
     /// Token reader for double quotes
@@ -26,6 +28,17 @@
                 list > 0 && index == list + 2 
                 ? index 
                 : -1;
+        }
+
+        /// <summary>
+        /// Parse the next property
+        /// </summary>
+        /// <param name="scanner"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string Read(IScanner scanner, string input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

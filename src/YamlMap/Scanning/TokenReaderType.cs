@@ -19,6 +19,11 @@ namespace YamlMap.Scanning
         /// <summary>
         /// Double quotation
         /// </summary>
-        DoubleQuotation
+        DoubleQuotation,
+        
+        /// <summary>
+        /// Multiline string
+        /// </summary>
+        MultilineString
     }
 }

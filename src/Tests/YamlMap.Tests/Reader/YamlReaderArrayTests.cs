@@ -46,6 +46,24 @@ namespace YamlMap.Tests.Reader
 	        Assert.That(data.Array[1] == "1");
 	        Assert.That(data.Array[2] == "this is a test");
         }
+        
+        [Test]
+        public void YamlMap_YamlReader_Array_Brackets_Multiline()
+        {
+	        var lines = new[]
+	        {
+		        "Array: [one, 1,",
+		        "  this is a test]"
+	        };
+
+	        var reader = new YamlReader();
+	        var data = reader.Read<StringNode>(lines);
+
+	        Assert.That(data.Array.Count() == 3);
+	        Assert.That(data.Array[0] == "one");
+	        Assert.That(data.Array[1] == "1");
+	        Assert.That(data.Array[2] == "this is a test");
+        }
 
 		[Test]
         public void YamlMap_YamlReader_Array_Object()

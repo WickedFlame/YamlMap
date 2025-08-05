@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace YamlMap.Scanning
 {
     /// <summary>
@@ -19,6 +21,17 @@ namespace YamlMap.Scanning
         public int IndexOfNext(string line)
         {
             return line.IndexOf('\'');
+        }
+
+        /// <summary>
+        /// Parse the next property
+        /// </summary>
+        /// <param name="scanner"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string Read(IScanner scanner, string input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

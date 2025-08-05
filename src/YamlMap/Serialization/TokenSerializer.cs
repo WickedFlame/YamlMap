@@ -30,7 +30,7 @@ namespace YamlMap.Serialization
             {
                 foreach (var itm in list)
                 {
-                    if (itm.GetType().IsClass && !(itm is string))
+                    if (itm.GetType().IsClass && itm is not string)
                     {
                         var lstSb = new StringBuilder();
                         
@@ -51,7 +51,7 @@ namespace YamlMap.Serialization
             {
                 foreach (DictionaryEntry itm in dict)
                 {
-                    if (itm.Value.GetType().IsClass && !(itm.Value is string))
+                    if (itm.Value.GetType().IsClass && itm.Value is not string)
                     {
                         sb.AppendLine($"{itm.Key}:".Indent(indentation));
                         SerializeNode(itm.Value, sb, indentation + 2);
@@ -81,7 +81,7 @@ namespace YamlMap.Serialization
 	                continue;
 				}
 
-                if (value.GetType().IsClass && !(value is string))
+                if (value.GetType().IsClass && value is not string)
                 {
 	                sb.AppendLine($"{name}:".Indent(indentation));
 	                SerializeNode(value, sb, indentation + 2);
