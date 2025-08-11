@@ -2,6 +2,9 @@
 
 namespace YamlMap.Scanning
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MultilineStringTokenReader : ITokenReader
     {
         /// <summary>
@@ -23,9 +26,9 @@ namespace YamlMap.Scanning
         /// Parse the next property
         /// </summary>
         /// <param name="scanner"></param>
-        /// <param name="input"></param>
+        /// <param name="line"></param>
         /// <returns></returns>
-        public string Read(IScanner scanner, string input)
+        public string Read(IScanner scanner, string line)
         {
             //
             // read all lines until the next property is reached
@@ -44,7 +47,7 @@ namespace YamlMap.Scanning
                 str += string.IsNullOrEmpty(tmp.Original) ? prefix : $"{prefix}{tmp.Original.Substring(indentation)}";
 							
                 var index = scanner.AddToIndex(1);
-                if (index >= input.Length)
+                if (index >= scanner.Input.Length)
                 {
                     break;
                 }
@@ -53,7 +56,7 @@ namespace YamlMap.Scanning
             }
 
             scanner.AddToIndex(-1);
-            return input.Substring(0, input.IndexOf('|')) + str;
+            return line.Substring(0, line.IndexOf('|')) + str;
         }
     }
 }

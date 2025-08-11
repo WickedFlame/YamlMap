@@ -22,8 +22,8 @@ namespace YamlMap.Scanning
         /// Parse the next property
         /// </summary>
         /// <param name="scanner"></param>
-        /// <param name="input"></param>
+        /// <param name="line"></param>
         /// <returns></returns>
-        string Read(IScanner scanner, string input);
+        string Read(IScanner scanner, string line);
     }
 }

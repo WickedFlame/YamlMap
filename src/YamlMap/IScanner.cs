@@ -7,6 +7,11 @@ namespace YamlMap
     public interface IScanner
     {
         /// <summary>
+        /// Gets the input string that is scanned
+        /// </summary>
+        string [] Input { get; }
+        
+        /// <summary>
         /// Scan the string for the next <see cref="YamlLine"/>
         /// </summary>
         /// <returns></returns>
@@ -25,5 +30,11 @@ namespace YamlMap
         /// <param name="index"></param>
         /// <returns></returns>
         int AddToIndex(int index);
+        
+        /// <summary>
+        /// Add a line that will be parsed in the next round
+        /// </summary>
+        /// <param name="line"></param>
+        void EnqueueLine(YamlLine line);
     }
 }
