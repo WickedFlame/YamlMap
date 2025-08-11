@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
 
 namespace YamlMap.Tests.Reader
 {

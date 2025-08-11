@@ -1,7 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using NUnit.Framework;
-using Polaroider;
+﻿using Polaroider;
 using YamlMap.Serialization;
 
 namespace YamlMap.Tests.Serialization

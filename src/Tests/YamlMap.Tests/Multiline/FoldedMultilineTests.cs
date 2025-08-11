@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-
+﻿
 namespace YamlMap.Tests.Multiline
 {
     public class FoldedMultilineTests

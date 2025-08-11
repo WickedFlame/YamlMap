@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
 using YamlMap.Serialization;
-using static YamlMap.Tests.Serialization.ObjectBuilderTests;
 
 namespace YamlMap.Tests.Serialization
 {
-    [TestFixture]
     public class ObjectBuilderTests
     {
         [TestCase(typeof(IEnumerable<string>), typeof(List<string>))]

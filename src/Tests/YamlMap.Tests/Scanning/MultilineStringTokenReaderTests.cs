@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
 using YamlMap.Scanning;
 
 namespace YamlMap.Tests.Scanning

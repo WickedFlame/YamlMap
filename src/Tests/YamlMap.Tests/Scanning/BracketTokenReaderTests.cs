@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using YamlMap.Scanning;
+﻿using YamlMap.Scanning;
 
 namespace YamlMap.Tests.Scanning
 {

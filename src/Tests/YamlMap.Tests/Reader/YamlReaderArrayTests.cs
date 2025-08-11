@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
 
 namespace YamlMap.Tests.Reader
 {

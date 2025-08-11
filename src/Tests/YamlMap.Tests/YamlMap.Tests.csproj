@@ -2,9 +2,9 @@
 
     <PropertyGroup>
         <TargetFrameworks>net48;net8.0</TargetFrameworks>
-        <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">net6.0</TargetFrameworks>
+        <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">net8.0</TargetFrameworks>
         <IsPackable>false</IsPackable>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,7 +23,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="7.0.0" />
+        <PackageReference Include="AwesomeAssertions" Version="9.1.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="nunit" Version="4.3.2" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
@@ -33,6 +33,11 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\YamlMap\YamlMap.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="NUnit.Framework" />
+        <Using Include="AwesomeAssertions"/>
     </ItemGroup>
 
     <ItemGroup>
