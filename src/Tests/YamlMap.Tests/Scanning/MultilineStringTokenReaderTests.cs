@@ -107,5 +107,81 @@ namespace YamlMap.Tests.Scanning
             _reader.Read(scanner, "Value: |")
                 .Should().Be($"Value: some{Environment.NewLine}  multiline {Environment.NewLine}value");
         }
+        
+        [Test]
+        public void MultilineStringTokenReader_Read_Colon()
+        {
+            var lines = new[]
+            {
+                "First: single line",
+                "Value: |",
+                "  some:test",
+                "    multiline ",
+                "  value"
+            };
+            
+            var scanner = new Scanner(lines);
+            scanner.AddToIndex(2);
+            
+            _reader.Read(scanner, "Value: |")
+                .Should().Be($"Value: some:test{Environment.NewLine}  multiline {Environment.NewLine}value");
+        }
+        
+        [Test]
+        public void MultilineStringTokenReader_Read_Colon_Space()
+        {
+            var lines = new[]
+            {
+                "First: single line",
+                "Value: |",
+                "  value",
+                "  some: ",
+                "  more text"
+            };
+            
+            var scanner = new Scanner(lines);
+            scanner.AddToIndex(2);
+            
+            _reader.Read(scanner, "Value: |")
+                .Should().Be($"Value: value");
+        }
+        
+        [Test]
+        public void MultilineStringTokenReader_Read_Colon_Space_InText()
+        {
+            var lines = new[]
+            {
+                "First: single line",
+                "Value: |",
+                "  value",
+                "  some: text",
+                "  more text"
+            };
+            
+            var scanner = new Scanner(lines);
+            scanner.AddToIndex(2);
+            
+            _reader.Read(scanner, "Value: |")
+                .Should().Be($"Value: value");
+        }
+        
+        [Test]
+        public void MultilineStringTokenReader_Read_Colon_Newline()
+        {
+            var lines = new[]
+            {
+                "First: single line",
+                "Value: |",
+                "  value",
+                "  some:",
+                "  more text"
+            };
+            
+            var scanner = new Scanner(lines);
+            scanner.AddToIndex(2);
+            
+            _reader.Read(scanner, "Value: |")
+                .Should().Be($"Value: value");
+        }
     }
 }

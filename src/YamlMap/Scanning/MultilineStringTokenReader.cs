@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace YamlMap.Scanning
 {
@@ -35,16 +36,17 @@ namespace YamlMap.Scanning
 						
             var str = string.Empty;
             var indentation = 0;
-            var tmp = new YamlLine(str);
-            while (string.IsNullOrEmpty(tmp.Property))
+            var next = new YamlLine(str);
+            // while (string.IsNullOrEmpty(next.Property))
+            while(!IsProperty(next.Line))
             {
-                if (string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(tmp.Original) && indentation == 0)
+                if (string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(next.Original) && indentation == 0)
                 {
-                    indentation = tmp.Indentation;
+                    indentation = next.Indentation;
                 }
 							
                 var prefix = string.IsNullOrEmpty(str) ? "" : Environment.NewLine;
-                str += string.IsNullOrEmpty(tmp.Original) ? prefix : $"{prefix}{tmp.Original.Substring(indentation)}";
+                str += string.IsNullOrEmpty(next.Original) ? prefix : $"{prefix}{next.Original.Substring(indentation)}";
 							
                 var index = scanner.AddToIndex(1);
                 if (index >= scanner.Input.Length)
@@ -52,11 +54,32 @@ namespace YamlMap.Scanning
                     break;
                 }
 
-                tmp = new YamlLine(scanner.NextLine(index));
+                next = new YamlLine(scanner.NextLine(index));
             }
 
             scanner.AddToIndex(-1);
             return line.Substring(0, line.IndexOf('|')) + str;
+        }
+        
+        private bool IsProperty(string line)
+        {
+            var colon = line.IndexOf(':');
+            if (colon < 0)
+            {
+                return false;
+            }
+
+            if (colon == line.Length - 1)
+            {
+                return true;
+            }
+
+            if (line.Length > colon + 1 && line[colon + 1] == ' ')
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

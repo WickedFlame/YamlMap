@@ -88,6 +88,18 @@ Movies: "Casablanca, Spellbound, Notorious"
 Drive: 'c: is a drive'
 ```
 
+Block statements (multiline strings)
+```
+Text: |
+  There was a young fellow of Warwick
+  Who had reason for feeling euphoric:
+      For he could, by election
+      Have triune erection
+  Ionic, Corinthian, and Doric
+```
+Pitfalls with Plain flow scalars:  
+* Colons (:) can be contained in a string, but are not allowed before a space or newline
+
 # Not yet implemented YAML Features
 
 Blocks
@@ -102,13 +114,6 @@ User: {name: John Smith, age: 33}
 
 Block statements
 ```
-Text: |
-  There was a young fellow of Warwick
-  Who had reason for feeling euphoric
-      For he could, by election
-      Have triune erection
-  Ionic, Corinthian, and Doric
-
 WrappedText: >
   Wrapped text
   will be folded
