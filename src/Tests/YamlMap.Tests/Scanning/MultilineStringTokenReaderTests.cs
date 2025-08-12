@@ -16,6 +16,13 @@ namespace YamlMap.Tests.Scanning
         [Test]
         public void MultilineStringTokenReader_IndexOfNext()
         {
+            _reader.IndexOfNext("  Property: |")
+                .Should().BeGreaterThan(0);
+        }
+        
+        [Test]
+        public void MultilineStringTokenReader_IndexOfNext_Ext()
+        {
             _reader.IndexOfNext("  Property: |2")
                 .Should().BeGreaterThan(0);
         }

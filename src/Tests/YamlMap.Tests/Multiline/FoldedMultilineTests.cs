@@ -15,6 +15,20 @@ namespace YamlMap.Tests.Multiline
         }
 
         [Test]
+        public void FoldedMultiline()
+        {
+            var str = @"value: >
+  line 1
+  line 2
+  
+     line 3
+  
+  ";
+
+            _reader.Read<FoldedModel>(str).Value.Should().Be(@"line 1 line 2     line 3");
+        }
+        
+        [Test]
         [Ignore("Not implemented")]
         public void FoldedMultiline_SingleNewLineAtEnd()
         {

@@ -29,7 +29,8 @@ namespace YamlMap
 	            new BracketTokenReader(),
 	            new SingleQuotationTokenReader(),
 	            new DoubleQuotationTokenReader(),
-	            new MultilineStringTokenReader()
+	            new MultilineStringTokenReader(),
+	            new FoldedMultilineTokenReader()
             };
         }
 		

@@ -22,8 +22,13 @@ namespace YamlMap.Scanning
         DoubleQuotation,
         
         /// <summary>
-        /// Multiline string
+        /// Multiline string that respects linebreaks
         /// </summary>
-        MultilineString
+        LiteralMultiline,
+        
+        /// <summary>
+        /// Multiline string that removes linebreaks
+        /// </summary>
+        FoldedMultiline
     }
 }

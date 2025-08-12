@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace YamlMap.Scanning
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class MultilineStringTokenReader : ITokenReader
+    public class MultilineReaderBase
     {
-        /// <summary>
-        /// Token reader next |
-        /// </summary>
-        public TokenReaderType ReaderType  => TokenReaderType.LiteralMultiline;
+        private readonly char _mark;
+        private readonly string _newLine;
+
+        protected MultilineReaderBase(TokenReaderType readerType, char mark, string newLine)
+        {
+            ReaderType = readerType;
+            _mark = mark;
+            _newLine = newLine;
+        }
+        
+        public TokenReaderType ReaderType { get; }
         
         /// <summary>
         /// Get the index of the next line
@@ -20,7 +23,7 @@ namespace YamlMap.Scanning
         /// <returns></returns>
         public int IndexOfNext(string line)
         {
-            return line.IndexOf('|');
+            return line.IndexOf($": {_mark}", StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <summary>
@@ -37,7 +40,6 @@ namespace YamlMap.Scanning
             var str = string.Empty;
             var indentation = 0;
             var next = new YamlLine(str);
-            // while (string.IsNullOrEmpty(next.Property))
             while(!IsProperty(next.Line))
             {
                 if (string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(next.Original) && indentation == 0)
@@ -45,7 +47,7 @@ namespace YamlMap.Scanning
                     indentation = next.Indentation;
                 }
 							
-                var prefix = string.IsNullOrEmpty(str) ? "" : Environment.NewLine;
+                var prefix = string.IsNullOrEmpty(str) ? "" : _newLine;
                 str += string.IsNullOrEmpty(next.Original) ? prefix : $"{prefix}{next.Original.Substring(indentation)}";
 							
                 var index = scanner.AddToIndex(1);
@@ -58,10 +60,10 @@ namespace YamlMap.Scanning
             }
 
             scanner.AddToIndex(-1);
-            return line.Substring(0, line.IndexOf('|')) + str;
+            return line.Substring(0, line.IndexOf(_mark)) + str;
         }
         
-        private bool IsProperty(string line)
+        private static bool IsProperty(string line)
         {
             var colon = line.IndexOf(':');
             if (colon < 0)
@@ -74,12 +76,7 @@ namespace YamlMap.Scanning
                 return true;
             }
 
-            if (line.Length > colon + 1 && line[colon + 1] == ' ')
-            {
-                return true;
-            }
-
-            return false;
+            return line.Length > colon + 1 && line[colon + 1] == ' ';
         }
     }
 }
