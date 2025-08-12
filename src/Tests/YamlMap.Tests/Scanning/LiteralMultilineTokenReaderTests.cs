@@ -3,14 +3,14 @@ using YamlMap.Scanning;
 
 namespace YamlMap.Tests.Scanning
 {
-    public class MultilineStringTokenReaderTests
+    public class LiteralMultilineTokenReaderTests
     {
         private ITokenReader _reader;
 
         [SetUp]
         public void Setup()
         {
-            _reader = new MultilineStringTokenReader();
+            _reader = new LiteralMultilineTokenReader();
         }
         
         [Test]
@@ -186,6 +186,24 @@ namespace YamlMap.Tests.Scanning
             
             _reader.Read(scanner, "Value: |")
                 .Should().Be($"Value: value");
+        }
+        
+        [Test]
+        public void MultilineStringTokenReader_Read_Plus()
+        {
+            var lines = new[]
+            {
+                "Value: |+",
+                "  line 1",
+                "  line 2",
+                "  line 3"
+            };
+            
+            var scanner = new Scanner(lines);
+            scanner.AddToIndex(1);
+            
+            _reader.Read(scanner, "Value: |+")
+                .Should().Be($"Value: line 1{Environment.NewLine}line 2{Environment.NewLine}line 3");
         }
     }
 }

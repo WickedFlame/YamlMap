@@ -118,7 +118,6 @@ public class FoldedMultilineReaderTests
     {
         var lines = new[]
         {
-            "First: single line",
             "Value: >+",
             "  line 1",
             "  line 2",
@@ -126,7 +125,7 @@ public class FoldedMultilineReaderTests
         };
             
         var scanner = new Scanner(lines);
-        scanner.AddToIndex(2);
+        scanner.AddToIndex(1);
             
         _reader.Read(scanner, "Value: >+")
             .Should().Be($"Value: line 1 line 2 line 3");
