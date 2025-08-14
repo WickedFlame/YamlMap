@@ -7,7 +7,7 @@ namespace YamlMap
     public static class StringExtensions
     {
         /// <summary>
-        /// Indent the string with the amount of spaces
+        /// Indent the string with the number of spaces
         /// </summary>
         /// <param name="value"></param>
         /// <param name="indentation"></param>

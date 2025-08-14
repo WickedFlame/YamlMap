@@ -88,6 +88,28 @@ Movies: "Casablanca, Spellbound, Notorious"
 Drive: 'c: is a drive'
 ```
 
+Block statements (multiline strings)
+```
+Text: |
+  There was a young fellow of Warwick
+  Who had reason for feeling euphoric
+      For he could, by election
+      Have triune erection
+  Ionic, Corinthian, and Doric
+```
+```
+WrappedText: >
+  Wrapped text
+  will be folded
+  into a single
+  paragraph
+
+  Blank lines denote
+  paragraph breaks
+```
+Pitfalls with Plain flow scalars:  
+* Colons (:) can be contained in a string, but are not allowed before a space or newline
+
 # Not yet implemented YAML Features
 
 Blocks
@@ -100,24 +122,20 @@ Inline Objects
 User: {name: John Smith, age: 33}
 ```
 
-Block statements
+Block statements with strip or keep newlines at end
 ```
-Text: |
+Text: |+
   There was a young fellow of Warwick
-  Who had reason for feeling euphoric
-      For he could, by election
-      Have triune erection
-  Ionic, Corinthian, and Doric
-
-WrappedText: >
+  
+Text: |-
+  There was a young fellow of Warwick
+  
+WrappedText: >+
   Wrapped text
-  will be folded
-  into a single
-  paragraph
-
-  Blank lines denote
-  paragraph breaks
-
+  
+WrappedText: >-
+  Wrapped text
+  
 ```
 
 # Best practice

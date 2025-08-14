@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using YamlMap.Serialization.Mappers;
+﻿using YamlMap.Serialization.Mappers;
 
 namespace YamlMap.Tests.Serialization.Mappers
 {

@@ -20,7 +20,6 @@ namespace YamlMap.Tests
 			var users = reader.Read<List<User>>(path);
 
 			Assert.That(users.Count == 3);
-
 		}
 
 		public class User
