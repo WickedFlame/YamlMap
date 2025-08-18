@@ -10,32 +10,43 @@
   
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab8916dc1225487a8a19923e6c96d7fe)](https://www.codacy.com/gh/WickedFlame/YamlMap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WickedFlame/YamlMap&amp;utm_campaign=Badge_Grade)
   
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WickedFlame_Yaml&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WickedFlame_Yaml)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=WickedFlame_Yaml&metric=coverage)](https://sonarcloud.io/summary/new_code?id=WickedFlame_Yaml)
-  
 A .NET Yaml Parser.  
 Map Yaml to .NET objects and vice versa.  
 
 # Usage
-## Deserialize a yaml string to a object
+## Deserialize a yaml string to an object
 ```
-// Read a file using a YamlReader
-var reader = new YamlReader();
+// Read a file using a YamlFileReader
+var reader = new YamlFileReader();
 var item = reader.Read<Item>(filepath);
 
 // or
 
+// Read a string using the YamlReader
+var reader = new YamlReader();
+var item = reader.Read<Item>(yaml);
+
+// or
+
 // Read a string using the static Serializer
-var item = Serializer.Deserialize<Item>(yml);
+var item = Serializer.Deserialize<Item>(yaml);
 ```
 
-## Serialize a object to a yaml string
+## Serialize an object to a yaml string
 ```
-// Write a file using a YamlWriter
-var writer = new YamlWriter();
+// Write a file using a YamFilelWriter
+var writer = new YamlFileWriter();
 writer.Write(filepath, item);
 
-// serialize an object to string
+// or
+
+// Serialize an object to a string using a YamlWriter
+var writer = new YamlWriter();
+writer.Write(item);
+
+// or
+
+// serialize an object to string using the static Serializer
 var yml = Serializer.Serialize(item);
 ```
 
