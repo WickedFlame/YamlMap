@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text;
 
 namespace YamlMap.Tests.Multiline
 {
@@ -19,13 +20,13 @@ namespace YamlMap.Tests.Multiline
         [Test]
         public void FoldedMultiline()
         {
-            var str = @"value: >
-  line 1
-  line 2
-  
-     line 3
-  
-  ".Replace("\r\n", Environment.NewLine);
+            var str = new StringBuilder()
+                .AppendLine("value: >")
+                .AppendLine("  line 1")
+                .AppendLine("  line 2")
+                .AppendLine("  ")
+                .AppendLine("     line 3")
+                .AppendLine("  ").ToString();
 
             _reader.Read<FoldedModel>(str).Value.Should().Be(@"line 1 line 2     line 3");
         }
