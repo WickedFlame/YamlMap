@@ -32,14 +32,16 @@ namespace YamlMap.Tests.Multiline
                 .AppendLine("  plus another line at the end.")
                 .AppendLine("  ").ToString();
 
-            var result = @"Several lines of text,
-with some ""quotes"" of various 'types',
-and also a blank line
+            var result = new StringBuilder()
+                .AppendLine("Several lines of text,")
+                .AppendLine("with some \"quotes\" of various 'types',")
+                .AppendLine("and also a blank line")
+                .AppendLine()
+                .AppendLine("and some text with")
+                .AppendLine("  extra indentation")
+                .AppendLine("on the next line,")
+                .Append("plus another line at the end.").ToString();
 
-and some text with
-  extra indentation
-on the next line,
-plus another line at the end.".Replace("\r\n", Environment.NewLine);
             var tmp = _reader.Read<LiteralModel>(str);
             tmp.Value.Should().Be(result);
         }
