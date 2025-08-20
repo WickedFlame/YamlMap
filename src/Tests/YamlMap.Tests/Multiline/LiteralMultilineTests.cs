@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text;
 
 namespace YamlMap.Tests.Multiline
 {
@@ -19,17 +20,17 @@ namespace YamlMap.Tests.Multiline
         [Test]
         public void LiteralMultiline_SingleNewLineAtEnd()
         {
-            var str = @"value: |
-  Several lines of text,
-  with some ""quotes"" of various 'types',
-  and also a blank line
-  
-  and some text with
-    extra indentation
-  on the next line,
-  plus another line at the end.
-  
-  ".Replace("\r\n", Environment.NewLine);
+            var str = new StringBuilder()
+                .AppendLine("value: |")
+                .AppendLine("  Several lines of text,")
+                .AppendLine("  with some \"quotes\" of various 'types',")
+                .AppendLine("  and also a blank line")
+                .AppendLine("  ")
+                .AppendLine("  and some text with")
+                .AppendLine("    extra indentation")
+                .AppendLine("  on the next line,")
+                .AppendLine("  plus another line at the end.")
+                .AppendLine("  ").ToString();
 
             var result = @"Several lines of text,
 with some ""quotes"" of various 'types',
@@ -39,7 +40,8 @@ and some text with
   extra indentation
 on the next line,
 plus another line at the end.".Replace("\r\n", Environment.NewLine);
-            _reader.Read<LiteralModel>(str).Value.Should().Be(result);
+            var tmp = _reader.Read<LiteralModel>(str);
+            tmp.Value.Should().Be(result);
         }
 
         [Test]
