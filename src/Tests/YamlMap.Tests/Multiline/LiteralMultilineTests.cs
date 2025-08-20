@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace YamlMap.Tests.Multiline
 {
     public class LiteralMultilineTests
@@ -27,7 +29,7 @@ namespace YamlMap.Tests.Multiline
   on the next line,
   plus another line at the end.
   
-  ";
+  ".Replace("\r\n", Environment.NewLine);
 
             var result = @"Several lines of text,
 with some ""quotes"" of various 'types',
@@ -36,7 +38,7 @@ and also a blank line
 and some text with
   extra indentation
 on the next line,
-plus another line at the end.";
+plus another line at the end.".Replace("\r\n", Environment.NewLine);
             _reader.Read<LiteralModel>(str).Value.Should().Be(result);
         }
 
