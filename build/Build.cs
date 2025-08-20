@@ -11,7 +11,6 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
@@ -103,23 +102,23 @@ class Build : NukeBuild
             // copy to artifacts folder
             foreach (var file in Directory.GetFiles(RootDirectory, $"*.{PackageVersion}.nupkg", SearchOption.AllDirectories))
             {
-                CopyFile(file, ArtifactsDirectory / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+                ((AbsolutePath)file).Copy(ArtifactsDirectory / Path.GetFileName(file), ExistsPolicy.FileOverwrite);
             }
 
             foreach (var file in Directory.GetFiles(RootDirectory, $"*.{PackageVersion}.snupkg", SearchOption.AllDirectories))
             {
-                CopyFile(file, ArtifactsDirectory / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+                ((AbsolutePath)file).Copy(ArtifactsDirectory / Path.GetFileName(file), ExistsPolicy.FileOverwrite);
             }
 
             // copy to local store
             foreach (var file in Directory.GetFiles(ArtifactsDirectory, $"*.{PackageVersion}.nupkg", SearchOption.AllDirectories))
             {
-                CopyFile(file, DeployPath / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+                ((AbsolutePath)file).Copy(DeployPath / Path.GetFileName(file), ExistsPolicy.FileOverwrite);
             }
 
             foreach (var file in Directory.GetFiles(ArtifactsDirectory, $"*.{PackageVersion}.snupkg", SearchOption.AllDirectories))
             {
-                CopyFile(file, DeployPath / Path.GetFileName(file), FileExistsPolicy.Overwrite);
+                ((AbsolutePath)file).Copy(DeployPath / Path.GetFileName(file), ExistsPolicy.FileOverwrite);
             }
         });
 

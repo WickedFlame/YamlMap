@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ## v1.4.0
 ### Added
-- Multiline string literals
+- Addes Support for Multiline string literals and block statements
 
 ### Changed
 - Performance improvements
+- Updated all dependencies
 
 ## v1.3.0
 ### Added
