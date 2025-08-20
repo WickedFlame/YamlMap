@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace YamlMap.Tests.Multiline
 {
     public class FoldedMultilineTests
@@ -23,7 +25,7 @@ namespace YamlMap.Tests.Multiline
   
      line 3
   
-  ";
+  ".Replace("\r\n", Environment.NewLine);
 
             _reader.Read<FoldedModel>(str).Value.Should().Be(@"line 1 line 2     line 3");
         }
