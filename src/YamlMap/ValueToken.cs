@@ -22,7 +22,7 @@ namespace YamlMap
             Indentation = indentation;
         }
 
-        private string ParseValue(string value)
+        private static string ParseValue(string value)
         {
             var quotations = new List<string>
             {

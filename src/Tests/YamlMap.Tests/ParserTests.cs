@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests
 {
@@ -35,16 +36,16 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
-            Assert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
-            Assert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
-            Assert.AreEqual("one", ((ValueToken)result["Alternating"]).Value);
-            Assert.AreEqual("Succeeded", ((ValueToken)result["Test"]["Outcome"]).Value);
-            Assert.AreEqual("Succeeded message", ((ValueToken)result["Test"]["Message"]).Value);
-            Assert.AreEqual("one", ((ValueToken)result["List"][0]).Value);
-            Assert.AreEqual("two", ((ValueToken)result["List"][1]).Value);
-            Assert.AreEqual("three", ((ValueToken)result["List"][2]).Value);
-            Assert.AreEqual("three", ((ValueToken)result["List"][3]).Value);
+            ClassicAssert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
+            ClassicAssert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
+            ClassicAssert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
+            ClassicAssert.AreEqual("one", ((ValueToken)result["Alternating"]).Value);
+            ClassicAssert.AreEqual("Succeeded", ((ValueToken)result["Test"]["Outcome"]).Value);
+            ClassicAssert.AreEqual("Succeeded message", ((ValueToken)result["Test"]["Message"]).Value);
+            ClassicAssert.AreEqual("one", ((ValueToken)result["List"][0]).Value);
+            ClassicAssert.AreEqual("two", ((ValueToken)result["List"][1]).Value);
+            ClassicAssert.AreEqual("three", ((ValueToken)result["List"][2]).Value);
+            ClassicAssert.AreEqual("three", ((ValueToken)result["List"][3]).Value);
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Id"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Id"]).Value);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
         }
 
         [Test]
@@ -93,8 +94,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Child"]["SubChild"]["Id"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Child"]["SubChild"]["Id"]).Value);
         }
 
         [Test]
@@ -115,9 +116,9 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
-            Assert.AreEqual("test", ((ValueToken)result["Child"]["Name"]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Child2"]["Id"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Child"]["Id"]).Value);
+            ClassicAssert.AreEqual("test", ((ValueToken)result["Child"]["Name"]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Child2"]["Id"]).Value);
         }
 
         [Test]
@@ -135,8 +136,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result[0][0]).Value);
-            Assert.AreEqual("2", ((ValueToken)result[0][1][0]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result[0][0]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result[0][1][0]).Value);
         }
 
         [Test]
@@ -153,8 +154,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Children"][0]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Children"][1]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Children"][0]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Children"][1]).Value);
         }
 
         [Test]
@@ -173,10 +174,10 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Children"][0]["Id"]).Value);
-            Assert.AreEqual("One", ((ValueToken)result["Children"][0]["Name"]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Children"][1]["Id"]).Value);
-            Assert.AreEqual("Two", ((ValueToken)result["Children"][1]["Name"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Children"][0]["Id"]).Value);
+            ClassicAssert.AreEqual("One", ((ValueToken)result["Children"][0]["Name"]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Children"][1]["Id"]).Value);
+            ClassicAssert.AreEqual("Two", ((ValueToken)result["Children"][1]["Name"]).Value);
         }
 
         [Test]
@@ -193,8 +194,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("1", ((ValueToken)result["Children"][0]["one"]).Value);
-            Assert.AreEqual("2", ((ValueToken)result["Children"][1]["two"]).Value);
+            ClassicAssert.AreEqual("1", ((ValueToken)result["Children"][0]["one"]).Value);
+            ClassicAssert.AreEqual("2", ((ValueToken)result["Children"][1]["two"]).Value);
         }
 
         [Test]
@@ -212,7 +213,7 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("first", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
+            ClassicAssert.AreEqual("first", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
         }
 
         [Test]
@@ -231,8 +232,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
-            Assert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
+            ClassicAssert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
+            ClassicAssert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
         }
 
         [Test]
@@ -252,9 +253,9 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
-            Assert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
-            Assert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
+            ClassicAssert.AreEqual("second", ((ValueToken)result["Root"][0]["L1"]["Name"]).Value);
+            ClassicAssert.AreEqual("third", ((ValueToken)result["Root"][0]["L1"]["L2"]["Name"]).Value);
+            ClassicAssert.AreEqual("first", ((ValueToken)result["Root"][0]["Name"]).Value);
         }
 
         [Test]
@@ -272,8 +273,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("one", ((ValueToken)result[0]).Value);
-            Assert.AreEqual("two", ((ValueToken)result[1]).Value);
+            ClassicAssert.AreEqual("one", ((ValueToken)result[0]).Value);
+            ClassicAssert.AreEqual("two", ((ValueToken)result[1]).Value);
         }
 
         [Test]
@@ -289,8 +290,8 @@ namespace YamlMap.Tests
 
             var result = parser.Parse();
 
-            Assert.AreEqual("one", ((ValueToken)result[0]).Value);
-            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+            ClassicAssert.AreEqual("one", ((ValueToken)result[0]).Value);
+            ClassicAssert.AreEqual("true", ((ValueToken)result[1]).Value);
         }
 
         [Test]
@@ -307,7 +308,7 @@ namespace YamlMap.Tests
             var result = parser.Parse();
 
             Assert.That(result.Count == 1);
-            Assert.AreEqual("true", ((ValueToken)result[0]).Value);
+            ClassicAssert.AreEqual("true", ((ValueToken)result[0]).Value);
         }
 
         [Test]
@@ -325,7 +326,7 @@ namespace YamlMap.Tests
             var result = parser.Parse();
 
             Assert.That(result.Count == 2);
-            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+            ClassicAssert.AreEqual("true", ((ValueToken)result[1]).Value);
         }
 
         [Test]
@@ -343,7 +344,7 @@ namespace YamlMap.Tests
             var result = parser.Parse();
 
             Assert.That(result.Count == 2);
-            Assert.AreEqual("true", ((ValueToken)result[1]).Value);
+            ClassicAssert.AreEqual("true", ((ValueToken)result[1]).Value);
         }
     }
 }

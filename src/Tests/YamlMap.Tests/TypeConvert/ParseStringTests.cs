@@ -19,7 +19,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual("value", parsed.Value);
+            Assert.That("value", Is.EqualTo(parsed.Value));
         }
 
         [Test]
@@ -35,8 +35,8 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual("one", parsed.ValueList[0]);
-            Assert.AreEqual("two", parsed.ValueList[1]);
+            Assert.That("one", Is.EqualTo(parsed.ValueList[0]));
+            Assert.That("two", Is.EqualTo(parsed.ValueList[1]));
         }
 
 		[Test]
@@ -53,7 +53,7 @@ namespace YamlMap.Tests.TypeConvert
 			var reader = new YamlReader();
 			var parsed = reader.Read<PrimitiveValues>(lines);
 
-			Assert.AreEqual(string.Empty, parsed.Value);
+			Assert.That(string.Empty, Is.EqualTo(parsed.Value));
 		}
 		
 		public class PrimitiveValues

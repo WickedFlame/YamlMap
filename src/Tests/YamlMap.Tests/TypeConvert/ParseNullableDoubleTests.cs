@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests.TypeConvert
 {
@@ -19,7 +20,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(1.2, parsed.Value);
+            ClassicAssert.AreEqual(1.2, parsed.Value);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(null, parsed.Value);
+            ClassicAssert.AreEqual(null, parsed.Value);
         }
 
         [Test]
@@ -49,8 +50,8 @@ namespace YamlMap.Tests.TypeConvert
             var reader = new YamlReader();
             var parsed = reader.Read<PrimitiveValues>(lines);
 
-            Assert.AreEqual(null, parsed.ValueList[0]);
-            Assert.AreEqual(2.2, parsed.ValueList[1]);
+            ClassicAssert.AreEqual(null, parsed.ValueList[0]);
+            ClassicAssert.AreEqual(2.2, parsed.ValueList[1]);
         }
 
         public class PrimitiveValues

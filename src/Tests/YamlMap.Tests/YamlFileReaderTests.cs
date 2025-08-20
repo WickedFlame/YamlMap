@@ -12,7 +12,7 @@ namespace YamlMap.Tests
             var reader = new YamlFileReader();
             var data = reader.Read<YamlRoot>("YamlTest.yml");
 
-            Assert.AreEqual("id", data.Id);
+            Assert.That("id", Is.EqualTo(data.Id));
         }
 
         [Test]

@@ -11,18 +11,33 @@ namespace YamlMap
     {
         private readonly string[] _input;
         private int _index;
-        private readonly Queue<YamlLine> _scannedTokens;
+        private readonly Queue<YamlLine> _nextLines;
+        private readonly List<ITokenReader> _readers;
 
-		/// <summary>
+        /// <summary>
 		/// Creates a new instance of a <see cref="IScanner"/>
 		/// </summary>
 		/// <param name="input"></param>
         public Scanner(string[] input)
         {
-            _scannedTokens = new Queue<YamlLine>();
+	        _nextLines = new Queue<YamlLine>();
             _input = input;
             _index = -1;
+            
+            _readers = new List<ITokenReader>
+            {
+	            new BracketTokenReader(),
+	            new SingleQuotationTokenReader(),
+	            new DoubleQuotationTokenReader(),
+	            new LiteralMultilineTokenReader(),
+	            new FoldedMultilineTokenReader()
+            };
         }
+		
+        /// <summary>
+        /// Gets the input string that is scanned
+        /// </summary>
+        public string[] Input => _input;
 
 		/// <summary>
 		/// Scan the string for the next <see cref="YamlLine"/>
@@ -31,9 +46,9 @@ namespace YamlMap
 		/// <exception cref="InvalidConfigurationException"></exception>
 		public YamlLine ScanNext()
         {
-            if (_scannedTokens.Count > 0)
+            if (_nextLines.Count > 0)
             {
-                return _scannedTokens.Dequeue();
+                return _nextLines.Dequeue();
             }
 
             _index = _index + 1;
@@ -42,53 +57,31 @@ namespace YamlMap
                 return null;
             }
 
-            var input = NextLine(_index);
-            var specialReader = NextReader(input);
+            var line = NextLine(_index);
+            var specialReader = NextReader(line);
             if (specialReader != null)
             {
-	            switch (specialReader.ReaderType)
-	            {
-		            case TokenReaderType.Bracket:
-			            while (!input.Contains(']'))
-			            {
-				            _index = _index + 1;
-				            if (_index >= _input.Length)
-				            {
-					            break;
-				            }
-
-				            input += NextLine(_index);
-			            }
-
-			            var listInput = input.Substring(input.IndexOf('[') + 1);
-			            listInput = listInput.Substring(0, listInput.IndexOf(']'));
-			            var arr = listInput.Split(',');
-			            foreach (var item in arr)
-			            {
-				            _scannedTokens.Enqueue(new YamlLine($"- {item.TrimStart()}".Indent(2)));
-			            }
-
-			            input = input.Substring(0, input.IndexOf(':') + 1);
-			            break;
-
-					case TokenReaderType.DoubleQuotation:
-					case TokenReaderType.SingleQuoatation:
-						var mark = specialReader.ReaderType == TokenReaderType.SingleQuoatation ? '\'' : '"';
-						var start = input.IndexOf(mark);
-						var end = input.LastIndexOf(mark);
-						if (end == start || end < input.Length - 1)
-						{
-							throw new InvalidConfigurationException($"Found unexpected end of stream while scanning a quoted scalar at line {_index + 1} column {end}");
-						}
-						break;
-	            }
+	            line = specialReader.Read(this, line);
             }
 
-            var line = new YamlLine(input);
-            return line;
+            return new YamlLine(line);
         }
 
-        private string NextLine(int index)
+        /// <summary>
+        /// Add a line that will be parsed in the next round
+        /// </summary>
+        /// <param name="line"></param>
+        public void EnqueueLine(YamlLine line)
+        {
+	        _nextLines.Enqueue(line);
+        }
+
+        /// <summary>
+        /// Get the next line at the index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public string NextLine(int index)
         {
             var input = _input[index];
 
@@ -100,22 +93,26 @@ namespace YamlMap
             return input;
         }
 
+        /// <summary>
+        /// Add the given number to the index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int AddToIndex(int index)
+        {
+	        _index = _index + index;
+	        return _index;
+        }
+
         private ITokenReader NextReader(string line)
         {
-	        var readers = new List<ITokenReader>
-	        {
-		        new BracketTokenReader(),
-		        new SingleQuotationTokenReader(),
-		        new DoubleQuotationTokenReader()
-	        };
-
 	        var next = new
 	        {
 		        Reader = (ITokenReader) null,
 		        Index = int.MaxValue
 	        };
 
-	        foreach (var reader in readers)
+	        foreach (var reader in _readers)
 	        {
 		        var index = reader.IndexOfNext(line);
 		        if (index < 0 || index > next.Index)

@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-using FluentAssertions;
+﻿using System;
 using YamlMap.Serialization;
 
 namespace YamlMap.Tests.Serialization

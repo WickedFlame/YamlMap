@@ -19,7 +19,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read(typeof(PrimitiveValues), lines) as PrimitiveValues;
 
-			Assert.AreEqual("[value] test", parsed.Value);
+			Assert.That("[value] test", Is.EqualTo(parsed.Value));
 		}
 
 		[Test]
@@ -33,7 +33,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read(typeof(PrimitiveValues), lines) as PrimitiveValues;
 
-			Assert.AreEqual("[value] test", parsed.Value);
+			Assert.That("[value] test", Is.EqualTo(parsed.Value));
 		}
 
 		[Test]
@@ -47,7 +47,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read(typeof(PrimitiveValues), lines) as PrimitiveValues;
 
-			Assert.AreEqual("[value] 'test", parsed.Value);
+			Assert.That("[value] 'test", Is.EqualTo(parsed.Value));
 		}
 
 		[Test]
@@ -61,7 +61,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read(typeof(PrimitiveValues), lines) as PrimitiveValues;
 
-			Assert.AreEqual("[value] \"test", parsed.Value);
+			Assert.That("[value] \"test", Is.EqualTo(parsed.Value));
 		}
 
 		[Test]
@@ -124,7 +124,7 @@ namespace YamlMap.Tests.Reader
 			var reader = new YamlReader();
 			var parsed = reader.Read(typeof(PrimitiveValues), lines) as PrimitiveValues;
 
-			Assert.AreEqual("c: is a drive", parsed.Value);
+			Assert.That("c: is a drive", Is.EqualTo(parsed.Value));
 		}
 
 		public class PrimitiveValues

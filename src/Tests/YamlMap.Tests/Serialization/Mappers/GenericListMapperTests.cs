@@ -19,8 +19,8 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericListMapper();
             var ok = mapper.Map(token, list);
 
-            Assert.IsTrue(ok);
-            Assert.AreEqual("Value", list[0]);
+            Assert.That(ok);
+            Assert.That("Value", Is.EqualTo(list[0]));
         }
 
         [Test]
@@ -35,8 +35,8 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericListMapper();
             var ok = mapper.Map(token, item);
 
-            Assert.IsTrue(ok);
-            Assert.AreEqual("Value", item[0].Key);
+            Assert.That(ok);
+            Assert.That("Value", Is.EqualTo(item[0].Key));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace YamlMap.Tests.Serialization.Mappers
             var mapper = new GenericListMapper();
             var ok = mapper.Map(token, item);
 
-            Assert.IsFalse(ok);
+            Assert.That(ok, Is.False);
         }
 
         public class ArrayMapperItem

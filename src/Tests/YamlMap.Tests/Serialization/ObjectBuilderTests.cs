@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
 using YamlMap.Serialization;
-using static YamlMap.Tests.Serialization.ObjectBuilderTests;
 
 namespace YamlMap.Tests.Serialization
 {
-    [TestFixture]
     public class ObjectBuilderTests
     {
         [TestCase(typeof(IEnumerable<string>), typeof(List<string>))]
@@ -25,7 +20,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [TestCase(typeof(IEnumerable), typeof(List<object>))]
@@ -37,7 +32,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [TestCase(typeof(TestObject), typeof(TestObject))]
@@ -46,7 +41,7 @@ namespace YamlMap.Tests.Serialization
             var token = new Token("test", 0);
             var obj = input.CreateInstance(token);
 
-            Assert.IsInstanceOf(expected, obj);
+            Assert.That(obj, Is.InstanceOf(expected));
         }
 
         [Test]
@@ -60,8 +55,8 @@ namespace YamlMap.Tests.Serialization
 
             var obj = type.CreateInstance(token);
 
-            Assert.IsInstanceOf<IList>(obj);
-            Assert.AreEqual(3, ((IList) obj).Count);
+            Assert.That(obj, Is.InstanceOf<IList>());
+            Assert.That(3, Is.EqualTo(((IList) obj).Count));
         }
 
         [Test]

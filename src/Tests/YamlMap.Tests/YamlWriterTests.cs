@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace YamlMap.Tests
 {
@@ -19,7 +20,7 @@ namespace YamlMap.Tests
             var reader = new YamlWriter();
             var data = reader.Write(item);
 
-            Assert.AreEqual("Simple: Simple value", data);
+            ClassicAssert.AreEqual("Simple: Simple value", data);
         }
 
         //TODO: null property
@@ -34,7 +35,7 @@ namespace YamlMap.Tests
             var reader = new YamlWriter();
             var data = reader.Write(item);
 
-            Assert.AreEqual("", data);
+            ClassicAssert.AreEqual("", data);
         }
 
         //TODO: protected/private property
@@ -58,7 +59,7 @@ namespace YamlMap.Tests
             sb.AppendLine("Child:");
             sb.Append("  Simple: not root");
 
-            Assert.AreEqual(sb.ToString(), data);
+            ClassicAssert.AreEqual(sb.ToString(), data);
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace YamlMap.Tests
 	        sb.AppendLine("  - one");
 	        sb.Append("  - 2");
 
-			Assert.AreEqual(sb.ToString(), data);
+			ClassicAssert.AreEqual(sb.ToString(), data);
         }
 
         [Test]
@@ -105,7 +106,7 @@ namespace YamlMap.Tests
 	        sb.AppendLine("  - Child:");
 	        sb.Append("      Simple: child");
 
-	        Assert.AreEqual(sb.ToString(), data);
+	        ClassicAssert.AreEqual(sb.ToString(), data);
         }
 
         [Test]
@@ -113,13 +114,13 @@ namespace YamlMap.Tests
         {
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Value = "tes:one" });
-	        Assert.AreEqual("Value: 'tes:one'", data);
+	        ClassicAssert.AreEqual("Value: 'tes:one'", data);
 
 	        data = reader.Write(new { Value = "tes[one" });
-	        Assert.AreEqual("Value: 'tes[one'", data);
+	        ClassicAssert.AreEqual("Value: 'tes[one'", data);
 
 	        data = reader.Write(new { Value = "tes]one" });
-	        Assert.AreEqual("Value: 'tes]one'", data);
+	        ClassicAssert.AreEqual("Value: 'tes]one'", data);
 		}
 
         [Test]
@@ -139,7 +140,7 @@ namespace YamlMap.Tests
 				.AppendLine("  - 'tes[one'")
 				.Append("  - 'tes]one'");
 
-			Assert.AreEqual(sb.ToString(), data);
+			ClassicAssert.AreEqual(sb.ToString(), data);
 		}
 
 		[Test]
@@ -147,7 +148,7 @@ namespace YamlMap.Tests
         {
 	        var reader = new YamlWriter();
 	        var data = reader.Write(new { Type = typeof(YamlWriter) });
-	        Assert.AreEqual("Type: YamlMap.YamlWriter, YamlMap", data);
+	        ClassicAssert.AreEqual("Type: YamlMap.YamlWriter, YamlMap", data);
         }
 
 		public class YamlItem
