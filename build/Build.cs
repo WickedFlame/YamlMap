@@ -40,7 +40,7 @@ class Build : NukeBuild
     AbsolutePath DeployPath => (AbsolutePath)"C:" / "Projects" / "NuGet Store";
 
     [Parameter("Version to be injected in the Build")]
-    public string Version { get; set; } = $"1.4.1";
+    public string Version { get; set; } = $"1.4.2";
 
     [Parameter("The Buildnumber provided by the CI")]
     public int BuildNo = 1;
