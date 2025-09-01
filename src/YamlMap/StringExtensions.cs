@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace YamlMap
 {
     /// <summary>
@@ -15,6 +17,16 @@ namespace YamlMap
         public static string Indent(this string value, int indentation)
         {
             return "".PadLeft(indentation) + value;
+        }
+
+        /// <summary>
+        /// Split a string into lines that can be parsed
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string[] SplitToLines(this string value)
+        {
+            return value.Replace("\r\n", Environment.NewLine).Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         }
     }
 }
