@@ -19,7 +19,7 @@ namespace YamlMap
         /// <returns></returns>
         public T Read<T>(string yaml) where T : class, new()
         {
-            var lines = yaml.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var lines = yaml.SplitToLines();
 
             return Read<T>(lines);
         }
@@ -32,7 +32,7 @@ namespace YamlMap
         /// <returns></returns>
         public object Read(Type type, string yaml)
         {
-            var lines = yaml.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var lines = yaml.SplitToLines();
 
             return Read(type, lines);
         }
@@ -68,40 +68,6 @@ namespace YamlMap
             }
 
             return deserializer.Node;
-        }
-
-        private string FindFile(string file)
-        {
-            if (!file.Contains("/") && !file.Contains("\\"))
-            {
-                var hostingRoot = AppDomain.CurrentDomain.BaseDirectory;
-                file = LoadPath(file, hostingRoot);
-            }
-
-            return file;
-        }
-
-        private string LoadPath(string file, string root)
-        {
-            var path = Path.Combine(root, file);
-            foreach (var f in Directory.GetFiles(root))
-            {
-                if (path == f)
-                {
-                    return f;
-                }
-            }
-
-            foreach (var dir in Directory.GetDirectories(root))
-            {
-                var f = LoadPath(file, dir);
-                if (!string.IsNullOrEmpty(f))
-                {
-                    return f;
-                }
-            }
-
-            return null;
         }
     }
 }
