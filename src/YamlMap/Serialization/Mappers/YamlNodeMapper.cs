@@ -23,13 +23,13 @@ namespace YamlMap.Serialization.Mappers
             {
                 case TokenType.Value when token is ValueToken valueToken:
                 {
-                    node.SetValue(valueToken.Key, new ValueNode(valueToken.Value));
+                    node.SetValue(valueToken.Key, new ValueNode(valueToken.Key, valueToken.Value));
                     return true;
                 }
                 
                 case TokenType.Object or TokenType.ListItem:
                 {
-                    var childNode = new YamlNode();
+                    var childNode = new YamlNode(token.Key);
 
                     foreach (var childToken in token.GetChildTokens())
                     {

@@ -1,4 +1,6 @@
-﻿namespace YamlMap
+﻿using System.Collections.Generic;
+
+namespace YamlMap
 {
     /// <summary>
     /// a node element of the yaml object
@@ -18,9 +20,19 @@
         IYamlNode this[int index] { get; }
 
         /// <summary>
+        /// Gets the name of th Property of the node
+        /// </summary>
+        string Key { get; }
+        
+        /// <summary>
         /// Gets the value of the Node
         /// </summary>
         object Value { get; }
+        
+        /// <summary>
+        /// Gets the child nodes
+        /// </summary>
+        IEnumerable<IYamlNode> Nodes { get; }
 
         /// <summary>
         /// Set the child value of the node

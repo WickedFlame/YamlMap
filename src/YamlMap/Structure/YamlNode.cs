@@ -8,24 +8,22 @@ namespace YamlMap
     /// </summary>
     public class YamlNode : IYamlNode
     {
-        private readonly Dictionary<string, IYamlNode> _children = [];
+        private readonly Dictionary<string, IYamlNode> _nodes = [];
 
+        public YamlNode()
+        {
+        }
+
+        public YamlNode(string key)
+        {
+            Key = key;
+        }
+        
         /// <summary>
         /// Gets the YamlNode associated with the key
         /// </summary>
         /// <param name="key"></param>
-        public IYamlNode this[string key]
-        {
-            get
-            {
-                if (!_children.ContainsKey(key))
-                {
-                    return null;
-                }
-                
-                return _children[key];
-            }
-        }
+        public IYamlNode this[string key] => !_nodes.TryGetValue(key, out var item) ? null : item;
 
         /// <summary>
         /// Gets the YamlNode at the indicated index
@@ -34,10 +32,10 @@ namespace YamlMap
         public IYamlNode this[int index] {
             get
             {
-                if (_children.Count > index && index >= 0)
+                if (_nodes.Count > index && index >= 0)
                 {
-                    var key = _children.Keys.ElementAt(index);
-                    return _children[key];
+                    var key = _nodes.Keys.ElementAt(index);
+                    return _nodes[key];
                 }
                 
                 return null;
@@ -45,10 +43,20 @@ namespace YamlMap
         }
         
         /// <summary>
+        /// Gets the name of th Property of the node
+        /// </summary>
+        public string Key { get; }
+        
+        /// <summary>
         /// Returns the children of the node
         /// </summary>
-        public object Value => _children;
-
+        public object Value => _nodes;
+        
+        /// <summary>
+        /// Gets the child nodes
+        /// </summary>
+        public IEnumerable<IYamlNode> Nodes => _nodes.Values;
+        
         /// <summary>
         /// Set the child value of the node
         /// </summary>
@@ -58,10 +66,10 @@ namespace YamlMap
         {
             if (string.IsNullOrEmpty(key))
             {
-                key = _children.Count.ToString();
+                key = _nodes.Count.ToString();
             }
             
-            _children[key] = value;
+            _nodes[key] = value;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace YamlMap
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace YamlMap
 {
     /// <summary>
     /// 
@@ -10,16 +13,28 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="key"></param>
         /// <param name="value"></param>
-        public ValueNode(string value)
+        public ValueNode(string key, string value)
         {
             _value = value;
+            Key = key;
         }
+        
+        /// <summary>
+        /// Gets the name of th Property of the node
+        /// </summary>
+        public string Key { get; }
         
         /// <summary>
         /// Gets the value of the Node
         /// </summary>
         public object Value => _value;
+
+        /// <summary>
+        /// Gets the child nodes
+        /// </summary>
+        public IEnumerable<IYamlNode> Nodes => [];
 
         /// <summary>
         /// ValueNodes don't have children, so this always returns null
