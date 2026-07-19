@@ -13,7 +13,8 @@ namespace YamlMap.Serialization.Mappers
         {
             {typeof(List<>), () => new GenericListMapper()},
             {typeof(Dictionary<,>), () => new GenericDictionaryMapper()},
-            {typeof(IList), () => new ArrayMapper()}
+            {typeof(IList), () => new ArrayMapper()},
+            {typeof(YamlNode), () => new YamlNodeMapper()}
         };
 
         /// <summary>

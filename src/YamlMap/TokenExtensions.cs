@@ -16,7 +16,7 @@ namespace YamlMap
         {
             if (token.Count == 0)
             {
-                return Array.Empty<IToken>();
+                return [];
             }
 
             var tokens = new IToken[token.Count];

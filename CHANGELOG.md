@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
+## v1.5.0
+### Added
+- YamlNode for generic deserialization 
+```
+var item = Serializer.Deserialize<YamlNode>("Key: value");
+item["Key"].Value.Should().Be("value");
+```
+
 ## v1.4.1
 ### Fixed
 - Windows Linebreaks caused an error when the app is run on Linux
